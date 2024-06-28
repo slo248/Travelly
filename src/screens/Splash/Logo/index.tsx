@@ -46,7 +46,7 @@ export default function AnimatedLogo() {
           animatedStyles
         ]}
       >
-        <LogoSvg width="100%" height="100%" />
+        <LogoSvg />
       </Animated.View>
     </View>
   );
