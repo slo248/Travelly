@@ -4,9 +4,9 @@ import Svg, { Path } from 'react-native-svg';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
-  withRepeat,
   withTiming,
-  runOnUI
+  useAnimatedProps,
+  withRepeat
 } from 'react-native-reanimated';
 
 import { getPath } from './curve';
@@ -15,13 +15,15 @@ import { rH, rW } from '~/styles/responsive';
 
 import PlaneSvg from '~/assets/svgs/plane.svg';
 
+const AnimatedPath = Animated.createAnimatedComponent(Path);
+
 export default function Loading() {
   const curveWidth = rW(278.43);
   const curveHeight = rH(23.8);
 
   const newOrigin = useRef([-30, -30]).current;
 
-  const [slope, path, curveFunc] = useMemo(
+  const [slope, points, path, curveFunc] = useMemo(
     () => getPath(curveWidth, curveHeight),
     [curveWidth, curveHeight]
   );
@@ -32,10 +34,17 @@ export default function Loading() {
   // Animated value for the progress along the path
   const progress = useSharedValue(0);
 
-  // Start the animation when the component mounts
-  useEffect(() => {
-    progress.value = withTiming(1, { duration: 1500 });
-  }, []);
+  const animatedProps = useAnimatedProps(() => {
+    const endIndex = Math.floor(progress.value * points.length);
+    const pathData = points
+      .slice(0, endIndex)
+      .map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`)
+      .join(' ');
+
+    return {
+      d: pathData
+    };
+  });
 
   // Animated style for the plane
   const planeStyle = useAnimatedStyle(() => {
@@ -49,6 +58,11 @@ export default function Loading() {
     };
   }, [planeWidth]);
 
+  // Start the animation when the component mounts
+  useEffect(() => {
+    progress.value = withRepeat(withTiming(1, { duration: 1500 }), -1, true);
+  }, []);
+
   return (
     <View style={styles.container}>
       <Svg
@@ -58,7 +72,19 @@ export default function Loading() {
           curveWidth + Math.abs(2 * newOrigin[0])
         } ${curveHeight + Math.abs(2 * newOrigin[1])}`}
       >
-        <Path d={path} fill="none" stroke={Colors.white} strokeWidth="2" />
+        <Path
+          d={path}
+          fill="transparent"
+          stroke={Colors.white}
+          strokeWidth="3"
+          opacity={0.5}
+        />
+        <AnimatedPath
+          animatedProps={animatedProps}
+          stroke={Colors.white}
+          strokeWidth="3"
+          fill="transparent"
+        />
         <Animated.View
           style={[styles.plane, planeStyle]}
           onLayout={(event) => {
