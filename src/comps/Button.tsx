@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Colors } from '~/styles/colors';
+import { rMS } from '~/styles/responsive';
 import { Fonts } from '~/styles/fonts';
 
 interface ButtonProps {
@@ -30,7 +31,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: Colors.white,
-    fontSize: 18,
+    fontSize: rMS(18),
     fontFamily: Fonts.bold
   }
 });
