@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import Animated, {
@@ -19,6 +19,8 @@ export default function Loading() {
   const curveWidth = rW(278.43);
   const curveHeight = rH(23.8);
 
+  const newOrigin = useRef([-30, -30]).current;
+
   const [slope, path, curveFunc] = useMemo(
     () => getPath(curveWidth, curveHeight),
     [curveWidth, curveHeight]
@@ -32,29 +34,30 @@ export default function Loading() {
 
   // Start the animation when the component mounts
   useEffect(() => {
-    progress.value = withRepeat(withTiming(1, { duration: 1500 }), -1, true);
+    progress.value = withTiming(1, { duration: 1500 });
   }, []);
 
   // Animated style for the plane
   const planeStyle = useAnimatedStyle(() => {
-    const x = curveWidth * progress.value;
-    const y = curveFunc(x - curveWidth / 2);
-    const alpha = Math.atan(2 * slope * (x - curveWidth / 2));
-
+    const current = curveWidth * progress.value;
+    const translateX = -newOrigin[0] + current - planeWidth / 2;
+    const translateY =
+      -newOrigin[1] + curveFunc(current - curveWidth / 2) - planeHeight / 2;
+    const alpha = Math.atan(2 * slope * (current - curveWidth / 2));
     return {
-      transform: [
-        { translateX: x - planeWidth / 2 },
-        { translateY: y - planeHeight / 2 },
-        {
-          rotate: `${alpha}rad`
-        }
-      ]
+      transform: [{ translateX }, { translateY }, { rotate: `${alpha}rad` }]
     };
   }, [planeWidth]);
 
   return (
     <View style={styles.container}>
-      <Svg width={curveWidth} height={curveHeight}>
+      <Svg
+        width={curveWidth + Math.abs(2 * newOrigin[0])}
+        height={curveHeight + Math.abs(2 * newOrigin[1])}
+        viewBox={`${newOrigin[0]} ${newOrigin[1]} ${
+          curveWidth + Math.abs(2 * newOrigin[0])
+        } ${curveHeight + Math.abs(2 * newOrigin[1])}`}
+      >
         <Path d={path} fill="none" stroke={Colors.white} strokeWidth="2" />
         <Animated.View
           style={[styles.plane, planeStyle]}
