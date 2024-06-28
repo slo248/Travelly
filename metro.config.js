@@ -6,13 +6,13 @@ const defaultConfig = getDefaultConfig(__dirname);
 
 // Custom transformer for SVG files
 const svgTransformer = {
-  getTransformOptions: async () => ({
-    transform: {
-      experimentalImportSupport: false,
-      inlineRequires: false
-    }
-  }),
   transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: false
+      }
+    }),
     babelTransformerPath: require.resolve('react-native-svg-transformer')
   },
   resolver: {
