@@ -1,12 +1,26 @@
 const path = require('path');
 const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
 
-/**
- * Metro configuration
- * https://reactnative.dev/docs/metro
- *
- * @type {import('metro-config').MetroConfig}
- */
+// Load the default config and merge with custom settings
+const defaultConfig = getDefaultConfig(__dirname);
+
+// Custom transformer for SVG files
+const svgTransformer = {
+  getTransformOptions: async () => ({
+    transform: {
+      experimentalImportSupport: false,
+      inlineRequires: false
+    }
+  }),
+  transformer: {
+    babelTransformerPath: require.resolve('react-native-svg-transformer')
+  },
+  resolver: {
+    assetExts: defaultConfig.resolver.assetExts.filter((ext) => ext !== 'svg'),
+    sourceExts: [...defaultConfig.resolver.sourceExts, 'svg']
+  }
+};
+
 const config = {
   resolver: {
     extraNodeModules: {
@@ -15,4 +29,7 @@ const config = {
   }
 };
 
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = mergeConfig(
+  defaultConfig,
+  mergeConfig(config, svgTransformer)
+);
