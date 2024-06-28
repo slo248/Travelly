@@ -1,14 +1,11 @@
-import { View, Text } from 'react-native';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import React from 'react';
-import { rMS } from './styles/responsive';
-import { Fonts } from './styles/fonts';
+import Splash from './screens/Splash';
 
 export default function App() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text style={{ fontSize: rMS(20), fontFamily: Fonts.regular }}>
-        Hello World!
-      </Text>
-    </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <Splash />
+    </SafeAreaView>
   );
 }
