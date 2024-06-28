@@ -30,8 +30,8 @@ export default function Loading() {
     [curveWidth, curveHeight]
   );
 
-  const [planeWidth, setPlaneWidth] = useState(0);
-  const [planeHeight, setPlaneHeight] = useState(0);
+  const [planeWidth, setPlaneWidth] = useState(33);
+  const [planeHeight, setPlaneHeight] = useState(33);
 
   const progress = useSharedValue(0);
 
@@ -56,7 +56,7 @@ export default function Loading() {
     return {
       transform: [{ translateX }, { translateY }, { rotate: `${alpha}rad` }]
     };
-  }, [planeWidth]);
+  }, [planeWidth, planeHeight, curveWidth, curveHeight, slope]);
 
   useEffect(() => {
     progress.value = withDelay(
@@ -66,7 +66,7 @@ export default function Loading() {
         easing: Easing.inOut(Easing.quad)
       })
     );
-  }, []);
+  }, [planeWidth, planeHeight, curveWidth, curveHeight, slope]);
 
   return (
     <View style={styles.container}>
