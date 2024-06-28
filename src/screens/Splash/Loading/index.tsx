@@ -6,7 +6,8 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   useAnimatedProps,
-  withRepeat
+  Easing,
+  withDelay
 } from 'react-native-reanimated';
 
 import { getPath } from './curve';
@@ -14,6 +15,7 @@ import { Colors } from '~/styles/colors';
 import { rH, rW } from '~/styles/responsive';
 
 import PlaneSvg from '~/assets/svgs/plane.svg';
+import SmallCircle from '~/assets/svgs/small_circle.svg';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 
@@ -31,7 +33,6 @@ export default function Loading() {
   const [planeWidth, setPlaneWidth] = useState(0);
   const [planeHeight, setPlaneHeight] = useState(0);
 
-  // Animated value for the progress along the path
   const progress = useSharedValue(0);
 
   const animatedProps = useAnimatedProps(() => {
@@ -46,7 +47,6 @@ export default function Loading() {
     };
   });
 
-  // Animated style for the plane
   const planeStyle = useAnimatedStyle(() => {
     const current = curveWidth * progress.value;
     const translateX = -newOrigin[0] + current - planeWidth / 2;
@@ -58,9 +58,14 @@ export default function Loading() {
     };
   }, [planeWidth]);
 
-  // Start the animation when the component mounts
   useEffect(() => {
-    progress.value = withRepeat(withTiming(1, { duration: 1500 }), -1, true);
+    progress.value = withDelay(
+      1000,
+      withTiming(1, {
+        duration: 1500,
+        easing: Easing.inOut(Easing.quad)
+      })
+    );
   }, []);
 
   return (
@@ -96,18 +101,40 @@ export default function Loading() {
           <PlaneSvg />
         </Animated.View>
       </Svg>
+      <View
+        style={[
+          styles.small_circle,
+          {
+            left: points[0].x + Math.abs(newOrigin[0]) - 15,
+            top: points[0].y + Math.abs(newOrigin[1]) - 4
+          }
+        ]}
+      >
+        <SmallCircle />
+      </View>
+      <View
+        style={[
+          styles.small_circle,
+          {
+            right: points[0].x + Math.abs(newOrigin[0]) - 15,
+            top: points[0].y + Math.abs(newOrigin[1]) - 4
+          }
+        ]}
+      >
+        <SmallCircle />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    position: 'relative',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    position: 'relative'
   },
   plane: {
+    position: 'absolute'
+  },
+  small_circle: {
     position: 'absolute'
   }
 });
