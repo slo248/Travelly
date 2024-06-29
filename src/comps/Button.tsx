@@ -7,16 +7,21 @@ import { Fonts } from '~/styles/fonts';
 interface ButtonProps {
   title: string;
   onPress: () => void;
+  reverseStyle?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ title, onPress }) => {
+const Button: React.FC<ButtonProps> = ({
+  title,
+  onPress,
+  reverseStyle = false
+}) => {
   return (
     <TouchableOpacity
       {...{ onPress }}
-      style={styles.container}
+      style={[styles.container, reverseStyle && styles.rContainer]}
       activeOpacity={0.5}
     >
-      <Text style={styles.title}>{title}</Text>
+      <Text style={[styles.title, reverseStyle && styles.rTitle]}>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -29,10 +34,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.secondary,
     borderRadius: 20
   },
+  rContainer: {
+    backgroundColor: Colors.white
+  },
   title: {
     color: Colors.white,
     fontSize: rMS(18),
     fontFamily: Fonts.bold
+  },
+  rTitle: {
+    color: Colors.secondary
   }
 });
 

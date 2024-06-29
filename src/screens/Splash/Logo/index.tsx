@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { View, Dimensions } from 'react-native';
+import { View, Dimensions, useWindowDimensions } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -7,12 +7,12 @@ import Animated, {
   Easing,
   withSpring
 } from 'react-native-reanimated';
-import LogoSvg from '~/assets/svgs/logo.svg'; // Ensure your SVG is compatible with React Native
-
-const windowWidth = Dimensions.get('window').width;
-const logoSize = windowWidth * 0.5; // Example: logo size is 50% of screen width
+import Logo from '~/assets/svgs/Logo';
 
 export default function AnimatedLogo() {
+  const { width } = useWindowDimensions();
+  const logoSize = width * 0.4;
+
   const opacity = useSharedValue(0);
   const scale = useSharedValue(0);
   const duration = 1000;
@@ -46,7 +46,7 @@ export default function AnimatedLogo() {
           animatedStyles
         ]}
       >
-        <LogoSvg />
+        <Logo />
       </Animated.View>
     </View>
   );
