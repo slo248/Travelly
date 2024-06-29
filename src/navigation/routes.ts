@@ -1,3 +1,6 @@
 export const ROUTES = {
-  ONBOARDING: 'OnBoarding'
+  ONBOARDING: 'OnBoarding',
+  WELCOME: 'Welcome',
+  LOGIN: 'Login',
+  SIGNUP: 'Signup'
 };

@@ -10,9 +10,12 @@ import { onBoardingData } from '~/data/onboarding';
 import Paginator from './Paginator';
 import { rH, rW } from '~/styles/responsive';
 
-import { OnBoardingProps } from '~/navigation/types';
+import { OnBoardingProps, RootStackParamList } from '~/navigation/types';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { ROUTES } from '~/navigation/routes';
 
 const OnBoarding: React.FC<OnBoardingProps> = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { width } = useWindowDimensions();
   const scrollViewRef = useRef<Animated.ScrollView>(null);
   const scrollX = useSharedValue(0);
@@ -58,7 +61,11 @@ const OnBoarding: React.FC<OnBoardingProps> = () => {
             buttonTitle={
               index < onBoardingData.length - 1 ? 'Next' : `Let's start!`
             }
-            onNext={() => goToNextPage(index)}
+            onNext={() =>
+              index < onBoardingData.length - 1
+                ? goToNextPage(index)
+                : navigation.navigate('Welcome')
+            }
           />
         ))}
       </Animated.ScrollView>
