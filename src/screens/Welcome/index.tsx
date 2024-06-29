@@ -1,19 +1,21 @@
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { FC } from 'react';
-import { WelcomeProps } from '~/navigation/types';
+import { RootStackParamList, WelcomeProps } from '~/navigation/types';
 
 import Logo from '~/assets/svgs/Logo';
 import { Colors } from '~/styles/colors';
 import { rH, rW } from '~/styles/responsive';
 import { Texts } from '~/styles/texts';
 import { ButtonText } from '~/components/Button';
-import { FeatureNotImplemented } from '~/constants';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 const Welcome: FC<WelcomeProps> = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={[Texts.h3, styles.text]}>Welcome to</Text>
+        <Text style={[Texts.h2, styles.text]}>Welcome to</Text>
         <View style={styles.logo}>
           <Logo color={Colors.primary} />
         </View>
@@ -23,7 +25,11 @@ const Welcome: FC<WelcomeProps> = () => {
           <ButtonText title="Sign Up" />
         </View>
         <View style={styles.btn}>
-          <ButtonText reverseStyle title="Login" />
+          <ButtonText
+            reverseStyle
+            title="Login"
+            onPress={() => navigation.navigate('Login')}
+          />
         </View>
       </View>
     </View>

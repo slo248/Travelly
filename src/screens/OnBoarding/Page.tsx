@@ -65,7 +65,7 @@ const Page: React.FC<PageProps> = ({
     <View style={[{ width }, styles.container]}>
       <Image style={styles.image} source={image} />
       <Animated.View style={rS}>
-        <Text style={[Texts.h3, styles.desc]}>{description}</Text>
+        <Text style={[Texts.h2, styles.desc]}>{description}</Text>
       </Animated.View>
       <View style={styles.button}>
         <ButtonText title={buttonTitle} onPress={onNext} />

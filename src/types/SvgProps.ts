@@ -1,3 +1,3 @@
 export interface SvgProps {
-  color: string;
+  color?: string;
 }
