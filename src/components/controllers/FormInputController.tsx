@@ -4,11 +4,12 @@ import { Control, Controller, FieldErrors, FieldValues } from 'react-hook-form';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Texts } from '~/styles/texts';
 import { rH, rMS, rW } from '~/styles/responsive';
+import { User } from '~/types/User';
 
 interface FormInputControllerProps {
-  control: Control<FieldValues>;
-  errors?: FieldErrors<FieldValues>;
-  name: string;
+  control: Control<User>;
+  errors?: FieldErrors<User>;
+  name: keyof User;
   placeholder: string;
   others?: TextInputProps;
 }
@@ -38,7 +39,7 @@ const FormInputController: FC<FormInputControllerProps> = ({
         )}
       />
       {errors && errors[name] && (
-        <Text style={styles.error}>{errors[name]?.message}</Text>
+        <Text style={styles.error}>{String(errors[name]?.message)}</Text>
       )}
     </>
   );
