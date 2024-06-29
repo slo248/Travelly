@@ -7,12 +7,16 @@ import Animated, {
   withTiming,
   useAnimatedProps,
   Easing,
-  withDelay
+  withDelay,
+  runOnJS
 } from 'react-native-reanimated';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 import { getPath } from './curve';
 import { Colors } from '~/styles/colors';
 import { rH, rW } from '~/styles/responsive';
+import { ROUTES } from '~/navigation/routes';
+import { RootStackParamList } from '~/navigation/types';
 
 import PlaneSvg from '~/assets/svgs/plane.svg';
 import SmallCircle from '~/assets/svgs/small_circle.svg';
@@ -20,6 +24,7 @@ import SmallCircle from '~/assets/svgs/small_circle.svg';
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 
 export default function Loading() {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const curveWidth = rW(278.43);
   const curveHeight = rH(23.8);
 
@@ -61,10 +66,20 @@ export default function Loading() {
   useEffect(() => {
     progress.value = withDelay(
       1000,
-      withTiming(1, {
-        duration: 1500,
-        easing: Easing.inOut(Easing.quad)
-      })
+      withTiming(
+        1,
+        {
+          duration: 1500,
+          easing: Easing.inOut(Easing.quad)
+        },
+        (isFinished) => {
+          if (isFinished)
+            runOnJS(navigation.reset)({
+              index: 0,
+              routes: [{ name: ROUTES.ONBOARDING as keyof RootStackParamList }]
+            });
+        }
+      )
     );
   }, [planeWidth, planeHeight, curveWidth, curveHeight, slope]);
 

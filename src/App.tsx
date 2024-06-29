@@ -1,11 +1,35 @@
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import React from 'react';
-import Splash from './screens/Splash';
+import { NavigationContainer } from '@react-navigation/native';
+import {
+  createNativeStackNavigator,
+  NativeStackScreenProps
+} from '@react-navigation/native-stack';
+import { enableScreens } from 'react-native-screens';
+
+import Splash from '~/screens/Splash';
+import OnBoarding from '~/screens/OnBoarding';
+import { RootStackParamList } from '~/navigation/types';
+
+enableScreens();
+
+// Create the stack navigator
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Splash />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Splash">
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OnBoarding"
+          component={OnBoarding}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }

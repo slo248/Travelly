@@ -22,5 +22,7 @@ export const Colors = {
   cyan: '#00FFFF',
   teal: '#008080',
   lime: '#00FF00',
-  indigo: '#4B0082'
+  indigo: '#4B0082',
+  paginator: '#0505054D',
+  paginatorActive: '#050505'
 };
