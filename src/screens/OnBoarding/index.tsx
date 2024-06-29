@@ -2,8 +2,8 @@ import Animated, {
   useSharedValue,
   useAnimatedScrollHandler
 } from 'react-native-reanimated';
-import { useCallback, useRef } from 'react';
-import { useWindowDimensions, View } from 'react-native';
+import { useCallback, useEffect, useRef } from 'react';
+import { useWindowDimensions, View, BackHandler } from 'react-native';
 
 import Page from './Page';
 import { onBoardingData } from '~/data/onboarding';
@@ -12,7 +12,6 @@ import { rH, rW } from '~/styles/responsive';
 
 import { OnBoardingProps, RootStackParamList } from '~/navigation/types';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { ROUTES } from '~/navigation/routes';
 
 const OnBoarding: React.FC<OnBoardingProps> = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -37,6 +36,25 @@ const OnBoarding: React.FC<OnBoardingProps> = () => {
       scrollX.value = event.contentOffset.x;
     }
   });
+
+  useEffect(() => {
+    const backAction = () => {
+      const currentPage = Math.round(scrollX.value / width);
+      if (currentPage > 0) {
+        goToNextPage(currentPage - 2);
+        return true;
+      }
+      // Allow default back action
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, [scrollX, width, goToNextPage]);
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
