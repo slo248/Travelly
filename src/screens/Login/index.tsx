@@ -7,6 +7,7 @@ import { rH, rW } from '~/styles/responsive';
 import Header from './Header';
 import LoginForm from './LoginForm';
 import { globalStyles } from '~/styles/globalStyles';
+import Actions from './Actions';
 
 const Login: FC<LoginProps> = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -27,6 +28,9 @@ const Login: FC<LoginProps> = () => {
       <View style={styles.form}>
         <LoginForm />
       </View>
+      <View style={styles.actions}>
+        <Actions />
+      </View>
     </View>
   );
 };
@@ -39,6 +43,9 @@ const styles = StyleSheet.create({
   },
   form: {
     marginTop: rH(48)
+  },
+  actions: {
+    marginTop: rH(16)
   }
 });
 
