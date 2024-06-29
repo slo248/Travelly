@@ -10,7 +10,9 @@ import { onBoardingData } from '~/data/onboarding';
 import Paginator from './Paginator';
 import { rH, rW } from '~/styles/responsive';
 
-export default function OnBoarding() {
+import { OnBoardingProps } from '~/navigation/types';
+
+const OnBoarding: React.FC<OnBoardingProps> = () => {
   const { width } = useWindowDimensions();
   const scrollViewRef = useRef<Animated.ScrollView>(null);
   const scrollX = useSharedValue(0);
@@ -62,4 +64,6 @@ export default function OnBoarding() {
       </Animated.ScrollView>
     </View>
   );
-}
+};
+
+export default OnBoarding;

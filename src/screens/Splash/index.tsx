@@ -7,7 +7,9 @@ import { rH } from '~/styles/responsive';
 import Loading from './Loading';
 import Logo from './Logo';
 
-export default function Splash() {
+import { SplashProps } from '~/navigation/types';
+
+const Splash: React.FC<SplashProps> = () => {
   return (
     <View style={styles.container}>
       <View style={{ position: 'absolute', alignSelf: 'center', top: rH(200) }}>
@@ -20,7 +22,7 @@ export default function Splash() {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -29,3 +31,5 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary
   }
 });
+
+export default Splash;
