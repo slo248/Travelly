@@ -24,11 +24,10 @@ const Page: React.FC<PageProps> = ({
   image,
   onNext
 }) => {
-  const { width, height } = useWindowDimensions();
-  console.log(description);
+  const { width } = useWindowDimensions();
 
   return (
-    <View style={[{ width, height }, styles.container]}>
+    <View style={[{ width }, styles.container]}>
       <Image style={styles.image} source={image} />
       <Text style={[Texts.h3, styles.desc]}>{description}</Text>
       <View style={styles.button}>
@@ -46,7 +45,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: rW(16)
   },
   image: {
-    marginTop: rH(106),
+    marginTop: rH(80),
     width: '100%',
     height: rH(304),
     resizeMode: 'contain'

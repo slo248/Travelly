@@ -1,14 +1,19 @@
-import Animated from 'react-native-reanimated';
+import Animated, {
+  useSharedValue,
+  useAnimatedScrollHandler
+} from 'react-native-reanimated';
 import { useCallback, useRef } from 'react';
-import { useWindowDimensions } from 'react-native';
+import { useWindowDimensions, View } from 'react-native';
 
 import Page from './Page';
-
 import { onBoardingData } from '~/data/onboarding';
+import Paginator from './Paginator';
+import { rH, rW } from '~/styles/responsive';
 
 export default function OnBoarding() {
   const { width } = useWindowDimensions();
   const scrollViewRef = useRef<Animated.ScrollView>(null);
+  const scrollX = useSharedValue(0);
 
   const goToNextPage = useCallback(
     (index: number) => {
@@ -22,24 +27,37 @@ export default function OnBoarding() {
     [width]
   );
 
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: (event) => {
+      scrollX.value = event.contentOffset.x;
+    }
+  });
+
   return (
-    <Animated.ScrollView
-      ref={scrollViewRef}
-      style={{ flex: 1 }}
-      horizontal
-      pagingEnabled
-      showsHorizontalScrollIndicator={false}
-    >
-      {onBoardingData.map((page, index) => (
-        <Page
-          key={index}
-          {...page}
-          buttonTitle={
-            index < onBoardingData.length - 1 ? 'Next' : `Let's start!`
-          }
-          onNext={() => goToNextPage(index)}
-        />
-      ))}
-    </Animated.ScrollView>
+    <View style={{ flex: 1, position: 'relative' }}>
+      <View style={{ height: 2, marginTop: rH(24), paddingHorizontal: rW(16) }}>
+        <Paginator count={onBoardingData.length} scrollX={scrollX} />
+      </View>
+      <Animated.ScrollView
+        ref={scrollViewRef}
+        style={{ flex: 1 }}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}
+      >
+        {onBoardingData.map((page, index) => (
+          <Page
+            key={index}
+            {...page}
+            buttonTitle={
+              index < onBoardingData.length - 1 ? 'Next' : `Let's start!`
+            }
+            onNext={() => goToNextPage(index)}
+          />
+        ))}
+      </Animated.ScrollView>
+    </View>
   );
 }
