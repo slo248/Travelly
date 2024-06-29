@@ -7,17 +7,26 @@ export interface ButtonProps {
   onPress?: () => void;
   reverseStyle?: boolean;
   children?: React.ReactNode;
+  backgroundColor?: string;
+  color?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
   onPress = () => Alert.alert(ButtonOnPressNoAction),
   reverseStyle = false,
+  backgroundColor,
+  color,
   children
 }) => {
   return (
     <TouchableOpacity
       {...{ onPress }}
-      style={[styles.container, reverseStyle && styles.rContainer]}
+      style={[
+        styles.container,
+        {
+          backgroundColor: reverseStyle ? color : backgroundColor
+        }
+      ]}
       activeOpacity={0.5}
     >
       {children}
@@ -30,11 +39,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.secondary,
     borderRadius: 20
-  },
-  rContainer: {
-    backgroundColor: Colors.white
   }
 });
 

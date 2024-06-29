@@ -9,10 +9,16 @@ interface ButtonIconProps extends ButtonProps {
   Icon: React.ComponentType<SvgProps>;
 }
 
-const ButtonIcon: FC<ButtonIconProps> = ({ Icon, reverseStyle, ...props }) => (
-  <Button {...props} reverseStyle={reverseStyle}>
+const ButtonIcon: FC<ButtonIconProps> = ({
+  Icon,
+  backgroundColor = Colors.secondary,
+  color = Colors.white,
+  reverseStyle,
+  ...props
+}) => (
+  <Button {...props} {...{ backgroundColor, color, reverseStyle }}>
     <View style={{ padding: 16 }}>
-      <Icon color={reverseStyle ? Colors.secondary : Colors.white} />
+      <Icon color={reverseStyle ? backgroundColor : color} />
     </View>
   </Button>
 );
