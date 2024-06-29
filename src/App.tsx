@@ -10,6 +10,7 @@ import Splash from '~/screens/Splash';
 import OnBoarding from '~/screens/OnBoarding';
 import { RootStackParamList } from '~/navigation/types';
 import Welcome from '~/screens/Welcome';
+import Login from '~/screens/Login';
 
 enableScreens();
 
@@ -29,6 +30,7 @@ export default function App() {
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="Welcome" component={Welcome} />
+        <Stack.Screen name="Login" component={Login} />
       </Stack.Navigator>
     </NavigationContainer>
   );

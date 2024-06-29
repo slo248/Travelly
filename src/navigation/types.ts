@@ -5,6 +5,7 @@ export type RootStackParamList = {
   Splash: undefined;
   OnBoarding: undefined;
   Welcome: undefined;
+  Login: undefined;
 };
 
 // Use NativeStackScreenProps for screen props type
@@ -17,3 +18,4 @@ export type WelcomeProps = NativeStackScreenProps<
   RootStackParamList,
   'Welcome'
 >;
+export type LoginProps = NativeStackScreenProps<RootStackParamList, 'Login'>;

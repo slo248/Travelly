@@ -12,17 +12,22 @@ export const Texts = StyleSheet.create({
   },
   h2: {
     color: Colors.black,
-    fontSize: rMS(20),
-    fontFamily: Fonts.bold
+    fontSize: rMS(18),
+    fontFamily: Fonts.semiBold
   },
   h3: {
     color: Colors.black,
-    fontSize: rMS(18),
+    fontSize: rMS(16),
     fontFamily: Fonts.semiBold
   },
   p: {
     color: Colors.black,
     fontSize: rMS(14),
     fontFamily: Fonts.regular
+  },
+  error: {
+    color: Colors.red,
+    fontSize: rMS(12),
+    fontFamily: Fonts.medium
   }
 });
