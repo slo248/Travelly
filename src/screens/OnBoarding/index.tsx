@@ -51,6 +51,8 @@ export default function OnBoarding() {
           <Page
             key={index}
             {...page}
+            {...{ index }}
+            {...{ scrollX }}
             buttonTitle={
               index < onBoardingData.length - 1 ? 'Next' : `Let's start!`
             }
