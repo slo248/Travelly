@@ -1,18 +1,23 @@
+import GlobeIcon from '~/assets/icons/GlobeIcon';
+import HotelIcon from '~/assets/icons/HotelIcon';
+import PlaneIcon from '~/assets/icons/PlaneIcon';
+import EventIcon from '~/assets/icons/EventIcon';
+
 export const services = [
   {
     name: 'Trip',
-    Icon: require('~/assets/icons/GlobeIcon')
+    icon: GlobeIcon
   },
   {
     name: 'Hotel',
-    Icon: require('~/assets/icons/HotelIcon')
+    icon: HotelIcon
   },
   {
     name: 'Transport',
-    Icon: require('~/assets/icons/PlaneIcon')
+    icon: PlaneIcon
   },
   {
     name: 'Events',
-    Icon: require('~/assets/icons/EventIcon')
+    icon: EventIcon
   }
 ];
