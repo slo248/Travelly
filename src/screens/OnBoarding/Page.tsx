@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import { rH, rW } from '~/styles/responsive';
-import Button from '~/comps/Button';
+import { ButtonText } from '~/components/Button';
 import { Texts } from '~/styles/texts';
 import Animated, {
   interpolate,
@@ -68,7 +68,7 @@ const Page: React.FC<PageProps> = ({
         <Text style={[Texts.h3, styles.desc]}>{description}</Text>
       </Animated.View>
       <View style={styles.button}>
-        <Button title={buttonTitle} onPress={onNext} />
+        <ButtonText title={buttonTitle} onPress={onNext} />
       </View>
     </View>
   );

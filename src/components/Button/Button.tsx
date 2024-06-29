@@ -4,16 +4,16 @@ import { Colors } from '~/styles/colors';
 import { rMS } from '~/styles/responsive';
 import { Fonts } from '~/styles/fonts';
 
-interface ButtonProps {
-  title: string;
+export interface ButtonProps {
   onPress: () => void;
   reverseStyle?: boolean;
+  children?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
-  title,
   onPress,
-  reverseStyle = false
+  reverseStyle = false,
+  children
 }) => {
   return (
     <TouchableOpacity
@@ -21,7 +21,8 @@ const Button: React.FC<ButtonProps> = ({
       style={[styles.container, reverseStyle && styles.rContainer]}
       activeOpacity={0.5}
     >
-      <Text style={[styles.title, reverseStyle && styles.rTitle]}>{title}</Text>
+      {children}
+      {/* <Text style={[styles.title, reverseStyle && styles.rTitle]}>{title}</Text> */}
     </TouchableOpacity>
   );
 };
@@ -36,15 +37,15 @@ const styles = StyleSheet.create({
   },
   rContainer: {
     backgroundColor: Colors.white
-  },
-  title: {
-    color: Colors.white,
-    fontSize: rMS(18),
-    fontFamily: Fonts.bold
-  },
-  rTitle: {
-    color: Colors.secondary
   }
+  // title: {
+  //   color: Colors.white,
+  //   fontSize: rMS(18),
+  //   fontFamily: Fonts.bold
+  // },
+  // rTitle: {
+  //   color: Colors.secondary
+  // }
 });
 
 export default Button;

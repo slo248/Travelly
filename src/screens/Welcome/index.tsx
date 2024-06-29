@@ -6,7 +6,7 @@ import Logo from '~/assets/svgs/Logo';
 import { Colors } from '~/styles/colors';
 import { rH, rW } from '~/styles/responsive';
 import { Texts } from '~/styles/texts';
-import Button from '~/comps/Button';
+import { ButtonText } from '~/components/Button';
 
 const Welcome: FC<WelcomeProps> = () => {
   return (
@@ -14,15 +14,15 @@ const Welcome: FC<WelcomeProps> = () => {
       <View style={styles.header}>
         <Text style={[Texts.h3, styles.text]}>Welcome to</Text>
         <View style={styles.logo}>
-          <Logo fill={Colors.primary} />
+          <Logo color={Colors.primary} />
         </View>
       </View>
       <View style={styles.actions}>
         <View style={styles.btn}>
-          <Button title="Sign Up" onPress={() => {}} />
+          <ButtonText title="Sign Up" onPress={() => {}} />
         </View>
         <View style={styles.btn}>
-          <Button reverseStyle title="Login" onPress={() => {}} />
+          <ButtonText reverseStyle title="Login" onPress={() => {}} />
         </View>
       </View>
     </View>
