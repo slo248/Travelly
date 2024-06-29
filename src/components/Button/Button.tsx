@@ -1,8 +1,6 @@
-import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Colors } from '~/styles/colors';
-import { rMS } from '~/styles/responsive';
-import { Fonts } from '~/styles/fonts';
 import { ButtonOnPressNoAction } from '~/constants';
 
 export interface ButtonProps {
@@ -23,7 +21,6 @@ const Button: React.FC<ButtonProps> = ({
       activeOpacity={0.5}
     >
       {children}
-      {/* <Text style={[styles.title, reverseStyle && styles.rTitle]}>{title}</Text> */}
     </TouchableOpacity>
   );
 };
@@ -39,14 +36,6 @@ const styles = StyleSheet.create({
   rContainer: {
     backgroundColor: Colors.white
   }
-  // title: {
-  //   color: Colors.white,
-  //   fontSize: rMS(18),
-  //   fontFamily: Fonts.bold
-  // },
-  // rTitle: {
-  //   color: Colors.secondary
-  // }
 });
 
 export default Button;
