@@ -24,5 +24,6 @@ export const Colors = {
   lime: '#00FF00',
   indigo: '#4B0082',
   paginator: '#0505054D',
-  paginatorActive: '#050505'
+  paginatorActive: '#050505',
+  placeholder: '#727272'
 };

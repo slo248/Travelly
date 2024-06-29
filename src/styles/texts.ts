@@ -24,5 +24,10 @@ export const Texts = StyleSheet.create({
     color: Colors.black,
     fontSize: rMS(14),
     fontFamily: Fonts.regular
+  },
+  error: {
+    color: Colors.red,
+    fontSize: rMS(12),
+    fontFamily: Fonts.medium
   }
 });
