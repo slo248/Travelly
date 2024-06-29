@@ -8,6 +8,7 @@ import Header from './Header';
 import LoginForm from './LoginForm';
 import { globalStyles } from '~/styles/globalStyles';
 import Actions from './Actions';
+import Separator from './Separator';
 
 const Login: FC<LoginProps> = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -31,6 +32,9 @@ const Login: FC<LoginProps> = () => {
       <View style={styles.actions}>
         <Actions />
       </View>
+      <View style={styles.separator}>
+        <Separator />
+      </View>
     </View>
   );
 };
@@ -46,6 +50,10 @@ const styles = StyleSheet.create({
   },
   actions: {
     marginTop: rH(16)
+  },
+  separator: {
+    marginTop: rH(50),
+    left: -rW(16)
   }
 });
 
