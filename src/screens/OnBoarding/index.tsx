@@ -2,17 +2,19 @@ import Animated, {
   useSharedValue,
   useAnimatedScrollHandler
 } from 'react-native-reanimated';
-import { useCallback, useRef } from 'react';
-import { useWindowDimensions, View } from 'react-native';
+import { useCallback, useEffect, useRef } from 'react';
+import { useWindowDimensions, View, BackHandler } from 'react-native';
 
 import Page from './Page';
 import { onBoardingData } from '~/data/onboarding';
 import Paginator from './Paginator';
 import { rH, rW } from '~/styles/responsive';
 
-import { OnBoardingProps } from '~/navigation/types';
+import { OnBoardingProps, RootStackParamList } from '~/navigation/types';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 const OnBoarding: React.FC<OnBoardingProps> = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { width } = useWindowDimensions();
   const scrollViewRef = useRef<Animated.ScrollView>(null);
   const scrollX = useSharedValue(0);
@@ -34,6 +36,25 @@ const OnBoarding: React.FC<OnBoardingProps> = () => {
       scrollX.value = event.contentOffset.x;
     }
   });
+
+  useEffect(() => {
+    const backAction = () => {
+      const currentPage = Math.round(scrollX.value / width);
+      if (currentPage > 0) {
+        goToNextPage(currentPage - 2);
+        return true;
+      }
+      // Allow default back action
+      return false;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, [scrollX, width, goToNextPage]);
 
   return (
     <View style={{ flex: 1, position: 'relative' }}>
@@ -58,7 +79,11 @@ const OnBoarding: React.FC<OnBoardingProps> = () => {
             buttonTitle={
               index < onBoardingData.length - 1 ? 'Next' : `Let's start!`
             }
-            onNext={() => goToNextPage(index)}
+            onNext={() =>
+              index < onBoardingData.length - 1
+                ? goToNextPage(index)
+                : navigation.navigate('Welcome')
+            }
           />
         ))}
       </Animated.ScrollView>

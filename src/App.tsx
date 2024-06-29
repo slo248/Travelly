@@ -9,6 +9,7 @@ import { enableScreens } from 'react-native-screens';
 import Splash from '~/screens/Splash';
 import OnBoarding from '~/screens/OnBoarding';
 import { RootStackParamList } from '~/navigation/types';
+import Welcome from '~/screens/Welcome';
 
 enableScreens();
 
@@ -18,17 +19,16 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash">
-        <Stack.Screen
-          name="Splash"
-          component={Splash}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="OnBoarding"
-          component={OnBoarding}
-          options={{ headerShown: false }}
-        />
+      <Stack.Navigator
+        initialRouteName="Splash"
+        screenOptions={{
+          headerShown: false,
+          animation: 'slide_from_right'
+        }}
+      >
+        <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="OnBoarding" component={OnBoarding} />
+        <Stack.Screen name="Welcome" component={Welcome} />
       </Stack.Navigator>
     </NavigationContainer>
   );
