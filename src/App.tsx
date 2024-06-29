@@ -11,6 +11,7 @@ import OnBoarding from '~/screens/OnBoarding';
 import { RootStackParamList } from '~/navigation/types';
 import Welcome from '~/screens/Welcome';
 import Login from '~/screens/Login';
+import Home from './screens/Home';
 
 enableScreens();
 
@@ -21,7 +22,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Splash"
+        initialRouteName="Home"
         screenOptions={{
           headerShown: false,
           animation: 'slide_from_right'
@@ -31,6 +32,7 @@ export default function App() {
         <Stack.Screen name="OnBoarding" component={OnBoarding} />
         <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   );

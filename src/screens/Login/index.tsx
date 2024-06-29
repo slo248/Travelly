@@ -19,6 +19,10 @@ const Login: FC<LoginProps> = () => {
     else navigation.navigate('Welcome');
   }, [navigation]);
 
+  const onSubmit = useCallback(() => {
+    navigation.navigate('Home');
+  }, []);
+
   return (
     <View style={globalStyles.container}>
       <Pressable onPress={rollback}>
@@ -28,7 +32,7 @@ const Login: FC<LoginProps> = () => {
       </Pressable>
       <Header />
       <View style={styles.form}>
-        <LoginForm />
+        <LoginForm {...{ onSubmit }} />
       </View>
       <View style={styles.actions}>
         <Actions />
