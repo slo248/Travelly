@@ -1,17 +1,18 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { Colors } from '~/styles/colors';
 import { rMS } from '~/styles/responsive';
 import { Fonts } from '~/styles/fonts';
+import { ButtonOnPressNoAction } from '~/constants';
 
 export interface ButtonProps {
-  onPress: () => void;
+  onPress?: () => void;
   reverseStyle?: boolean;
   children?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
-  onPress,
+  onPress = () => Alert.alert(ButtonOnPressNoAction),
   reverseStyle = false,
   children
 }) => {

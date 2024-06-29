@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { FC } from 'react';
 import { WelcomeProps } from '~/navigation/types';
 
@@ -7,6 +7,7 @@ import { Colors } from '~/styles/colors';
 import { rH, rW } from '~/styles/responsive';
 import { Texts } from '~/styles/texts';
 import { ButtonText } from '~/components/Button';
+import { FeatureNotImplemented } from '~/constants';
 
 const Welcome: FC<WelcomeProps> = () => {
   return (
@@ -19,10 +20,10 @@ const Welcome: FC<WelcomeProps> = () => {
       </View>
       <View style={styles.actions}>
         <View style={styles.btn}>
-          <ButtonText title="Sign Up" onPress={() => {}} />
+          <ButtonText title="Sign Up" />
         </View>
         <View style={styles.btn}>
-          <ButtonText reverseStyle title="Login" onPress={() => {}} />
+          <ButtonText reverseStyle title="Login" />
         </View>
       </View>
     </View>
