@@ -74,9 +74,9 @@ export default function Loading() {
         },
         (isFinished) => {
           if (isFinished)
-            runOnJS(navigation.navigate)({
-              name: 'OnBoarding',
-              params: undefined
+            runOnJS(navigation.reset)({
+              index: 0,
+              routes: [{ name: ROUTES.ONBOARDING as keyof RootStackParamList }]
             });
         }
       )
