@@ -16,6 +16,7 @@ import Animated, {
   SharedValue,
   Extrapolation
 } from 'react-native-reanimated';
+import { globalStyles } from '~/styles/globalStyles';
 
 interface PageProps {
   index: number;
@@ -62,7 +63,7 @@ const Page: React.FC<PageProps> = ({
   }, [width, scrollX]);
 
   return (
-    <View style={[{ width }, styles.container]}>
+    <View style={[{ width }, globalStyles.container, styles.container]}>
       <Image style={styles.image} source={image} />
       <Animated.View style={rS}>
         <Text style={[Texts.h2, styles.desc]}>{description}</Text>
@@ -76,10 +77,8 @@ const Page: React.FC<PageProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     paddingTop: rH(24),
-    paddingBottom: rH(48),
-    paddingHorizontal: rW(16)
+    paddingBottom: rH(48)
   },
   image: {
     marginTop: rH(80),

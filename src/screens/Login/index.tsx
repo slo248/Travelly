@@ -5,6 +5,8 @@ import Chevron from '~/assets/icons/Chevron';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { rH, rW } from '~/styles/responsive';
 import Header from './Header';
+import LoginForm from './LoginForm';
+import { globalStyles } from '~/styles/globalStyles';
 
 const Login: FC<LoginProps> = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -15,27 +17,28 @@ const Login: FC<LoginProps> = () => {
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <Pressable onPress={rollback}>
         <View style={styles.goBackBtn}>
           <Chevron />
         </View>
       </Pressable>
       <Header />
+      <View style={styles.form}>
+        <LoginForm />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    flex: 1
-  },
   goBackBtn: {
     position: 'absolute',
     width: rW(19),
-    left: rW(11),
     top: rH(23)
+  },
+  form: {
+    marginTop: rH(48)
   }
 });
 
