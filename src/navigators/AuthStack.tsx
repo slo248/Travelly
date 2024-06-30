@@ -6,9 +6,9 @@ import { TabBarButton } from '~/components/Button';
 
 export type AuthStackParamList = {
   Home: undefined;
-  Bookings: undefined;
+  Booking: undefined;
   Profile: undefined;
-  Notifications: undefined;
+  Notification: undefined;
 };
 
 const Stack = createBottomTabNavigator<AuthStackParamList>();
@@ -16,7 +16,7 @@ const Stack = createBottomTabNavigator<AuthStackParamList>();
 const AuthStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Booking"
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -31,9 +31,7 @@ const AuthStack = () => {
           component={tab.component}
           options={{
             tabBarShowLabel: false,
-            tabBarButton: (props) => (
-              <TabBarButton {...props} {...tab} index={index} />
-            )
+            tabBarButton: (props) => <TabBarButton {...props} {...tab} />
           }}
         />
       ))}
