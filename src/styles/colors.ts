@@ -25,5 +25,7 @@ export const Colors = {
   indigo: '#4B0082',
   paginator: '#0505054D',
   paginatorActive: '#050505',
-  placeholder: '#727272'
+  placeholder: '#727272',
+  tabActive: '#FFDDA2',
+  tabInActive: 'transparent'
 };

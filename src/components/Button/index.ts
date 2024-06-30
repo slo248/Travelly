@@ -1,3 +1,5 @@
+import ButtonIcon from './ButtonIcon';
 import ButtonText from './ButtonText';
+import TabBarButton from './TabBarButton';
 
-export { ButtonText };
+export { ButtonText, ButtonIcon, TabBarButton };

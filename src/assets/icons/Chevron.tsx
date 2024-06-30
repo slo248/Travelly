@@ -12,9 +12,9 @@ const Chevron: FC<SvgProps> = ({ color = Colors.paginatorActive }) => {
         <Path
           d="M10.6667 20.3334L2.04045 11.7071C1.64993 11.3166 1.64993 10.6835 2.04045 10.2929L10.6667 1.66671"
           stroke={color}
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </Svg>
     </View>

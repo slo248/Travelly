@@ -1,5 +1,8 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from '~/screens/Home';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Tabs } from './tabs';
+import { rH } from '~/styles/responsive';
+import { StyleSheet } from 'react-native';
+import { TabBarButton } from '~/components/Button';
 
 export type AuthStackParamList = {
   Home: undefined;
@@ -8,7 +11,7 @@ export type AuthStackParamList = {
   Notifications: undefined;
 };
 
-const Stack = createNativeStackNavigator<AuthStackParamList>();
+const Stack = createBottomTabNavigator<AuthStackParamList>();
 
 const AuthStack = () => {
   return (
@@ -16,12 +19,41 @@ const AuthStack = () => {
       initialRouteName="Home"
       screenOptions={{
         headerShown: false,
-        animation: 'slide_from_right'
+        tabBarStyle: {
+          ...styles.tabBar
+        }
       }}
     >
-      <Stack.Screen name="Home" component={Home} />
+      {Tabs.map((tab, index) => (
+        <Stack.Screen
+          key={index}
+          name={tab.route as keyof AuthStackParamList}
+          component={tab.component}
+          options={{
+            tabBarShowLabel: false,
+            tabBarButton: (props) => (
+              <TabBarButton {...props} {...tab} index={index} />
+            )
+          }}
+        />
+      ))}
     </Stack.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  tabBar: {
+    height: rH(56),
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    position: 'absolute',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -5 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10
+  }
+});
 
 export default AuthStack;
