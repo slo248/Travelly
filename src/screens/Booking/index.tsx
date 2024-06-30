@@ -1,27 +1,37 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
-import Card from '~/components/Card';
-import FacebookIcon from '~/assets/icons/FacebookIcon';
-import GoogleIcon from '~/assets/icons/GoogleIcon';
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import { globalStyles } from '~/styles/globalStyles';
+
+import { services } from '~/data/services';
+import Card from '~/components/Card';
+import { Texts } from '~/styles/texts';
+import { rH, rMS } from '~/styles/responsive';
 
 const Booking = () => {
   return (
     <View style={[globalStyles.container, styles.container]}>
-      <Text>Booking</Text>
-      <View style={styles.card}>
-        <Card
-          TopFC={() => (
-            <>
-              <Text>Hello</Text>
-              <Text>Hello</Text>
-              <Text>Hello</Text>
-              <Text>Hello</Text>
-            </>
-          )}
-          BottomFC={() => <Text>World</Text>}
-        />
-      </View>
+      <Text style={styles.heading}>Booking</Text>
+      <FlatList
+        data={services}
+        keyExtractor={(item) => item.name}
+        renderItem={({ item }) => {
+          return (
+            <View style={styles.card}>
+              <Card
+                TopFC={() => (
+                  <Image
+                    resizeMode="contain"
+                    source={item.image}
+                    style={globalStyles.image}
+                  />
+                )}
+                BottomFC={() => <Text style={styles.name}>{item.name}</Text>}
+              />
+            </View>
+          );
+        }}
+        ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
+        ListFooterComponent={() => <View style={{ height: rH(54) }} />}
+      />
     </View>
   );
 };
@@ -35,5 +45,15 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%'
+  },
+  name: {
+    textAlign: 'center',
+    ...Texts.h3,
+    fontSize: rMS(20)
+  },
+  heading: {
+    ...Texts.h2,
+    marginTop: rH(8),
+    marginBottom: rH(24)
   }
 });

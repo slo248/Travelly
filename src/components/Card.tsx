@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   comp: {
+    width: '100%',
     padding: 16
   },
   topComp: {},

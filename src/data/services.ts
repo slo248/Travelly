@@ -6,18 +6,22 @@ import EventIcon from '~/assets/icons/EventIcon';
 export const services = [
   {
     name: 'Trip',
-    icon: GlobeIcon
+    icon: GlobeIcon,
+    image: require('~/assets/imgs/booking/trip.png')
   },
   {
     name: 'Hotel',
-    icon: HotelIcon
+    icon: HotelIcon,
+    image: require('~/assets/imgs/booking/hotel.png')
   },
   {
     name: 'Transport',
-    icon: PlaneIcon
+    icon: PlaneIcon,
+    image: require('~/assets/imgs/booking/transport.png')
   },
   {
     name: 'Events',
-    icon: EventIcon
+    icon: EventIcon,
+    image: require('~/assets/imgs/booking/events.png')
   }
 ];
