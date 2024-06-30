@@ -4,9 +4,9 @@ import NotiIcon from '~/assets/icons/NotiIcon';
 import AccountIcon from '~/assets/icons/AccountIcon';
 
 import Home from '~/screens/Home';
-import Booking from '~/screens/Booking';
 import Notification from '~/screens/Notification';
 import Account from '~/screens/Account';
+import BookingStack from './BookingStack';
 
 export const Tabs = [
   {
@@ -17,7 +17,7 @@ export const Tabs = [
   {
     route: 'Booking',
     icon: BookingIcon,
-    component: Booking
+    component: BookingStack
   },
   {
     route: 'Notification',

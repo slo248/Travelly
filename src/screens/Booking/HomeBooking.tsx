@@ -1,21 +1,41 @@
-import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
-import { globalStyles } from '~/styles/globalStyles';
+import {
+  FlatList,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
+import { bottomtTabBarHeight, globalStyles } from '~/styles/globalStyles';
 
 import { services } from '~/data/services';
 import Card from '~/components/Card';
 import { Texts } from '~/styles/texts';
 import { rH, rMS } from '~/styles/responsive';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { BookingStackParamList } from '~/navigators/BookingStack';
+import { useLayoutEffect } from 'react';
 
-const Booking = () => {
+const HomeBooking = () => {
+  const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: 'Booking'
+    });
+  }, []);
+
   return (
     <View style={[globalStyles.container, styles.container]}>
-      <Text style={styles.heading}>Booking</Text>
       <FlatList
         data={services}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => {
           return (
-            <View style={styles.card}>
+            <Pressable
+              style={styles.card}
+              onPress={() => navigation.navigate(item.onNextScreenName())}
+            >
               <Card
                 TopFC={() => (
                   <Image
@@ -26,17 +46,16 @@ const Booking = () => {
                 )}
                 BottomFC={() => <Text style={styles.name}>{item.name}</Text>}
               />
-            </View>
+            </Pressable>
           );
         }}
         ItemSeparatorComponent={() => <View style={{ height: 16 }} />}
-        ListFooterComponent={() => <View style={{ height: rH(54) }} />}
       />
     </View>
   );
 };
 
-export default Booking;
+export default HomeBooking;
 
 const styles = StyleSheet.create({
   container: {
@@ -50,10 +69,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     ...Texts.h3,
     fontSize: rMS(20)
-  },
-  heading: {
-    ...Texts.h2,
-    marginTop: rH(8),
-    marginBottom: rH(24)
   }
 });

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { rW } from './responsive';
+import { rH, rW } from './responsive';
 
 export const globalStyles = StyleSheet.create({
   container: {
@@ -10,3 +10,5 @@ export const globalStyles = StyleSheet.create({
     aspectRatio: 1
   }
 });
+
+export const bottomtTabBarHeight = rH(56);
