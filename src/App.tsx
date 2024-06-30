@@ -10,7 +10,7 @@ import { AuthContext } from './contexts/AuthContext';
 enableScreens();
 
 export default function App() {
-  const [isSignedIn, setIsSignedIn] = useState(true);
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   return (
     <AuthContext.Provider
