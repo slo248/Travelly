@@ -19,13 +19,5 @@ export const services = [
   {
     name: 'Events',
     icon: EventIcon
-  },
-  {
-    name: 'Transport',
-    icon: PlaneIcon
-  },
-  {
-    name: 'Events',
-    icon: EventIcon
   }
 ];
