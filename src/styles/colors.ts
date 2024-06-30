@@ -1,7 +1,7 @@
 export const Colors = {
   primary: '#01635D',
   secondary: '#FEA36B',
-  tertiary: '#4169E1',
+  tertiary: '#050505',
   black: '#000000',
   white: '#FFFFFF',
   grey: '#808080',
@@ -25,5 +25,7 @@ export const Colors = {
   indigo: '#4B0082',
   paginator: '#0505054D',
   paginatorActive: '#050505',
-  placeholder: '#727272'
+  placeholder: '#727272',
+  tabActive: '#FFDDA2',
+  tabInActive: 'transparent'
 };

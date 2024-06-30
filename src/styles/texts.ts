@@ -6,22 +6,22 @@ import { rMS } from './responsive';
 
 export const Texts = StyleSheet.create({
   h1: {
-    color: Colors.black,
+    color: Colors.tertiary,
     fontSize: rMS(24),
     fontFamily: Fonts.bold
   },
   h2: {
-    color: Colors.black,
+    color: Colors.tertiary,
     fontSize: rMS(18),
     fontFamily: Fonts.semiBold
   },
   h3: {
-    color: Colors.black,
+    color: Colors.tertiary,
     fontSize: rMS(16),
     fontFamily: Fonts.semiBold
   },
   p: {
-    color: Colors.black,
+    color: Colors.tertiary,
     fontSize: rMS(14),
     fontFamily: Fonts.regular
   },

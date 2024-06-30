@@ -7,9 +7,7 @@ import { rH } from '~/styles/responsive';
 import Loading from './Loading';
 import Logo from './Logo';
 
-import { SplashProps } from '~/navigation/types';
-
-const Splash: React.FC<SplashProps> = () => {
+const Splash = () => {
   return (
     <View style={styles.container}>
       <View style={{ position: 'absolute', alignSelf: 'center', top: rH(200) }}>

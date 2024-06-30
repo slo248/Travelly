@@ -1,28 +1,27 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Alert, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, View } from 'react-native';
 import { ButtonText } from '~/components/Button';
 import FormInputController from '~/components/controllers/FormInputController';
 
-import { FormSubmitNoAction } from '~/constants';
 import { loginSchema } from '~/constants/schemas/login';
 import { globalStyles } from '~/styles/globalStyles';
 import { rH } from '~/styles/responsive';
-import { User } from '~/types/User';
+import { UserFieldValues } from '~/types/UserFieldValues';
 
 export type LoginFormProps = {
-  onSubmit?: (user: User) => void;
+  onSubmit?: (user: UserFieldValues) => void;
 };
 
 const LoginForm: FC<LoginFormProps> = ({
-  onSubmit = (user: User) => Alert.alert(JSON.stringify(user))
+  onSubmit = (user: UserFieldValues) => Alert.alert(JSON.stringify(user))
 }) => {
   const {
     control,
     handleSubmit,
     formState: { errors }
-  } = useForm({ resolver: yupResolver(loginSchema) });
+  } = useForm<UserFieldValues>({ resolver: yupResolver(loginSchema) });
 
   return (
     <View style={(globalStyles.container, { flex: 0, rowGap: rH(32) })}>

@@ -10,10 +10,10 @@ import { onBoardingData } from '~/data/onboarding';
 import Paginator from './Paginator';
 import { rH, rW } from '~/styles/responsive';
 
-import { OnBoardingProps, RootStackParamList } from '~/navigation/types';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '~/navigators/RootStack';
 
-const OnBoarding: React.FC<OnBoardingProps> = () => {
+const OnBoarding = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { width } = useWindowDimensions();
   const scrollViewRef = useRef<Animated.ScrollView>(null);

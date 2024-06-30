@@ -15,11 +15,10 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { getPath } from './curve';
 import { Colors } from '~/styles/colors';
 import { rH, rW } from '~/styles/responsive';
-import { ROUTES } from '~/navigation/routes';
-import { RootStackParamList } from '~/navigation/types';
 
 import PlaneSvg from '~/assets/svgs/plane.svg';
 import SmallCircle from '~/assets/svgs/small_circle.svg';
+import { RootStackParamList } from '~/navigators/RootStack';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 
@@ -76,7 +75,7 @@ export default function Loading() {
           if (isFinished)
             runOnJS(navigation.reset)({
               index: 0,
-              routes: [{ name: ROUTES.ONBOARDING as keyof RootStackParamList }]
+              routes: [{ name: 'OnBoarding' }]
             });
         }
       )

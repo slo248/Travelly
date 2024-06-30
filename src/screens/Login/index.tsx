@@ -1,6 +1,5 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import React, { FC, useCallback } from 'react';
-import { LoginProps, RootStackParamList } from '~/navigation/types';
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { FC, useCallback, useContext } from 'react';
 import Chevron from '~/assets/icons/Chevron';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { rH, rW } from '~/styles/responsive';
@@ -10,9 +9,12 @@ import { globalStyles } from '~/styles/globalStyles';
 import Actions from './Actions';
 import Separator from './Separator';
 import Socials from './Socials';
+import { RootStackParamList } from '~/navigators/RootStack';
+import { AuthContext } from '~/contexts/AuthContext';
 
-const Login: FC<LoginProps> = () => {
+const Login = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const { signIn } = useContext(AuthContext);
 
   const rollback = useCallback(() => {
     if (navigation.canGoBack()) navigation.goBack();
@@ -28,7 +30,7 @@ const Login: FC<LoginProps> = () => {
       </Pressable>
       <Header />
       <View style={styles.form}>
-        <LoginForm />
+        <LoginForm onSubmit={signIn} />
       </View>
       <View style={styles.actions}>
         <Actions />
