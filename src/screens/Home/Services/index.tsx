@@ -1,4 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions
+} from 'react-native';
 import React from 'react';
 import { Fonts } from '~/styles/fonts';
 import { rH, rMS, rW } from '~/styles/responsive';
@@ -8,23 +14,30 @@ import ButtonIcon from '~/components/Button/ButtonIcon';
 import { Colors } from '~/styles/colors';
 
 export default function Services() {
+  const { width } = useWindowDimensions();
+
   return (
     <View>
       <Text style={styles.heading}>Booking Services</Text>
-      <View style={styles.list}>
-        {services.map((service, index) => (
+      <FlatList
+        style={styles.list}
+        data={services}
+        keyExtractor={(_, index) => index.toString()}
+        numColumns={width < 786 ? 4 : 8}
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
+        renderItem={({ item }) => (
           <View style={styles.item}>
-            <View key={index} style={styles.button}>
+            <View style={styles.button}>
               <ButtonIcon
-                Icon={service.icon}
+                Icon={item.icon}
                 backgroundColor={Colors.primary}
                 color={Colors.white}
               />
             </View>
-            <Text style={styles.serviceName}>{service.name}</Text>
+            <Text style={styles.serviceName}>{item.name}</Text>
           </View>
-        ))}
-      </View>
+        )}
+      />
     </View>
   );
 }
@@ -35,10 +48,7 @@ const styles = StyleSheet.create({
     fontSize: rMS(16)
   },
   list: {
-    marginTop: rH(12),
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 28
+    marginTop: rH(12)
   },
   item: {
     alignItems: 'center'

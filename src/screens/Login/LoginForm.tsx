@@ -23,8 +23,6 @@ const LoginForm: FC<LoginFormProps> = ({
     formState: { errors }
   } = useForm<UserFieldValues>({ resolver: yupResolver(loginSchema) });
 
-  const [isSigingIn, setIsSigningIn] = useState(false);
-
   return (
     <View style={(globalStyles.container, { flex: 0, rowGap: rH(32) })}>
       <View style={styles.inputs}>
@@ -49,19 +47,8 @@ const LoginForm: FC<LoginFormProps> = ({
         </View>
       </View>
       <View style={styles.submitBtn}>
-        <ButtonText
-          title="Sign In"
-          onPress={handleSubmit((user) => {
-            setIsSigningIn(true);
-            onSubmit(user);
-          })}
-        />
+        <ButtonText title="Sign In" onPress={handleSubmit(onSubmit)} />
       </View>
-      {isSigingIn && (
-        <View>
-          <ActivityIndicator size="large" />
-        </View>
-      )}
     </View>
   );
 };
