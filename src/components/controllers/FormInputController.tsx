@@ -1,30 +1,35 @@
 import { StyleSheet, TextInput, TextInputProps, Text } from 'react-native';
 import { FC } from 'react';
-import { Control, Controller, FieldErrors, FieldValues } from 'react-hook-form';
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  FieldValues,
+  Path
+} from 'react-hook-form';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Texts } from '~/styles/texts';
 import { rH, rMS, rW } from '~/styles/responsive';
-import { User } from '~/types/User';
 
-interface FormInputControllerProps {
-  control: Control<User>;
-  errors?: FieldErrors<User>;
-  name: keyof User;
+interface FormInputControllerProps<T extends FieldValues> {
+  control: Control<T>;
+  errors?: FieldErrors<T>;
+  name: keyof T;
   placeholder: string;
   others?: TextInputProps;
 }
 
-const FormInputController: FC<FormInputControllerProps> = ({
+const FormInputController = <T extends FieldValues>({
   control,
   errors,
   name,
   placeholder,
   others
-}) => {
+}: FormInputControllerProps<T>) => {
   return (
     <>
       <Controller
-        {...{ control, name }}
+        {...{ control, name: name as Path<T> }}
         render={({ field: { onBlur, onChange, value } }) => (
           <TextInput
             style={styles.input}
