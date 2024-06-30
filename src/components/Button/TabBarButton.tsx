@@ -10,6 +10,7 @@ import Animated, {
   interpolateColor,
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
   withTiming
 } from 'react-native-reanimated';
 import { Colors } from '~/styles/colors';
@@ -20,49 +21,51 @@ const TabBarButton = (props: TabType) => {
   const { route, icon, accessibilityState, onPress, index } = props;
   const focused = accessibilityState?.selected;
 
-  const opacityText = useSharedValue(1);
-  const scaleText = useSharedValue(focused ? 1 : 0);
+  const Icon = icon;
 
-  const flexContainer = useSharedValue(1);
+  const flexContainer = useSharedValue(focused ? 1 : 2);
+  const scaleText = useSharedValue(focused ? 0 : 1);
 
-  const rSText = useAnimatedStyle(() => {
-    return {
-      opacity: opacityText.value,
-      transform: [{ scaleX: scaleText.value }]
-    };
-  });
-
-  const rSContainer = useAnimatedStyle(() => {
+  const rContainerStyle = useAnimatedStyle(() => {
     return {
       flex: flexContainer.value
     };
   });
 
+  const rTextStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: scaleText.value }]
+    };
+  });
+
   useEffect(() => {
-    opacityText.value = withTiming(focused ? 1 : 0, { duration });
-    scaleText.value = withTiming(focused ? 1 : 0, { duration });
     flexContainer.value = withTiming(focused ? 2 : 1, { duration });
+    scaleText.value = withDelay(
+      duration / 2,
+      withTiming(focused ? 1 : 0, { duration: duration / 2 })
+    );
   }, [focused]);
 
-  const Icon = icon;
   return (
-    <Animated.View style={[styles.container, rSContainer]}>
-      <Animated.View style={[styles.body]}>
-        <Pressable
-          style={[
-            styles.content,
-            {
-              backgroundColor: `rgba(0,0,0,0.${index + 2})`
-            }
-          ]}
-          onPress={onPress}
-        >
-          <View style={styles.icon}>
-            <Icon color={Colors.black} />
-          </View>
-          <Animated.Text style={[styles.text, rSText]}>{route}</Animated.Text>
-        </Pressable>
-      </Animated.View>
+    <Animated.View style={[styles.container, rContainerStyle]}>
+      <Pressable
+        style={[
+          styles.content,
+          {
+            backgroundColor: focused ? Colors.tabActive : Colors.tabInActive
+          }
+        ]}
+        onPress={onPress}
+      >
+        <View style={styles.icon}>
+          <Icon color={Colors.tertiary} />
+        </View>
+        {focused && (
+          <Animated.Text style={[styles.text, rTextStyle]}>
+            {route}
+          </Animated.Text>
+        )}
+      </Pressable>
     </Animated.View>
   );
 };
@@ -72,32 +75,24 @@ export default TabBarButton;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: '100%',
-    paddingVertical: rH(6),
-    // paddingHorizontal: rW(16)
-    backgroundColor: 'plum'
-  },
-  body: {
-    flex: 1,
-    borderRadius: 10,
-    justifyContent: 'center'
+    paddingVertical: rH(12)
   },
   content: {
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'center',
-    columnGap: rW(4)
+    alignItems: 'center',
+    overflow: 'hidden',
+    borderRadius: 10
   },
   icon: {
     width: rW(24),
     height: rH(24)
   },
   text: {
-    // position: 'absolute',
-    // left: 30,
-    color: Colors.black,
+    marginLeft: rW(4),
     fontSize: rMS(12),
-    fontFamily: Fonts.semiBold
+    fontFamily: Fonts.semiBold,
+    color: Colors.tertiary
   }
 });
