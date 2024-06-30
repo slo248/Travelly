@@ -27,5 +27,6 @@ export const Colors = {
   paginatorActive: '#050505',
   placeholder: '#727272',
   tabActive: '#FFDDA2',
-  tabInActive: 'transparent'
+  tabInActive: 'transparent',
+  background: '#F5F5F5'
 };
