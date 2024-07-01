@@ -10,6 +10,7 @@ export interface ButtonProps {
   backgroundColor?: string;
   color?: string;
   padding?: number;
+  borderRadius?: number;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,7 +19,8 @@ const Button: React.FC<ButtonProps> = ({
   backgroundColor,
   color,
   children,
-  padding = 12
+  padding = 12,
+  borderRadius = 20
 }) => {
   return (
     <TouchableOpacity
@@ -26,6 +28,7 @@ const Button: React.FC<ButtonProps> = ({
       style={[
         styles.container,
         {
+          borderRadius,
           backgroundColor: reverseStyle ? color : backgroundColor
         }
       ]}
@@ -40,8 +43,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20
+    justifyContent: 'center'
   }
 });
 

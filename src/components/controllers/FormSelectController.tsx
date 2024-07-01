@@ -25,7 +25,6 @@ interface FormSelectControllerProps<FV extends FieldValues, DataType> {
   control: Control<FV>;
   errors?: FieldErrors<FV>;
   name: keyof FV & string;
-  defaultValue?: DataType;
   title: string;
 }
 
@@ -34,7 +33,6 @@ const FormSelectController = <FV extends FieldValues, DataType>({
   control,
   errors,
   name,
-  defaultValue,
   title
 }: FormSelectControllerProps<FV, DataType>) => {
   return (
@@ -42,8 +40,7 @@ const FormSelectController = <FV extends FieldValues, DataType>({
       <Controller
         {...{
           control,
-          name: name as Path<FV>,
-          defaultValue: defaultValue as PathValue<FV, Path<FV>> | undefined
+          name: name as Path<FV>
         }}
         render={({ field: { onChange, value } }) => (
           <SelectDropdown
