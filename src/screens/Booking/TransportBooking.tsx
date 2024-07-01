@@ -6,6 +6,9 @@ import HeaderBooking from '../../components/CustomHeader';
 import FormRadioController from '~/components/controllers/FormRadioController';
 import { useFormContext } from 'react-hook-form';
 import { ButtonText } from '~/components/Button';
+import FormSelectController from '~/components/controllers/FormSelectController';
+import { Locations } from '~/data/transports';
+import { getNameCountry } from '~/utils';
 
 const headerTitle = 'Transport Booking';
 
@@ -33,6 +36,14 @@ const TransportBooking = () => {
               </View>
             );
           }}
+        />
+      </View>
+      <View style={{ width: 300 }}>
+        <FormSelectController
+          control={control}
+          name="from"
+          title="From"
+          data={Locations.map((location) => getNameCountry(location))}
         />
       </View>
     </View>
