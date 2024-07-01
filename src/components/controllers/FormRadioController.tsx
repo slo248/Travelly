@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'; // Corrected imports
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  FlexStyle,
+  ViewStyle
+} from 'react-native'; // Corrected imports
 import { FC } from 'react';
 import {
   Control,
@@ -18,12 +25,14 @@ interface FormRadioControllerProps<FV extends FieldValues, DataType> {
     item,
     index,
     state,
-    onChange
+    onChange,
+    style
   }: {
     item: DataType;
     index: number;
     state: boolean;
     onChange: (...event: any[]) => void;
+    style: ViewStyle;
   }) => JSX.Element;
   control: Control<FV>;
   errors?: FieldErrors<FV>;
@@ -55,8 +64,12 @@ const FormRadioController = <FV extends FieldValues, DataType>({
               renderItem({
                 item,
                 index,
-                state: value === item,
-                onChange
+                state: JSON.stringify(value) === JSON.stringify(item),
+                onChange,
+                style: {
+                  flex: 1,
+                  marginRight: index < data.length - 1 ? 16 : 0
+                }
               })
             )}
           </ScrollView>

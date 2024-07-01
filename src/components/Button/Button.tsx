@@ -1,4 +1,12 @@
-import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+import {
+  Alert,
+  FlexStyle,
+  StyleProp,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  ViewStyle
+} from 'react-native';
 import React from 'react';
 import { Colors } from '~/styles/colors';
 import { ButtonOnPressNoAction } from '~/constants';

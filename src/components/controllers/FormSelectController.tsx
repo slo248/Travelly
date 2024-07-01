@@ -19,6 +19,7 @@ import { rH, rMS, rW } from '~/styles/responsive';
 import SelectDropdown from 'react-native-select-dropdown';
 import { Fonts } from '~/styles/fonts';
 import { Colors } from '~/styles/colors';
+import { globalStyles } from '~/styles/globalStyles';
 
 interface FormSelectControllerProps<FV extends FieldValues, DataType> {
   data: DataType[];
@@ -47,9 +48,9 @@ const FormSelectController = <FV extends FieldValues, DataType>({
             data={data}
             onSelect={(selectedItem, index) => onChange(selectedItem)}
             renderButton={(selectedItem, isOpened) => (
-              <View style={styles.button}>
-                <Text style={styles.heading}>{title}</Text>
-                <Text style={styles.item}>{selectedItem}</Text>
+              <View style={globalStyles.cardForm}>
+                <Text style={globalStyles.headingForm}>{title}</Text>
+                <Text style={globalStyles.textForm}>{selectedItem}</Text>
               </View>
             )}
             renderItem={(item, index, isSelected) => (
@@ -62,7 +63,7 @@ const FormSelectController = <FV extends FieldValues, DataType>({
               >
                 <Text
                   style={{
-                    ...styles.item,
+                    ...globalStyles.textForm,
                     ...(isSelected && { color: Colors.white })
                   }}
                 >
@@ -88,24 +89,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: rMS(4),
     bottom: rH(-20)
-  },
-  button: {
-    width: '100%',
-    paddingHorizontal: rW(16),
-    paddingTop: rH(4),
-    paddingBottom: rH(8),
-    backgroundColor: Colors.white,
-    borderRadius: 15
-  },
-  heading: {
-    fontSize: rMS(10),
-    fontFamily: Fonts.regular,
-    color: Colors.placeholder
-  },
-  item: {
-    fontSize: rMS(16),
-    fontFamily: Fonts.regular,
-    color: Colors.tertiary
   },
   dropdownItem: {
     paddingVertical: rH(8),

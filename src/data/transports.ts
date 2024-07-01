@@ -6,9 +6,17 @@ import ShipIcon from '~/assets/icons/ShipIcon';
 import TrainIcon from '~/assets/icons/TrainIcon';
 import { SvgProps } from '~/types/SvgProps';
 
-export type Class = 'Economy' | 'Business';
+export enum Class {
+  Economy = 'Economy',
+  Business = 'Business'
+}
 
-export type Transport = 'Flight' | 'Ship' | 'Train' | 'Car';
+export enum Transport {
+  Flight = 'Flight',
+  Ship = 'Ship',
+  Train = 'Train',
+  Car = 'Car'
+}
 
 export interface LocationType {
   id: string;
@@ -57,19 +65,19 @@ export const Locations: LocationType[] = [
 
 export const Transports: TransportType[] = [
   {
-    name: 'Flight',
+    name: Transport.Flight,
     icon: PlaneIcon
   },
   {
-    name: 'Ship',
+    name: Transport.Ship,
     icon: ShipIcon
   },
   {
-    name: 'Train',
+    name: Transport.Train,
     icon: TrainIcon
   },
   {
-    name: 'Car',
+    name: Transport.Car,
     icon: CarIcon
   }
 ];

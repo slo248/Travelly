@@ -3,16 +3,81 @@ import React, { useLayoutEffect } from 'react';
 import HeaderBooking from '../../components/CustomHeader';
 import FromTo from './FromTo';
 import { globalStyles } from '~/styles/globalStyles';
+import DepartureReturn from './DepartureReturn';
+import { rH, rMS, rW } from '~/styles/responsive';
+import { Fonts } from '~/styles/fonts';
+import { Colors } from '~/styles/colors';
+import FormRadioController from '~/components/controllers/FormRadioController';
+import { useFormContext } from 'react-hook-form';
+import { Class, Transport, Transports } from '~/data/transports';
+import { ButtonIcon, ButtonText } from '~/components/Button';
+import ShipIcon from '~/assets/icons/ShipIcon';
 
 const headerTitle = 'Transport Booking';
 
 const TransportBooking = () => {
+  const { control } = useFormContext();
+
   return (
     <View style={globalStyles.container}>
       <HeaderBooking title={headerTitle} />
       <FromTo />
+      <View style={{ marginTop: rH(16) }}>
+        <DepartureReturn />
+      </View>
+      <View style={{ marginTop: rH(16) }}>
+        <Text style={styles.heading}>Class</Text>
+        <FormRadioController
+          control={control}
+          name="class"
+          horizontal
+          data={Object.values(Class)}
+          renderItem={({ item, index, state, onChange, style }) => (
+            <View key={index} style={[style, { width: 100, height: 50 }]}>
+              <ButtonText
+                title={item}
+                reverseStyle={state}
+                backgroundColor={Colors.white}
+                color={Colors.green500}
+                onPress={() => onChange(item)}
+                textStyle={globalStyles.textOptionForm}
+              />
+            </View>
+          )}
+        />
+      </View>
+      <View style={{ marginTop: rH(16) }}>
+        <Text style={styles.heading}>Transport</Text>
+        <FormRadioController
+          control={control}
+          name="transport"
+          horizontal
+          data={Transports}
+          renderItem={({ item, index, state, onChange, style }) => (
+            <View key={index} style={[style, { width: 50, height: 50 }]}>
+              <ButtonIcon
+                Icon={item.icon}
+                padding={9}
+                reverseStyle={state}
+                backgroundColor={Colors.white}
+                color={Colors.green500}
+                onPress={() => onChange(item)}
+              />
+            </View>
+          )}
+        />
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  heading: {
+    fontSize: rMS(14),
+    fontFamily: Fonts.semiBold,
+    color: Colors.placeholder,
+    marginBottom: rH(8)
+  }
+});
 
 export default TransportBooking;
