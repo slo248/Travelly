@@ -26,7 +26,7 @@ const TransportBooking = () => {
             return (
               <View key={index} style={{ width: 100, height: 50 }}>
                 <ButtonText
-                  reverseStyle={state}
+                  reverseStyle={!state}
                   title={item}
                   onPress={() => onChange(item)}
                 />

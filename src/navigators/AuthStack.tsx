@@ -39,7 +39,9 @@ const AuthStack = () => {
             }}
           >
             {() => (
-              <View style={{ flex: 1, paddingBottom: bottomtTabBarHeight }}>
+              <View
+                style={{ flex: 1, paddingBottom: bottomtTabBarHeight + 16 }}
+              >
                 <Comp />
               </View>
             )}

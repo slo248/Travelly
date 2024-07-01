@@ -44,8 +44,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: rW(16),
     height: 34,
-    marginTop: 16,
-    marginBottom: 24
+    marginVertical: 16
   },
   content: {
     justifyContent: 'flex-end',
