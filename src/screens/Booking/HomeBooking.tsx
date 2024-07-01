@@ -15,7 +15,7 @@ import { rH, rMS } from '~/styles/responsive';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { BookingStackParamList } from '~/navigators/BookingStack';
 import { useLayoutEffect } from 'react';
-import HeaderBooking from './HeaderBooking';
+import CustomHeader from '~/components/CustomHeader';
 
 const headerTitle = 'Booking';
 
@@ -24,7 +24,7 @@ const HomeBooking = () => {
 
   return (
     <View style={[globalStyles.container, styles.container]}>
-      <HeaderBooking title={headerTitle} />
+      <CustomHeader title={headerTitle} />
       <FlatList
         data={services}
         keyExtractor={(item) => item.name}

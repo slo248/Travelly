@@ -20,25 +20,6 @@ export default function Services() {
   return (
     <View>
       <Text style={styles.heading}>Booking Services</Text>
-      {/* <FlatList
-        style={styles.list}
-        data={services}
-        keyExtractor={(_, index) => index.toString()}
-        numColumns={width < 786 ? 4 : 8}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <View style={styles.button}>
-              <ButtonIcon
-                Icon={item.icon}
-                backgroundColor={Colors.primary}
-                color={Colors.white}
-              />
-            </View>
-            <Text style={styles.serviceName}>{item.name}</Text>
-          </View>
-        )}
-      /> */}
       <GridView
         style={styles.list}
         data={services}

@@ -9,11 +9,11 @@ import { rMS, rW } from '~/styles/responsive';
 import { ButtonIcon } from '~/components/Button';
 import Chevron from '~/assets/icons/Chevron';
 
-interface HeaderBookingProps {
+interface CustomHeaderProps {
   title: string;
 }
 
-const HeaderBooking: FC<HeaderBookingProps> = ({ title }) => {
+const CustomHeader: FC<CustomHeaderProps> = ({ title }) => {
   const navigation = useNavigation<NavigationProp<any>>();
 
   return (
@@ -38,7 +38,7 @@ const HeaderBooking: FC<HeaderBookingProps> = ({ title }) => {
   );
 };
 
-export default HeaderBooking;
+export default CustomHeader;
 
 const styles = StyleSheet.create({
   container: {

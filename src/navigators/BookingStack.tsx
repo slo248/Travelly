@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Pressable } from 'react-native';
 import Chevron from '~/assets/icons/Chevron';
-import HeaderBooking from '~/screens/Booking/HeaderBooking';
+import HeaderBooking from '~/components/CustomHeader';
 import HomeBooking from '~/screens/Booking/HomeBooking';
 import TransportBooking from '~/screens/Booking/TransportBooking';
 import { Colors } from '~/styles/colors';

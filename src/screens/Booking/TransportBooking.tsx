@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { useLayoutEffect } from 'react';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { BookingStackParamList } from '~/navigators/BookingStack';
-import HeaderBooking from './HeaderBooking';
+import HeaderBooking from '../../components/CustomHeader';
 
 const headerTitle = 'Transport Booking';
 
