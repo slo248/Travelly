@@ -1,13 +1,15 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Tabs } from './tabs';
-import { rH } from '~/styles/responsive';
 import { StyleSheet, View } from 'react-native';
 import { TabBarButton } from '~/components/Button';
 import { bottomtTabBarHeight } from '~/styles/globalStyles';
+import { BookingStackParamList } from './BookingStack';
 
 export type AuthStackParamList = {
   Home: undefined;
-  Booking: undefined;
+  Booking: {
+    screen?: keyof BookingStackParamList;
+  };
   Profile: undefined;
   Notification: undefined;
 };
@@ -17,7 +19,7 @@ const Stack = createBottomTabNavigator<AuthStackParamList>();
 const AuthStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Booking"
+      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         tabBarStyle: {

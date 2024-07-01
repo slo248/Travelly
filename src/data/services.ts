@@ -5,6 +5,12 @@ import EventIcon from '~/assets/icons/EventIcon';
 import { Alert } from 'react-native';
 import { FeatureNotImplemented } from '~/constants';
 import { BookingStackParamList } from '~/navigators/BookingStack';
+import { AuthStackParamList } from '~/navigators/AuthStack';
+
+export type SwitchFromHomeType = {
+  stackName: keyof AuthStackParamList;
+  nextScreen: keyof BookingStackParamList;
+};
 
 export const services = [
   {
@@ -14,7 +20,11 @@ export const services = [
     onNextScreenName: (): keyof BookingStackParamList => {
       Alert.alert(FeatureNotImplemented);
       return 'HomeBooking';
-    }
+    },
+    switchFromHome: (): SwitchFromHomeType => ({
+      stackName: 'Booking',
+      nextScreen: 'TransportBooking'
+    })
   },
   {
     name: 'Hotel',
@@ -23,13 +33,21 @@ export const services = [
     onNextScreenName: (): keyof BookingStackParamList => {
       Alert.alert(FeatureNotImplemented);
       return 'HomeBooking';
-    }
+    },
+    switchFromHome: (): SwitchFromHomeType => ({
+      stackName: 'Booking',
+      nextScreen: 'TransportBooking'
+    })
   },
   {
     name: 'Transport',
     icon: PlaneIcon,
     image: require('~/assets/imgs/booking/transport.png'),
-    onNextScreenName: (): keyof BookingStackParamList => 'TransportBooking'
+    onNextScreenName: (): keyof BookingStackParamList => 'TransportBooking',
+    switchFromHome: (): SwitchFromHomeType => ({
+      stackName: 'Booking',
+      nextScreen: 'TransportBooking'
+    })
   },
   {
     name: 'Events',
@@ -38,6 +56,10 @@ export const services = [
     onNextScreenName: (): keyof BookingStackParamList => {
       Alert.alert(FeatureNotImplemented);
       return 'HomeBooking';
-    }
+    },
+    switchFromHome: (): SwitchFromHomeType => ({
+      stackName: 'Booking',
+      nextScreen: 'TransportBooking'
+    })
   }
 ];
