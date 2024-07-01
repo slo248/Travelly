@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Pressable } from 'react-native';
 import Chevron from '~/assets/icons/Chevron';
+import HeaderBooking from '~/screens/Booking/HeaderBooking';
 import HomeBooking from '~/screens/Booking/HomeBooking';
 import TransportBooking from '~/screens/Booking/TransportBooking';
 import { Colors } from '~/styles/colors';
@@ -20,12 +21,7 @@ const BookingStack = () => {
       initialRouteName="HomeBooking"
       screenOptions={{
         animation: 'slide_from_right',
-        headerTitleAlign: 'center',
-        headerTitleStyle: {
-          fontFamily: Fonts.semiBold,
-          fontSize: rMS(18),
-          color: Colors.tertiary
-        }
+        headerShown: false
       }}
     >
       <Stack.Screen name="HomeBooking" component={HomeBooking} />

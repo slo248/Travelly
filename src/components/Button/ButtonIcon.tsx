@@ -17,9 +17,7 @@ const ButtonIcon: FC<ButtonIconProps> = ({
   ...props
 }) => (
   <Button {...props} {...{ backgroundColor, color, reverseStyle }}>
-    <View style={{ padding: 12 }}>
-      <Icon color={reverseStyle ? backgroundColor : color} />
-    </View>
+    <Icon color={reverseStyle ? backgroundColor : color} />
   </Button>
 );
 

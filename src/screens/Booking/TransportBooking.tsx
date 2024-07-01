@@ -2,18 +2,16 @@ import { StyleSheet, Text, View } from 'react-native';
 import React, { useLayoutEffect } from 'react';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { BookingStackParamList } from '~/navigators/BookingStack';
+import HeaderBooking from './HeaderBooking';
+
+const headerTitle = 'Transport Booking';
 
 const TransportBooking = () => {
   const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerTitle: 'Transport Booking'
-    });
-  }, []);
-
   return (
     <View>
+      <HeaderBooking title={headerTitle} />
       <Text>TransportBooking</Text>
     </View>
   );

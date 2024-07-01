@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Colors } from '~/styles/colors';
 import { ButtonOnPressNoAction } from '~/constants';
@@ -9,6 +9,7 @@ export interface ButtonProps {
   children?: React.ReactNode;
   backgroundColor?: string;
   color?: string;
+  padding?: number;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,7 +17,8 @@ const Button: React.FC<ButtonProps> = ({
   reverseStyle = false,
   backgroundColor,
   color,
-  children
+  children,
+  padding = 12
 }) => {
   return (
     <TouchableOpacity
@@ -29,7 +31,7 @@ const Button: React.FC<ButtonProps> = ({
       ]}
       activeOpacity={0.5}
     >
-      {children}
+      <View style={{ padding }}>{children}</View>
     </TouchableOpacity>
   );
 };
