@@ -5,8 +5,8 @@ import AccountIcon from '~/assets/icons/AccountIcon';
 
 import Home from '~/screens/Home';
 import Notification from '~/screens/Notification';
-import Account from '~/screens/Account';
 import BookingStack from './BookingStack';
+import AccountStack from './AccountStack';
 
 export const Tabs = [
   {
@@ -27,6 +27,6 @@ export const Tabs = [
   {
     route: 'Account',
     icon: AccountIcon,
-    component: Account
+    component: AccountStack
   }
 ];

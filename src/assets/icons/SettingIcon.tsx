@@ -4,7 +4,7 @@ import Svg, { Circle, Path } from 'react-native-svg';
 import { Colors } from '~/styles/colors';
 import { SvgProps } from '~/types/SvgProps';
 
-export default function FacebookIcon({ color = Colors.secondary }: SvgProps) {
+export default function SettingIcon({ color = Colors.secondary }: SvgProps) {
   return (
     <View style={{ aspectRatio: 1 }}>
       <Svg viewBox="0 0 24 24" fill="none">
