@@ -12,7 +12,7 @@ import SwitchIcon from '~/assets/icons/SwitchIcon';
 const data = Locations.map((location) => getNameCountry(location));
 
 const FromTo = () => {
-  const { control } = useFormContext();
+  const { control, getValues } = useFormContext();
 
   return (
     <View style={{ rowGap: rH(8), justifyContent: 'center' }}>
@@ -36,7 +36,12 @@ const FromTo = () => {
           right: rW(40)
         }}
       >
-        <ButtonIcon Icon={SwitchIcon} borderRadius={12} padding={8} />
+        <ButtonIcon
+          Icon={SwitchIcon}
+          borderRadius={12}
+          padding={8}
+          onPress={() => console.log(getValues())}
+        />
       </View>
     </View>
   );

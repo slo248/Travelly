@@ -52,11 +52,14 @@ const TransportBooking = () => {
           control={control}
           name="transport"
           horizontal
-          data={Transports}
+          data={Transports.map((transport) => transport.name)}
           renderItem={({ item, index, state, onChange, style }) => (
             <View key={index} style={[style, { width: 50, height: 50 }]}>
               <ButtonIcon
-                Icon={item.icon}
+                Icon={
+                  Transports.filter((transport) => transport.name === item)[0]
+                    .icon
+                }
                 padding={9}
                 reverseStyle={state}
                 backgroundColor={Colors.white}

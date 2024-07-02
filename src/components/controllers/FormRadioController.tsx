@@ -64,7 +64,7 @@ const FormRadioController = <FV extends FieldValues, DataType>({
               renderItem({
                 item,
                 index,
-                state: JSON.stringify(value) === JSON.stringify(item),
+                state: value === item,
                 onChange,
                 style: {
                   flex: 1,
