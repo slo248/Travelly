@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React, { useContext } from 'react';
 import { globalStyles } from '~/styles/globalStyles';
 import CustomHeader from '~/components/CustomHeader';
@@ -7,9 +7,10 @@ import FormInputController from '~/components/controllers/FormInputController';
 import { rH, rMS, rW } from '~/styles/responsive';
 import { Colors } from '~/styles/colors';
 import { Fonts } from '~/styles/fonts';
-import { ButtonText } from '~/components/Button';
+import { ButtonIcon, ButtonText } from '~/components/Button';
 import { useFocusEffect } from '@react-navigation/native';
 import { useAuth } from '~/contexts/AuthContext';
+import CameraIcon from '~/assets/icons/CameraIcon';
 
 const PersonalInfo = () => {
   const [{ user }, dispatch] = useAuth();
@@ -19,6 +20,36 @@ const PersonalInfo = () => {
     <View style={globalStyles.container}>
       <CustomHeader title="Personal Information" />
       <ScrollView>
+        <View
+          style={{
+            marginBottom: rH(32),
+            alignItems: 'center',
+            alignSelf: 'center'
+          }}
+        >
+          <Image
+            resizeMode="cover"
+            source={user?.avatar}
+            style={styles.avatar}
+          />
+          <View
+            style={{
+              width: rW(28),
+              height: rH(28),
+              position: 'absolute',
+              bottom: 0,
+              right: 0
+            }}
+          >
+            <ButtonIcon
+              Icon={CameraIcon}
+              padding={4}
+              color={Colors.tertiary}
+              backgroundColor={Colors.background}
+              borderRadius={7}
+            />
+          </View>
+        </View>
         <View style={styles.input}>
           <Text style={styles.inputTitle}>First Name</Text>
           <FormInputController
@@ -108,5 +139,10 @@ const styles = StyleSheet.create({
   saveButton: {
     marginTop: 'auto',
     height: rH(60)
+  },
+  avatar: {
+    width: rW(120),
+    height: rH(120),
+    borderRadius: 20
   }
 });
