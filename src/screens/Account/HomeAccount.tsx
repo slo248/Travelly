@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   Image,
   StyleSheet,
@@ -15,9 +16,10 @@ import { Fonts } from '~/styles/fonts';
 import { Colors } from '~/styles/colors';
 import { accountInfo } from '~/data/account';
 import ExitIcon from '~/assets/icons/ExitIcon';
+import { FeatureNotImplemented } from '~/constants';
 
 const HomeAccount = () => {
-  const { user } = useContext(AuthContext);
+  const { user, signOut } = useContext(AuthContext);
   return (
     <View style={globalStyles.container}>
       <CustomHeader title="Account" />
@@ -33,7 +35,10 @@ const HomeAccount = () => {
         renderItem={({ item }) => {
           const Icon = item.icon;
           return (
-            <TouchableOpacity style={styles.option}>
+            <TouchableOpacity
+              style={styles.option}
+              onPress={() => Alert.alert(FeatureNotImplemented)}
+            >
               <View style={styles.optionIcon}>
                 <Icon />
               </View>
@@ -43,7 +48,7 @@ const HomeAccount = () => {
         }}
         ItemSeparatorComponent={() => <View style={{ height: rH(24) }} />}
       />
-      <TouchableOpacity style={styles.exitButton}>
+      <TouchableOpacity style={styles.exitButton} onPress={signOut}>
         <View style={styles.optionIcon}>
           <ExitIcon color={Colors.error} />
         </View>

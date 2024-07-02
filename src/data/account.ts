@@ -1,3 +1,4 @@
+import CreditCardIcon from '~/assets/icons/CreditCardIcon';
 import HeartIcon from '~/assets/icons/HeartIcon';
 import HistoryIcon from '~/assets/icons/HistoryIcon';
 import PersonIcon from '~/assets/icons/PersonIcon';
@@ -10,7 +11,7 @@ export const accountInfo = [
   },
   {
     title: 'Payment and cards',
-    icon: HeartIcon
+    icon: CreditCardIcon
   },
   {
     title: 'Saved',
