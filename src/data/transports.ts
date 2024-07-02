@@ -1,9 +1,9 @@
 import { FC } from 'react';
+import AccountIcon from '~/assets/icons/AccountIcon';
 
 import CarIcon from '~/assets/icons/CarIcon';
 import ChildIcon from '~/assets/icons/ChildIcon';
 import LuggageIcon from '~/assets/icons/LuggageIcon';
-import PersonIcon from '~/assets/icons/PersonIcon';
 import PetIcon from '~/assets/icons/PetIcon';
 import PlaneIcon from '~/assets/icons/PlaneIcon';
 import ShipIcon from '~/assets/icons/ShipIcon';
@@ -101,7 +101,7 @@ export const Transports: TransportType[] = [
 export const TravelCompanions: TravelCompanionType[] = [
   {
     name: TravelCompanion.Adults,
-    icon: PersonIcon
+    icon: AccountIcon
   },
   {
     name: TravelCompanion.Childrens,
