@@ -50,7 +50,8 @@ const PassengerLuggage = () => {
                 control={control}
                 focused={focused}
                 name={name as string}
-                placeholder={'0'}
+                defaultValue="0"
+                placeholder="0"
                 textInputProps={{
                   inputMode: 'numeric',
                   keyboardType: 'number-pad',

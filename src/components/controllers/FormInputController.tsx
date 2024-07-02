@@ -5,7 +5,8 @@ import {
   Controller,
   FieldErrors,
   FieldValues,
-  Path
+  Path,
+  PathValue
 } from 'react-hook-form';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Texts } from '~/styles/texts';
@@ -19,6 +20,7 @@ interface FormInputControllerProps<T extends FieldValues> {
   placeholder: string;
   textInputProps?: TextInputProps;
   focused?: boolean;
+  defaultValue?: string;
   onFocus?: () => void;
   onBlur?: () => void;
 }
@@ -29,6 +31,7 @@ const FormInputController = <T extends FieldValues>({
   name,
   placeholder,
   textInputProps,
+  defaultValue,
   onFocus,
   onBlur,
   focused = false
@@ -36,6 +39,7 @@ const FormInputController = <T extends FieldValues>({
   return (
     <>
       <Controller
+        defaultValue={defaultValue as PathValue<T, Path<T>>}
         {...{ control, name: name as Path<T> }}
         render={({ field: { onBlur, onChange, value } }) => (
           <TextInput
