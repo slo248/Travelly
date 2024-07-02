@@ -57,13 +57,12 @@ const PassengerLuggage = () => {
                   style: {
                     paddingVertical: 0,
                     textAlign: 'center',
-                    fontFamily: Fonts.medium,
+                    fontFamily: Fonts.regular,
                     fontSize: rMS(16),
-                    color: focused ? Colors.primary : Colors.placeholder
+                    color: focused ? Colors.primary : Colors.tertiary
                   }
                 }}
                 onFocus={() => setCurrentIndex(index)}
-                onBlur={() => setCurrentIndex(-1)}
               />
             </View>
           );
