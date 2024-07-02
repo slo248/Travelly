@@ -7,10 +7,12 @@ import { FeatureNotImplemented } from '~/constants';
 import { BookingStackParamList } from '~/navigators/BookingStack';
 import { AuthStackParamList } from '~/navigators/AuthStack';
 
-export type SwitchFromHomeType = {
-  stackName: keyof AuthStackParamList;
-  nextScreen: keyof BookingStackParamList;
-};
+export type SwitchFromHomeType =
+  | {
+      stackName: keyof AuthStackParamList;
+      nextScreen: keyof BookingStackParamList;
+    }
+  | undefined;
 
 export const services = [
   {
@@ -21,10 +23,7 @@ export const services = [
       Alert.alert(FeatureNotImplemented);
       return 'HomeBooking';
     },
-    switchFromHome: (): SwitchFromHomeType => ({
-      stackName: 'Booking',
-      nextScreen: 'TransportBooking'
-    })
+    switchFromHome: (): SwitchFromHomeType => undefined
   },
   {
     name: 'Hotel',
@@ -34,10 +33,7 @@ export const services = [
       Alert.alert(FeatureNotImplemented);
       return 'HomeBooking';
     },
-    switchFromHome: (): SwitchFromHomeType => ({
-      stackName: 'Booking',
-      nextScreen: 'TransportBooking'
-    })
+    switchFromHome: (): SwitchFromHomeType => undefined
   },
   {
     name: 'Transport',
@@ -57,9 +53,6 @@ export const services = [
       Alert.alert(FeatureNotImplemented);
       return 'HomeBooking';
     },
-    switchFromHome: (): SwitchFromHomeType => ({
-      stackName: 'Booking',
-      nextScreen: 'TransportBooking'
-    })
+    switchFromHome: (): SwitchFromHomeType => undefined
   }
 ];
