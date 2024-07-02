@@ -24,68 +24,70 @@ const TransportBooking = () => {
   const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
 
   return (
-    <ScrollView style={globalStyles.container}>
+    <View style={globalStyles.container}>
       <CustomHeader title={headerTitle} />
-      <FromTo />
-      <View style={{ marginTop: rH(16) }}>
-        <DepartureReturn />
-      </View>
-      <View style={{ marginTop: rH(16) }}>
-        <PassengerLuggage />
-      </View>
-      <View style={{ marginTop: rH(16) }}>
-        <Text style={styles.heading}>Class</Text>
-        <FormRadioController
-          control={control}
-          name="class"
-          horizontal
-          data={Object.values(Class)}
-          renderItem={({ item, index, state, onChange, style }) => (
-            <View key={index} style={[style, { width: 100, height: 50 }]}>
-              <ButtonText
-                title={item}
-                reverseStyle={state}
-                backgroundColor={Colors.white}
-                color={Colors.green500}
-                onPress={() => onChange(item)}
-                textStyle={globalStyles.textOptionForm}
-              />
-            </View>
-          )}
-        />
-      </View>
-      <View style={{ marginTop: rH(16) }}>
-        <Text style={styles.heading}>Transport</Text>
-        <FormRadioController
-          control={control}
-          name="transport"
-          horizontal
-          data={Transports.map((transport) => transport.name)}
-          renderItem={({ item, index, state, onChange, style }) => (
-            <View key={index} style={[style, { width: 50, height: 50 }]}>
-              <ButtonIcon
-                Icon={
-                  Transports.filter((transport) => transport.name === item)[0]
-                    .icon
-                }
-                padding={9}
-                reverseStyle={state}
-                backgroundColor={Colors.white}
-                color={Colors.green500}
-                onPress={() => onChange(item)}
-              />
-            </View>
-          )}
-        />
-      </View>
-      <View style={{ height: rH(60), marginTop: rH(32) }}>
-        <ButtonText
-          borderRadius={20}
-          title="Search"
-          onPress={() => navigation.navigate('Flights')}
-        />
-      </View>
-    </ScrollView>
+      <ScrollView>
+        <FromTo />
+        <View style={{ marginTop: rH(16) }}>
+          <DepartureReturn />
+        </View>
+        <View style={{ marginTop: rH(16) }}>
+          <PassengerLuggage />
+        </View>
+        <View style={{ marginTop: rH(16) }}>
+          <Text style={styles.heading}>Class</Text>
+          <FormRadioController
+            control={control}
+            name="class"
+            horizontal
+            data={Object.values(Class)}
+            renderItem={({ item, index, state, onChange, style }) => (
+              <View key={index} style={[style, { width: 100, height: 50 }]}>
+                <ButtonText
+                  title={item}
+                  reverseStyle={state}
+                  backgroundColor={Colors.white}
+                  color={Colors.green500}
+                  onPress={() => onChange(item)}
+                  textStyle={globalStyles.textOptionForm}
+                />
+              </View>
+            )}
+          />
+        </View>
+        <View style={{ marginTop: rH(16) }}>
+          <Text style={styles.heading}>Transport</Text>
+          <FormRadioController
+            control={control}
+            name="transport"
+            horizontal
+            data={Transports.map((transport) => transport.name)}
+            renderItem={({ item, index, state, onChange, style }) => (
+              <View key={index} style={[style, { width: 50, height: 50 }]}>
+                <ButtonIcon
+                  Icon={
+                    Transports.filter((transport) => transport.name === item)[0]
+                      .icon
+                  }
+                  padding={9}
+                  reverseStyle={state}
+                  backgroundColor={Colors.white}
+                  color={Colors.green500}
+                  onPress={() => onChange(item)}
+                />
+              </View>
+            )}
+          />
+        </View>
+        <View style={{ height: rH(60), marginTop: rH(32) }}>
+          <ButtonText
+            borderRadius={20}
+            title="Search"
+            onPress={() => navigation.navigate('Flights')}
+          />
+        </View>
+      </ScrollView>
+    </View>
   );
 };
 
