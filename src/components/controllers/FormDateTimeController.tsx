@@ -9,6 +9,7 @@ import {
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { globalStyles } from '~/styles/globalStyles';
+import { toDateString1 } from '~/utils/toDateString';
 
 interface FormDateTimeControllerProps<T extends FieldValues> {
   control: Control<T>;
@@ -26,14 +27,12 @@ const FormDateTimeController = <T extends FieldValues>({
   title
 }: FormDateTimeControllerProps<T>) => {
   const [show, setShow] = useState(false);
-  const [date, setDate] = useState(new Date());
 
   return (
     <>
       <Controller
         control={control}
         name={name as Path<T>}
-        defaultValue={new Date()}
         render={({ field: { onChange, value } }) => (
           <TouchableOpacity
             activeOpacity={0.5}
@@ -42,9 +41,7 @@ const FormDateTimeController = <T extends FieldValues>({
           >
             <Text style={globalStyles.headingForm}>{title}</Text>
             <Text style={globalStyles.textForm}>
-              {value instanceof Date
-                ? value.toLocaleDateString()
-                : 'Select Date'}
+              {value instanceof Date ? toDateString1(value) : 'Select Date'}
             </Text>
             {show && (
               <DateTimePicker
