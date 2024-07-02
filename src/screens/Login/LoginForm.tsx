@@ -6,8 +6,10 @@ import { ButtonText } from '~/components/Button';
 import FormInputController from '~/components/controllers/FormInputController';
 
 import { loginSchema } from '~/constants/schemas/login';
+import { Colors } from '~/styles/colors';
+import { Fonts } from '~/styles/fonts';
 import { globalStyles } from '~/styles/globalStyles';
-import { rH } from '~/styles/responsive';
+import { rH, rMS, rW } from '~/styles/responsive';
 import { UserFieldValues } from '~/types/UserFieldValues';
 
 export type LoginFormProps = {
@@ -32,6 +34,12 @@ const LoginForm: FC<LoginFormProps> = ({
             name="email"
             placeholder="Email"
             errors={errors}
+            others={{
+              style: {
+                fontSize: rMS(16),
+                fontFamily: Fonts.regular
+              }
+            }}
           />
         </View>
         <View style={styles.input}>
@@ -40,7 +48,11 @@ const LoginForm: FC<LoginFormProps> = ({
             name="password"
             placeholder="Password"
             others={{
-              secureTextEntry: true
+              secureTextEntry: true,
+              style: {
+                fontSize: rMS(16),
+                fontFamily: Fonts.regular
+              }
             }}
             errors={errors}
           />
@@ -58,7 +70,12 @@ const styles = StyleSheet.create({
     rowGap: rH(25)
   },
   input: {
-    height: rH(54)
+    height: rH(54),
+    borderRadius: 15,
+    backgroundColor: Colors.white,
+    paddingHorizontal: rW(16),
+    fontSize: rMS(16),
+    justifyContent: 'center'
   },
   submitBtn: {
     height: rH(60)

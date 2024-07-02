@@ -32,7 +32,6 @@ const FormInputController = <T extends FieldValues>({
         {...{ control, name: name as Path<T> }}
         render={({ field: { onBlur, onChange, value } }) => (
           <TextInput
-            style={styles.input}
             {...{
               placeholder,
               onBlur,
@@ -51,13 +50,6 @@ const FormInputController = <T extends FieldValues>({
 };
 
 const styles = StyleSheet.create({
-  input: {
-    flex: 1,
-    borderRadius: 15,
-    backgroundColor: Colors.white,
-    paddingHorizontal: rW(16),
-    fontSize: rMS(16)
-  },
   error: {
     ...Texts.error,
     position: 'absolute',
