@@ -51,7 +51,7 @@ const FormDateTimeController = <T extends FieldValues>({
                 value={value instanceof Date ? value : new Date()}
                 onChange={(event, selectedDate) => {
                   setShow(false);
-                  onChange(selectedDate || value);
+                  if (event.type === 'set') onChange(selectedDate || value);
                 }}
               />
             )}
