@@ -1,6 +1,10 @@
 import { FC } from 'react';
 
 import CarIcon from '~/assets/icons/CarIcon';
+import ChildIcon from '~/assets/icons/ChildIcon';
+import LuggageIcon from '~/assets/icons/LuggageIcon';
+import PersonIcon from '~/assets/icons/PersonIcon';
+import PetIcon from '~/assets/icons/PetIcon';
 import PlaneIcon from '~/assets/icons/PlaneIcon';
 import ShipIcon from '~/assets/icons/ShipIcon';
 import TrainIcon from '~/assets/icons/TrainIcon';
@@ -18,6 +22,13 @@ export enum Transport {
   Car = 'Car'
 }
 
+export enum TravelCompanion {
+  Adults = 'adults',
+  Childrens = 'children',
+  Pets = 'pets',
+  LuggageWeight = 'luggageWeight'
+}
+
 export interface LocationType {
   id: string;
   name: string;
@@ -25,6 +36,11 @@ export interface LocationType {
 
 export interface TransportType {
   name: Transport;
+  icon: FC<SvgProps>;
+}
+
+export interface TravelCompanionType {
+  name: TravelCompanion;
   icon: FC<SvgProps>;
 }
 
@@ -79,5 +95,24 @@ export const Transports: TransportType[] = [
   {
     name: Transport.Car,
     icon: CarIcon
+  }
+];
+
+export const TravelCompanions: TravelCompanionType[] = [
+  {
+    name: TravelCompanion.Adults,
+    icon: PersonIcon
+  },
+  {
+    name: TravelCompanion.Childrens,
+    icon: ChildIcon
+  },
+  {
+    name: TravelCompanion.Pets,
+    icon: PetIcon
+  },
+  {
+    name: TravelCompanion.LuggageWeight,
+    icon: LuggageIcon
   }
 ];

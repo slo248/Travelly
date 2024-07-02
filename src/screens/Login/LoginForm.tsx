@@ -34,7 +34,7 @@ const LoginForm: FC<LoginFormProps> = ({
             name="email"
             placeholder="Email"
             errors={errors}
-            others={{
+            textInputProps={{
               style: {
                 fontSize: rMS(16),
                 fontFamily: Fonts.regular
@@ -47,7 +47,7 @@ const LoginForm: FC<LoginFormProps> = ({
             control={control}
             name="password"
             placeholder="Password"
-            others={{
+            textInputProps={{
               secureTextEntry: true,
               style: {
                 fontSize: rMS(16),

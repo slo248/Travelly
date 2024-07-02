@@ -26,7 +26,7 @@ const SearchBox: FC<SearchBoxProps> = ({
           control={control}
           name="search"
           placeholder="Search"
-          others={{
+          textInputProps={{
             style: {
               fontSize: rMS(14),
               fontFamily: Fonts.regular,

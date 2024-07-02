@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import React, { useLayoutEffect } from 'react';
 import HeaderBooking from '../../../components/CustomHeader';
 import FromTo from './FromTo';
@@ -15,6 +15,7 @@ import ShipIcon from '~/assets/icons/ShipIcon';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { BookingStackParamList } from '~/navigators/BookingStack';
 import CustomHeader from '~/components/CustomHeader';
+import PassengerLuggage from './PassengerLuggage';
 
 const headerTitle = 'Transport Booking';
 
@@ -23,11 +24,14 @@ const TransportBooking = () => {
   const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
 
   return (
-    <View style={globalStyles.container}>
+    <ScrollView style={globalStyles.container}>
       <CustomHeader title={headerTitle} />
       <FromTo />
       <View style={{ marginTop: rH(16) }}>
         <DepartureReturn />
+      </View>
+      <View style={{ marginTop: rH(16) }}>
+        <PassengerLuggage />
       </View>
       <View style={{ marginTop: rH(16) }}>
         <Text style={styles.heading}>Class</Text>
@@ -81,7 +85,7 @@ const TransportBooking = () => {
           onPress={() => navigation.navigate('Flights')}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

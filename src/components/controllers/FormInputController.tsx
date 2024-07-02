@@ -1,5 +1,5 @@
 import { StyleSheet, TextInput, TextInputProps, Text } from 'react-native';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import {
   Control,
   Controller,
@@ -10,13 +10,17 @@ import {
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Texts } from '~/styles/texts';
 import { rH, rMS, rW } from '~/styles/responsive';
+import { Fonts } from '~/styles/fonts';
 
 interface FormInputControllerProps<T extends FieldValues> {
   control: Control<T>;
   errors?: FieldErrors<T>;
   name: keyof T;
   placeholder: string;
-  others?: TextInputProps;
+  textInputProps?: TextInputProps;
+  focused?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 const FormInputController = <T extends FieldValues>({
@@ -24,7 +28,10 @@ const FormInputController = <T extends FieldValues>({
   errors,
   name,
   placeholder,
-  others
+  textInputProps,
+  onFocus,
+  onBlur,
+  focused = false
 }: FormInputControllerProps<T>) => {
   return (
     <>
@@ -32,12 +39,13 @@ const FormInputController = <T extends FieldValues>({
         {...{ control, name: name as Path<T> }}
         render={({ field: { onBlur, onChange, value } }) => (
           <TextInput
+            {...textInputProps}
             {...{
               placeholder,
-              onBlur,
               onChangeText: onChange,
               value,
-              ...others
+              onFocus,
+              onBlur
             }}
           />
         )}
