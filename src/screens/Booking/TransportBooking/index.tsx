@@ -17,10 +17,12 @@ import { BookingStackParamList } from '~/navigators/BookingStack';
 import CustomHeader from '~/components/CustomHeader';
 import PassengerLuggage from './PassengerLuggage';
 
+import { TransportFieldNames } from '~/types/BookingFieldNames';
+
 const headerTitle = 'Transport Booking';
 
 const TransportBooking = () => {
-  const { control } = useFormContext();
+  const { control, handleSubmit } = useFormContext();
   const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
 
   return (
@@ -83,7 +85,7 @@ const TransportBooking = () => {
           <ButtonText
             borderRadius={20}
             title="Search"
-            onPress={() => navigation.navigate('Flights')}
+            onPress={handleSubmit((data) => console.log(JSON.stringify(data)))}
           />
         </View>
       </ScrollView>

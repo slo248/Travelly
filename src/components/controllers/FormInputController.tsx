@@ -1,4 +1,10 @@
-import { StyleSheet, TextInput, TextInputProps, Text } from 'react-native';
+import {
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  Text,
+  View
+} from 'react-native';
 import { FC, useState } from 'react';
 import {
   Control,
@@ -6,7 +12,8 @@ import {
   FieldErrors,
   FieldValues,
   Path,
-  PathValue
+  PathValue,
+  useController
 } from 'react-hook-form';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Texts } from '~/styles/texts';
@@ -15,7 +22,6 @@ import { Fonts } from '~/styles/fonts';
 
 interface FormInputControllerProps<T extends FieldValues> {
   control: Control<T>;
-  errors?: FieldErrors<T>;
   name: keyof T;
   placeholder: string;
   textInputProps?: TextInputProps;
@@ -27,7 +33,6 @@ interface FormInputControllerProps<T extends FieldValues> {
 
 const FormInputController = <T extends FieldValues>({
   control,
-  errors,
   name,
   placeholder,
   textInputProps,
@@ -36,37 +41,36 @@ const FormInputController = <T extends FieldValues>({
   onBlur,
   focused = false
 }: FormInputControllerProps<T>) => {
+  const {
+    field: { onChange, value },
+    formState: { errors }
+  } = useController({
+    control,
+    name: name as Path<T>,
+    defaultValue: defaultValue as PathValue<T, Path<T>>
+  });
   return (
-    <>
-      <Controller
-        defaultValue={defaultValue as PathValue<T, Path<T>>}
-        {...{ control, name: name as Path<T> }}
-        render={({ field: { onBlur, onChange, value } }) => (
-          <TextInput
-            {...textInputProps}
-            {...{
-              placeholder,
-              onChangeText: onChange,
-              value,
-              onFocus,
-              onBlur
-            }}
-          />
-        )}
+    <View>
+      <TextInput
+        {...textInputProps}
+        {...{
+          placeholder,
+          onChangeText: onChange,
+          value,
+          onFocus,
+          onBlur
+        }}
       />
       {errors && errors[name] && (
         <Text style={styles.error}>{String(errors[name]?.message)}</Text>
       )}
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   error: {
-    ...Texts.error,
-    position: 'absolute',
-    marginTop: rMS(4),
-    bottom: rH(-20)
+    ...Texts.error
   }
 });
 

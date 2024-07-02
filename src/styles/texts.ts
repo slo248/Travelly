@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { Colors } from './colors';
 import { Fonts } from './fonts';
-import { rMS } from './responsive';
+import { rH, rMS } from './responsive';
 
 export const Texts = StyleSheet.create({
   h1: {
@@ -26,8 +26,12 @@ export const Texts = StyleSheet.create({
     fontFamily: Fonts.regular
   },
   error: {
+    width: 500,
+    position: 'absolute',
+    bottom: rH(-20),
     color: Colors.red,
     fontSize: rMS(12),
-    fontFamily: Fonts.medium
+    fontFamily: Fonts.medium,
+    zIndex: 1
   }
 });

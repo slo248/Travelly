@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
   NavigationProp,
   useFocusEffect,
@@ -6,6 +7,7 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { bookingSchema } from '~/constants/schemas/booking';
 import Flights from '~/screens/Booking/Flights';
 import HomeBooking from '~/screens/Booking/HomeBooking';
 import TransportBooking from '~/screens/Booking/TransportBooking';
@@ -20,7 +22,7 @@ const Stack = createNativeStackNavigator<BookingStackParamList>();
 
 const BookingStack = () => {
   const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
-  const methods = useForm();
+  const methods = useForm({ resolver: yupResolver(bookingSchema) });
   useFocusEffect(
     useCallback(() => {
       console.log('Booking focused');

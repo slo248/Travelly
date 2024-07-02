@@ -33,7 +33,6 @@ const LoginForm: FC<LoginFormProps> = ({
             control={control}
             name="email"
             placeholder="Email"
-            errors={errors}
             textInputProps={{
               style: {
                 fontSize: rMS(16),
@@ -54,7 +53,6 @@ const LoginForm: FC<LoginFormProps> = ({
                 fontFamily: Fonts.regular
               }
             }}
-            errors={errors}
           />
         </View>
       </View>

@@ -23,27 +23,27 @@ import { Colors } from '~/styles/colors';
 import { globalStyles } from '~/styles/globalStyles';
 
 interface FormSelectControllerProps<FV extends FieldValues, DataType> {
-  data: DataType[];
   control: Control<FV>;
-  errors?: FieldErrors<FV>;
+  data: DataType[];
   name: keyof FV & string;
   title: string;
   setIndex?: number;
 }
 
 const FormSelectController = <FV extends FieldValues, DataType>({
-  data,
   control,
-  errors,
+  data,
   name,
   title,
   setIndex
 }: FormSelectControllerProps<FV, DataType>) => {
   const {
+    formState: { errors },
     field: { onChange }
-  } = useController({ name: name as Path<FV>, control });
+  } = useController({ control, name: name as Path<FV> });
 
   const dropdownRef = useRef<SelectDropdown>(null);
+  console.log(errors);
 
   useLayoutEffect(() => {
     if (setIndex === undefined) return;
@@ -53,7 +53,7 @@ const FormSelectController = <FV extends FieldValues, DataType>({
   }, [setIndex]);
 
   return (
-    <>
+    <View>
       <SelectDropdown
         ref={dropdownRef}
         data={data}
@@ -88,16 +88,13 @@ const FormSelectController = <FV extends FieldValues, DataType>({
       {errors && errors[name] && (
         <Text style={styles.error}>{String(errors[name]?.message)}</Text>
       )}
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   error: {
-    ...Texts.error,
-    position: 'absolute',
-    marginTop: rMS(4),
-    bottom: rH(-20)
+    ...Texts.error
   },
   dropdownItem: {
     paddingVertical: rH(8),

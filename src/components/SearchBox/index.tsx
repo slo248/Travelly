@@ -3,7 +3,7 @@ import { View, Text, Alert, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { FeatureNotImplemented } from '~/constants';
 import FormInputController from '../controllers/FormInputController';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { SearchFieldValues } from '~/types/SearchFieldValues';
 import { rH, rMS, rW } from '~/styles/responsive';
 import ButtonIcon from '../Button/ButtonIcon';
