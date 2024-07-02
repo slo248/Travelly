@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { globalStyles } from '~/styles/globalStyles';
 import { useFormContext } from 'react-hook-form';
 import FormSelectController from '~/components/controllers/FormSelectController';
@@ -13,6 +13,33 @@ const data = Locations.map((location) => getNameCountry(location));
 
 const FromTo = () => {
   const { control, getValues } = useFormContext();
+  const [state, setState] = useState<{
+    from: number | undefined;
+    to: number | undefined;
+  }>({
+    from: undefined,
+    to: undefined
+  });
+
+  const onSwitch = useCallback(() => {
+    const from = data.reduce((acc, location, index) => {
+      if (location === getValues('locationFrom')) {
+        return index;
+      }
+      return acc;
+    }, 0);
+    const to = data.reduce((acc, location, index) => {
+      if (location === getValues('locationTo')) {
+        return index;
+      }
+      return acc;
+    }, 0);
+    setState({ from: to, to: from });
+  }, []);
+
+  useEffect(() => {
+    console.log(getValues(['locationFrom', 'locationTo']));
+  }, [state]);
 
   return (
     <View style={{ rowGap: rH(8), justifyContent: 'center' }}>
@@ -21,12 +48,14 @@ const FromTo = () => {
         data={data}
         name="locationFrom"
         title="From"
+        setIndex={state.from}
       />
       <FormSelectController
         control={control}
         data={data}
         name="locationTo"
         title="To"
+        setIndex={state.to}
       />
       <View
         style={{
@@ -40,7 +69,11 @@ const FromTo = () => {
           Icon={SwitchIcon}
           borderRadius={12}
           padding={8}
-          onPress={() => console.log(getValues())}
+          onPress={() => {
+            console.log('Switching from and to');
+            console.log(getValues(['locationFrom', 'locationTo']));
+            onSwitch();
+          }}
         />
       </View>
     </View>
