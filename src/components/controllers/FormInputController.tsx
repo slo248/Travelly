@@ -23,7 +23,7 @@ import { Fonts } from '~/styles/fonts';
 interface FormInputControllerProps<T extends FieldValues> {
   control: Control<T>;
   name: keyof T;
-  placeholder: string;
+  placeholder?: string;
   textInputProps?: TextInputProps;
   focused?: boolean;
   defaultValue?: string;
@@ -49,10 +49,15 @@ const FormInputController = <T extends FieldValues>({
     name: name as Path<T>,
     defaultValue: defaultValue as PathValue<T, Path<T>>
   });
+  const { style, ...others } = textInputProps;
   return (
     <View>
       <TextInput
-        {...textInputProps}
+        style={{
+          padding: 0,
+          fontFamily: Fonts.regular,
+          ...style
+        }}
         {...{
           placeholder,
           onChangeText: onChange,

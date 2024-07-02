@@ -17,7 +17,7 @@ export default function CameraIcon({ color = Colors.secondary }: SvgProps) {
         />
         <Path
           d="M21.5833 4.6665V7.58317M21.5833 10.4998V7.58317M21.5833 7.58317H18.6667M21.5833 7.58317H24.5"
-          stroke="#050505"
+          stroke={color}
           strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -27,7 +27,7 @@ export default function CameraIcon({ color = Colors.secondary }: SvgProps) {
           cy="15.1667"
           rx="4.66667"
           ry="4.66667"
-          stroke="#050505"
+          stroke={color}
           strokeWidth="1.8"
           strokeLinecap="round"
           strokeLinejoin="round"

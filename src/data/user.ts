@@ -1,8 +1,10 @@
-export const user = {
-  id: 1,
+import { UserType } from '~/types/UserType';
+
+export const user: UserType = {
   firstname: 'Victoria',
   lastname: 'Yoker',
   phone: '+380 12 345 67 89',
   email: 'victoria.yoker@gmail.com',
+  password: 'abc123',
   avatar: require('~/assets/imgs/avatar.jpg')
 };
