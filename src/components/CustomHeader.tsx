@@ -19,7 +19,7 @@ const CustomHeader: FC<CustomHeaderProps> = ({ title }) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        {title !== 'Booking' && (
+        {title !== 'Booking' && title !== 'Account' && (
           <View style={styles.button}>
             <ButtonIcon
               Icon={Chevron}

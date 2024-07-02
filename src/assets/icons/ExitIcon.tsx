@@ -4,14 +4,14 @@ import Svg, { Path } from 'react-native-svg';
 import { Colors } from '~/styles/colors';
 import { SvgProps } from '~/types/SvgProps';
 
-export default function PersonIcon({ color = Colors.secondary }: SvgProps) {
+export default function ExitIcon({ color = Colors.secondary }: SvgProps) {
   return (
     <View style={{ aspectRatio: 1 }}>
-      <Svg viewBox="0 0 24 24" fill="none">
+      <Svg viewBox="0 0 25 24" fill="none">
         <Path
-          d="M5 20V19C5 16.2386 7.23858 14 10 14H14C16.7614 14 19 16.2386 19 19V20M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
+          d="M15.5 16.5V19C15.5 20.1046 14.6046 21 13.5 21H6.5C5.39543 21 4.5 20.1046 4.5 19V5C4.5 3.89543 5.39543 3 6.5 3H13.5C14.6046 3 15.5 3.89543 15.5 5V8.0625M11.5 12H21.5M21.5 12L19 9.5M21.5 12L19 14.5"
           stroke={color}
-          strokeWidth="1.5"
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />

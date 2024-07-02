@@ -29,5 +29,6 @@ export const Colors = {
   placeholder: '#727272',
   tabActive: '#FFDDA2',
   tabInActive: 'transparent',
-  background: '#F5F5F5'
+  background: '#F5F5F5',
+  error: '#FF3636'
 };

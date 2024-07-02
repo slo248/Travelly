@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native';
 import RootStack from './navigators/RootStack';
 import AuthStack from './navigators/AuthStack';
 import { AuthContext } from './contexts/AuthContext';
+import { user } from './data/user';
 
 enableScreens();
 
@@ -16,7 +17,8 @@ export default function App() {
     <AuthContext.Provider
       value={{
         signIn: () => setIsSignedIn(true),
-        signOut: () => setIsSignedIn(false)
+        signOut: () => setIsSignedIn(false),
+        user
       }}
     >
       <SafeAreaView style={{ flex: 1 }}>
