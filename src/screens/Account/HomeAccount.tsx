@@ -10,7 +10,6 @@ import {
 import React, { useContext } from 'react';
 import { globalStyles } from '~/styles/globalStyles';
 import CustomHeader from '~/components/CustomHeader';
-import { AuthContext } from '~/contexts/AuthContext';
 import { rH, rMS, rW } from '~/styles/responsive';
 import { Fonts } from '~/styles/fonts';
 import { Colors } from '~/styles/colors';
@@ -19,17 +18,18 @@ import ExitIcon from '~/assets/icons/ExitIcon';
 import { FeatureNotImplemented } from '~/constants';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { AccountStackParamList } from '~/navigators/AccountStack';
+import { useAuth } from '~/contexts/AuthContext';
 
 const HomeAccount = () => {
-  const { user, signOut } = useContext(AuthContext);
+  const [{ user }, dispatch] = useAuth();
   const navigation = useNavigation<NavigationProp<AccountStackParamList>>();
   return (
     <View style={globalStyles.container}>
       <CustomHeader title="Account" />
       <View style={styles.heading}>
-        <Image resizeMode="cover" source={user.avatar} style={styles.image} />
+        <Image resizeMode="cover" source={user?.avatar} style={styles.image} />
         <Text style={styles.name}>
-          {user.firstname} {user.lastname}
+          {user?.firstname} {user?.lastname}
         </Text>
       </View>
       <FlatList
@@ -55,7 +55,14 @@ const HomeAccount = () => {
         }}
         ItemSeparatorComponent={() => <View style={{ height: rH(24) }} />}
       />
-      <TouchableOpacity style={styles.exitButton} onPress={signOut}>
+      <TouchableOpacity
+        style={styles.exitButton}
+        onPress={() =>
+          dispatch({
+            type: 'LOGOUT'
+          })
+        }
+      >
         <View style={styles.optionIcon}>
           <ExitIcon color={Colors.error} />
         </View>

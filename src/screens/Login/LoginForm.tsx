@@ -6,24 +6,22 @@ import { ButtonText } from '~/components/Button';
 import FormInputController from '~/components/controllers/FormInputController';
 
 import { loginSchema } from '~/constants/schemas/login';
+import { useAuth } from '~/contexts/AuthContext';
+import { user } from '~/data/user';
 import { Colors } from '~/styles/colors';
 import { Fonts } from '~/styles/fonts';
 import { globalStyles } from '~/styles/globalStyles';
 import { rH, rMS, rW } from '~/styles/responsive';
 import { UserFieldValues } from '~/types/UserFieldValues';
 
-export type LoginFormProps = {
-  onSubmit?: (user: UserFieldValues) => void;
-};
-
-const LoginForm: FC<LoginFormProps> = ({
-  onSubmit = (user: UserFieldValues) => Alert.alert(JSON.stringify(user))
-}) => {
+const LoginForm = () => {
   const {
     control,
     handleSubmit,
     formState: { errors }
   } = useForm<UserFieldValues>({ resolver: yupResolver(loginSchema) });
+
+  const [_, dispatch] = useAuth();
 
   return (
     <View style={(globalStyles.container, { flex: 0, rowGap: rH(32) })}>
@@ -57,7 +55,15 @@ const LoginForm: FC<LoginFormProps> = ({
         </View>
       </View>
       <View style={styles.submitBtn}>
-        <ButtonText title="Sign In" onPress={handleSubmit(onSubmit)} />
+        <ButtonText
+          title="Sign In"
+          onPress={handleSubmit((data) =>
+            dispatch({
+              type: 'LOGIN',
+              payload: user
+            })
+          )}
+        />
       </View>
     </View>
   );
