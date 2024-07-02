@@ -2,12 +2,14 @@ import { useFocusEffect } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import Flights from '~/screens/Booking/Flights';
 import HomeBooking from '~/screens/Booking/HomeBooking';
 import TransportBooking from '~/screens/Booking/TransportBooking';
 
 export type BookingStackParamList = {
   HomeBooking: undefined;
   TransportBooking: undefined;
+  Flights: undefined;
 };
 
 const Stack = createNativeStackNavigator<BookingStackParamList>();
@@ -34,6 +36,7 @@ const BookingStack = () => {
       >
         <Stack.Screen name="HomeBooking" component={HomeBooking} />
         <Stack.Screen name="TransportBooking" component={TransportBooking} />
+        <Stack.Screen name="Flights" component={Flights} />
       </Stack.Navigator>
     </FormProvider>
   );
