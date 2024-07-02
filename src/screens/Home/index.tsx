@@ -3,8 +3,9 @@ import React from 'react';
 import { globalStyles } from '~/styles/globalStyles';
 import Services from './Services';
 import { Texts } from '~/styles/texts';
-import { rH } from '~/styles/responsive';
+import { rH, rW } from '~/styles/responsive';
 import SearchBox from '~/components/SearchBox';
+import { Colors } from '~/styles/colors';
 
 const Home = () => (
   <View style={[globalStyles.container]}>
@@ -23,8 +24,7 @@ const styles = StyleSheet.create({
     marginTop: rH(24)
   },
   searchBox: {
-    marginTop: rH(16),
-    height: rH(40)
+    marginTop: rH(16)
   },
   services: {
     marginTop: rH(24),

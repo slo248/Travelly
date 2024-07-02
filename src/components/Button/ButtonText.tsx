@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleProp, StyleSheet, Text, TextStyle, View } from 'react-native';
 import { FC } from 'react';
 
 import Button, { ButtonProps } from './Button';
@@ -8,6 +8,7 @@ import { Fonts } from '~/styles/fonts';
 
 interface ButtonTextProps extends ButtonProps {
   title: string;
+  textStyle?: TextStyle;
 }
 
 const ButtonText: FC<ButtonTextProps> = ({
@@ -15,12 +16,14 @@ const ButtonText: FC<ButtonTextProps> = ({
   backgroundColor = Colors.secondary,
   color = Colors.white,
   reverseStyle,
+  textStyle,
   ...props
 }) => (
   <Button {...props} {...{ backgroundColor, color, reverseStyle }}>
     <Text
       style={[
         styles.title,
+        textStyle,
         {
           color: reverseStyle ? backgroundColor : color
         }

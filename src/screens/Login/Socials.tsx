@@ -10,13 +10,13 @@ export default function Socials() {
   return (
     <View style={styles.container}>
       <View style={styles.button}>
-        <ButtonIcon reverseStyle Icon={FacebookIcon} />
+        <ButtonIcon padding={14} reverseStyle Icon={FacebookIcon} />
       </View>
       <View style={styles.button}>
-        <ButtonIcon reverseStyle Icon={GoogleIcon} />
+        <ButtonIcon padding={14} reverseStyle Icon={GoogleIcon} />
       </View>
       <View style={styles.button}>
-        <ButtonIcon reverseStyle Icon={AppleIcon} />
+        <ButtonIcon padding={14} reverseStyle Icon={AppleIcon} />
       </View>
     </View>
   );
