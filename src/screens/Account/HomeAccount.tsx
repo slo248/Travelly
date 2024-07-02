@@ -17,9 +17,12 @@ import { Colors } from '~/styles/colors';
 import { accountInfo } from '~/data/account';
 import ExitIcon from '~/assets/icons/ExitIcon';
 import { FeatureNotImplemented } from '~/constants';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { AccountStackParamList } from '~/navigators/AccountStack';
 
 const HomeAccount = () => {
   const { user, signOut } = useContext(AuthContext);
+  const navigation = useNavigation<NavigationProp<AccountStackParamList>>();
   return (
     <View style={globalStyles.container}>
       <CustomHeader title="Account" />
@@ -32,12 +35,16 @@ const HomeAccount = () => {
       <FlatList
         data={accountInfo}
         keyExtractor={(item) => item.title}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           const Icon = item.icon;
           return (
             <TouchableOpacity
               style={styles.option}
-              onPress={() => Alert.alert(FeatureNotImplemented)}
+              onPress={() =>
+                index === 0
+                  ? navigation.navigate('PersonalInfo')
+                  : Alert.alert(FeatureNotImplemented)
+              }
             >
               <View style={styles.optionIcon}>
                 <Icon />

@@ -1,9 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
+import { globalStyles } from '~/styles/globalStyles';
+import CustomHeader from '~/components/CustomHeader';
+import { AuthContext } from '~/contexts/AuthContext';
 
 const PersonalInfo = () => {
+  const { user } = useContext(AuthContext);
   return (
-    <View>
+    <View style={globalStyles.container}>
+      <CustomHeader title="Personal Information" />
       <Text>PersonalInfo</Text>
     </View>
   );
