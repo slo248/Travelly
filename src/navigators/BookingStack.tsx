@@ -1,4 +1,8 @@
-import { useFocusEffect } from '@react-navigation/native';
+import {
+  NavigationProp,
+  useFocusEffect,
+  useNavigation
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -15,6 +19,7 @@ export type BookingStackParamList = {
 const Stack = createNativeStackNavigator<BookingStackParamList>();
 
 const BookingStack = () => {
+  const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
   const methods = useForm();
   useFocusEffect(
     useCallback(() => {
@@ -22,6 +27,10 @@ const BookingStack = () => {
       return () => {
         console.log('Booking unfocused');
         methods.reset();
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'HomeBooking' }]
+        });
       };
     }, [])
   );
