@@ -9,6 +9,7 @@ import { useCallback } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { bookingSchema } from '~/constants/schemas/booking';
 import Flights from '~/screens/Booking/Flights';
+import Filter from '~/screens/Booking/Filter';
 import HomeBooking from '~/screens/Booking/HomeBooking';
 import TransportBooking from '~/screens/Booking/TransportBooking';
 
@@ -16,6 +17,7 @@ export type BookingStackParamList = {
   HomeBooking: undefined;
   TransportBooking: undefined;
   Flights: undefined;
+  Filter: undefined;
 };
 
 const Stack = createNativeStackNavigator<BookingStackParamList>();
@@ -48,6 +50,7 @@ const BookingStack = () => {
         <Stack.Screen name="HomeBooking" component={HomeBooking} />
         <Stack.Screen name="TransportBooking" component={TransportBooking} />
         <Stack.Screen name="Flights" component={Flights} />
+        <Stack.Screen name="Filter" component={Filter} />
       </Stack.Navigator>
     </FormProvider>
   );

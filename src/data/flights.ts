@@ -13,6 +13,13 @@ export type FlightType = {
   number: string;
 };
 
+export const TimeRanges = [
+  '12AM - 06AM',
+  '06AM - 12PM',
+  '12PM - 06PM',
+  '06PM - 12AM'
+];
+
 export const DateFlights = [
   {
     date: 'TH',
