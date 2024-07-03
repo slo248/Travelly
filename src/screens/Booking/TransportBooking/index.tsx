@@ -85,7 +85,10 @@ const TransportBooking = () => {
           <ButtonText
             borderRadius={20}
             title="Search"
-            onPress={handleSubmit((data) => console.log(JSON.stringify(data)))}
+            onPress={handleSubmit((data) => {
+              console.log(JSON.stringify(data));
+              navigation.navigate('Flights');
+            })}
           />
         </View>
       </ScrollView>

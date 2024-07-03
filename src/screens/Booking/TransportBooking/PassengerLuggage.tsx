@@ -17,7 +17,7 @@ import { set, useFormContext } from 'react-hook-form';
 const PassengerLuggage = () => {
   const { control } = useFormContext();
   const [currentIndex, setCurrentIndex] = useState(-1);
-  console.log('currentIndex: ', currentIndex);
+  // console.log('currentIndex: ', currentIndex);
   useEffect(() => {
     const keyboardDidHideListener = Keyboard.addListener(
       'keyboardDidHide',

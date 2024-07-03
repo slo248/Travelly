@@ -43,11 +43,11 @@ const FormSelectController = <FV extends FieldValues, DataType>({
   } = useController({ control, name: name as Path<FV> });
 
   const dropdownRef = useRef<SelectDropdown>(null);
-  console.log(errors);
+  // console.log(errors);
 
   useLayoutEffect(() => {
     if (setIndex === undefined) return;
-    console.log(`${name} set index ${setIndex}`);
+    // console.log(`${name} set index ${setIndex}`);
     dropdownRef.current?.selectIndex(setIndex);
     onChange(data[setIndex]);
   }, [setIndex]);
