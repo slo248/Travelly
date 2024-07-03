@@ -13,9 +13,12 @@ import MyText from '~/components/MyText';
 import { Fonts } from '~/styles/fonts';
 import { Colors } from '~/styles/colors';
 
-const Calendar = () => {
-  const [currentIndex, setIndex] = useState(0);
+interface CalendarProps {
+  currentIndex: number;
+  setIndex: (index: number) => void;
+}
 
+const Calendar: FC<CalendarProps> = ({ currentIndex, setIndex }) => {
   return (
     <View style={styles.container}>
       <FlatList

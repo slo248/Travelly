@@ -1,3 +1,18 @@
+export type FlightType = {
+  from: {
+    id: string;
+    name: string;
+  };
+  to: {
+    id: string;
+    name: string;
+  };
+  date: string;
+  departure: string;
+  price: number;
+  number: string;
+};
+
 export const DateFlights = [
   {
     date: 'TH',
