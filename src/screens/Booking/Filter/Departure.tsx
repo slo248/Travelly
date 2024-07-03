@@ -19,8 +19,9 @@ const Departure = () => {
         control={control}
         data={TimeRanges}
         name="departure"
+        defaultValue={TimeRanges[0]}
         renderItem={({ item, index, state, onChange, style }) => (
-          <View style={[style, styles.option]}>
+          <View key={index} style={[style, styles.option]}>
             <ButtonText
               title={item}
               reverseStyle={state}
