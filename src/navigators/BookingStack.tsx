@@ -31,7 +31,7 @@ const BookingStack = () => {
         methods.reset();
         navigation.reset({
           index: 0,
-          routes: [{ name: 'HomeBooking' }]
+          routes: [{ name: 'Flights' }]
         });
       };
     }, [])

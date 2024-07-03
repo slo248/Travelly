@@ -2,7 +2,7 @@ import { createContext, useReducer, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { enableScreens } from 'react-native-screens';
 
-import { SafeAreaView } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 import RootStack from './navigators/RootStack';
 import AuthStack from './navigators/AuthStack';
 import { user } from './data/user';
