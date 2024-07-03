@@ -8,6 +8,7 @@ import Departure from './Departure';
 import Arrival from './Arrival';
 import Actions from './Actions';
 import { ButtonText } from '~/components/Button';
+import Price from './Price';
 
 const Filter = () => {
   const methods = useForm();
@@ -18,6 +19,9 @@ const Filter = () => {
         <Departure />
         <View style={{ marginTop: rH(16) }}>
           <Arrival />
+        </View>
+        <View style={{ marginTop: rH(16) }}>
+          <Price />
         </View>
         <View style={styles.container}>
           <View style={styles.button}>

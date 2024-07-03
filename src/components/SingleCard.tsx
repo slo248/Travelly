@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { Colors } from '~/styles/colors';
 import { rH, rMS, rW } from '~/styles/responsive';
 import { Fonts } from '~/styles/fonts';
+import Animated from 'react-native-reanimated';
 
 interface SingleCardProps {
   header: string;
@@ -12,8 +13,8 @@ interface SingleCardProps {
 const SingleCard: FC<SingleCardProps> = ({ header, desc }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>{header}</Text>
-      <Text style={styles.desc}>{desc}</Text>
+      <Animated.Text style={styles.heading}>{header}</Animated.Text>
+      <Animated.Text style={styles.desc}>{desc}</Animated.Text>
     </View>
   );
 };
@@ -22,7 +23,7 @@ export default SingleCard;
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    flex: 1,
     backgroundColor: Colors.white,
     borderRadius: 15,
     rowGap: rH(4),
