@@ -21,20 +21,18 @@ const SearchBox: FC<SearchBoxProps> = ({
   const { control, handleSubmit } = useForm<SearchFieldValues>();
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1 }}>
-        <FormInputController
-          control={control}
-          name="search"
-          placeholder="Search"
-          textInputProps={{
-            style: {
-              fontSize: rMS(14),
-              fontFamily: Fonts.regular,
-              color: '#E5E5E5'
-            }
-          }}
-        />
-      </View>
+      <FormInputController
+        control={control}
+        name="search"
+        placeholder="Search"
+        textInputProps={{
+          style: {
+            fontSize: rMS(14),
+            fontFamily: Fonts.regular,
+            color: Colors.tertiary
+          }
+        }}
+      />
       <View style={styles.button}>
         <ButtonIcon
           borderRadius={13}
@@ -51,7 +49,8 @@ const styles = StyleSheet.create({
     height: rH(40),
     backgroundColor: Colors.white,
     borderRadius: 15,
-    paddingHorizontal: rW(16)
+    paddingHorizontal: rW(16),
+    justifyContent: 'center'
   },
   button: {
     position: 'absolute',
