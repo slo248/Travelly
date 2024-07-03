@@ -23,8 +23,7 @@ yup.addMethod(yup.date, 'dateRange', function (errorMessage: string) {
 export const bookingSchema = yup.object({
   [TransportFieldName.locationFrom]: yup
     .string()
-    .required('The departure location is required')
-    .min(14, 'At least 14 characters required'),
+    .required('The departure location is required'),
   [TransportFieldName.locationTo]: yup
     .string()
     .required('The arrival location is required'),

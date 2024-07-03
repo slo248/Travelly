@@ -37,9 +37,9 @@ const FromTo = () => {
     setState({ from: to, to: from });
   }, []);
 
-  useEffect(() => {
-    console.log(getValues(['locationFrom', 'locationTo']));
-  }, [state]);
+  // useEffect(() => {
+  //   console.log(getValues(['locationFrom', 'locationTo']));
+  // }, [state]);
 
   return (
     <View style={{ rowGap: rH(8), justifyContent: 'center' }}>
@@ -70,9 +70,9 @@ const FromTo = () => {
           borderRadius={12}
           padding={8}
           onPress={() => {
-            console.log(getValues());
-            console.log('Switching from and to');
-            console.log(getValues(['locationFrom', 'locationTo']));
+            // console.log(getValues());
+            // console.log('Switching from and to');
+            // console.log(getValues(['locationFrom', 'locationTo']));
             onSwitch();
           }}
         />

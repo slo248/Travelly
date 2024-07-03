@@ -25,13 +25,13 @@ const BookingStack = () => {
   const methods = useForm({ resolver: yupResolver(bookingSchema) });
   useFocusEffect(
     useCallback(() => {
-      console.log('Booking focused');
+      // console.log('Booking focused');
       return () => {
-        console.log('Booking unfocused');
+        // console.log('Booking unfocused');
         methods.reset();
         navigation.reset({
           index: 0,
-          routes: [{ name: 'HomeBooking' }]
+          routes: [{ name: 'Flights' }]
         });
       };
     }, [])
