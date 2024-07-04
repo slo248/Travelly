@@ -18,7 +18,7 @@ import { Colors } from '~/styles/colors';
 const duration = 200;
 
 const TabBarButton = (props: TabType) => {
-  const { route, icon, accessibilityState, onPress, index } = props;
+  const { route, icon, accessibilityState, onPress } = props;
   const focused = accessibilityState?.selected;
 
   const Icon = icon;

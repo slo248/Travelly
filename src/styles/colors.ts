@@ -1,5 +1,6 @@
 export const Colors = {
   primary: '#01635D',
+  green500: '#089083',
   secondary: '#FEA36B',
   tertiary: '#050505',
   black: '#000000',
@@ -27,5 +28,7 @@ export const Colors = {
   paginatorActive: '#050505',
   placeholder: '#727272',
   tabActive: '#FFDDA2',
-  tabInActive: 'transparent'
+  tabInActive: 'transparent',
+  background: '#F5F5F5',
+  error: '#FF3636'
 };

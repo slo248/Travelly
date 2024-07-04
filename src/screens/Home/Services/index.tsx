@@ -1,4 +1,5 @@
 import {
+  Alert,
   FlatList,
   StyleSheet,
   Text,
@@ -13,32 +14,18 @@ import { services } from '~/data/services';
 import ButtonIcon from '~/components/Button/ButtonIcon';
 import { Colors } from '~/styles/colors';
 import GridView from '~/components/GridView';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { AuthStackParamList } from '~/navigators/AuthStack';
+import { screen } from '@testing-library/react-native';
+import { FeatureNotImplemented } from '~/constants';
 
 export default function Services() {
   const { width } = useWindowDimensions();
+  const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
 
   return (
     <View>
       <Text style={styles.heading}>Booking Services</Text>
-      {/* <FlatList
-        style={styles.list}
-        data={services}
-        keyExtractor={(_, index) => index.toString()}
-        numColumns={width < 786 ? 4 : 8}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
-        renderItem={({ item }) => (
-          <View style={styles.item}>
-            <View style={styles.button}>
-              <ButtonIcon
-                Icon={item.icon}
-                backgroundColor={Colors.primary}
-                color={Colors.white}
-              />
-            </View>
-            <Text style={styles.serviceName}>{item.name}</Text>
-          </View>
-        )}
-      /> */}
       <GridView
         style={styles.list}
         data={services}
@@ -50,6 +37,16 @@ export default function Services() {
                 Icon={item.icon}
                 backgroundColor={Colors.primary}
                 color={Colors.white}
+                onPress={() => {
+                  const obj = item.switchFromHome();
+                  if (obj === undefined) {
+                    Alert.alert(FeatureNotImplemented);
+                    return;
+                  }
+                  navigation.navigate(obj.stackName, {
+                    screen: obj.nextScreen
+                  });
+                }}
               />
             </View>
             <Text style={styles.serviceName}>{item.name}</Text>

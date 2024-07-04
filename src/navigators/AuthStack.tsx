@@ -1,14 +1,17 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Tabs } from './tabs';
-import { rH } from '~/styles/responsive';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { TabBarButton } from '~/components/Button';
+import { bottomtTabBarHeight } from '~/styles/globalStyles';
+import { BookingStackParamList } from './BookingStack';
 
 export type AuthStackParamList = {
   Home: undefined;
-  Bookings: undefined;
+  Booking: {
+    screen?: keyof BookingStackParamList;
+  };
   Profile: undefined;
-  Notifications: undefined;
+  Notification: undefined;
 };
 
 const Stack = createBottomTabNavigator<AuthStackParamList>();
@@ -24,26 +27,34 @@ const AuthStack = () => {
         }
       }}
     >
-      {Tabs.map((tab, index) => (
-        <Stack.Screen
-          key={index}
-          name={tab.route as keyof AuthStackParamList}
-          component={tab.component}
-          options={{
-            tabBarShowLabel: false,
-            tabBarButton: (props) => (
-              <TabBarButton {...props} {...tab} index={index} />
-            )
-          }}
-        />
-      ))}
+      {Tabs.map((tab, index) => {
+        const Comp = tab.component;
+        return (
+          <Stack.Screen
+            key={index}
+            name={tab.route as keyof AuthStackParamList}
+            options={{
+              tabBarShowLabel: false,
+              tabBarButton: (props) => <TabBarButton {...props} {...tab} />
+            }}
+          >
+            {() => (
+              <View
+                style={{ flex: 1, paddingBottom: bottomtTabBarHeight + 16 }}
+              >
+                <Comp />
+              </View>
+            )}
+          </Stack.Screen>
+        );
+      })}
     </Stack.Navigator>
   );
 };
 
 const styles = StyleSheet.create({
   tabBar: {
-    height: rH(56),
+    height: bottomtTabBarHeight,
     paddingVertical: 8,
     paddingHorizontal: 16,
     position: 'absolute',

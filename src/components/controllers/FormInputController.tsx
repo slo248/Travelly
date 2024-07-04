@@ -1,68 +1,82 @@
-import { StyleSheet, TextInput, TextInputProps, Text } from 'react-native';
-import { FC } from 'react';
+import {
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  Text,
+  View
+} from 'react-native';
+import { FC, useState } from 'react';
 import {
   Control,
   Controller,
   FieldErrors,
   FieldValues,
-  Path
+  Path,
+  PathValue,
+  useController
 } from 'react-hook-form';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import { Texts } from '~/styles/texts';
 import { rH, rMS, rW } from '~/styles/responsive';
+import { Fonts } from '~/styles/fonts';
 
 interface FormInputControllerProps<T extends FieldValues> {
   control: Control<T>;
-  errors?: FieldErrors<T>;
   name: keyof T;
-  placeholder: string;
-  others?: TextInputProps;
+  placeholder?: string;
+  textInputProps?: TextInputProps;
+  focused?: boolean;
+  defaultValue?: string;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
 const FormInputController = <T extends FieldValues>({
   control,
-  errors,
   name,
   placeholder,
-  others
+  textInputProps,
+  defaultValue,
+  onFocus,
+  onBlur,
+  focused = false
 }: FormInputControllerProps<T>) => {
+  const {
+    field: { onChange, value },
+    formState: { errors }
+  } = useController({
+    control,
+    name: name as Path<T>,
+    defaultValue: defaultValue as PathValue<T, Path<T>>
+  });
+  const { style, ...others } = textInputProps;
   return (
-    <>
-      <Controller
-        {...{ control, name: name as Path<T> }}
-        render={({ field: { onBlur, onChange, value } }) => (
-          <TextInput
-            style={styles.input}
-            {...{
-              placeholder,
-              onBlur,
-              onChangeText: onChange,
-              value,
-              ...others
-            }}
-          />
-        )}
+    <View>
+      <TextInput
+        style={{
+          padding: 0,
+          fontFamily: Fonts.regular,
+          ...style
+        }}
+        {...others}
+        {...{
+          placeholder,
+          onChangeText: onChange,
+          value,
+          onFocus,
+          onBlur
+        }}
       />
       {errors && errors[name] && (
         <Text style={styles.error}>{String(errors[name]?.message)}</Text>
       )}
-    </>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  input: {
-    flex: 1,
-    borderRadius: 15,
-    backgroundColor: Colors.white,
-    paddingHorizontal: rW(16),
-    fontSize: rMS(16)
-  },
   error: {
-    ...Texts.error,
-    position: 'absolute',
-    marginTop: rMS(4),
-    bottom: rH(-20)
+    ...Texts.error
   }
 });
 

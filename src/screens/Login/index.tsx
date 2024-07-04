@@ -10,11 +10,12 @@ import Actions from './Actions';
 import Separator from './Separator';
 import Socials from './Socials';
 import { RootStackParamList } from '~/navigators/RootStack';
-import { AuthContext } from '~/contexts/AuthContext';
+import { useAuth } from '~/contexts/AuthContext';
+import { user } from '~/data/user';
 
 const Login = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const { signIn } = useContext(AuthContext);
+  const [_, dispatch] = useAuth();
 
   const rollback = useCallback(() => {
     if (navigation.canGoBack()) navigation.goBack();
@@ -30,7 +31,7 @@ const Login = () => {
       </Pressable>
       <Header />
       <View style={styles.form}>
-        <LoginForm onSubmit={signIn} />
+        <LoginForm />
       </View>
       <View style={styles.actions}>
         <Actions />
