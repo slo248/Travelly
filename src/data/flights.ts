@@ -11,11 +11,11 @@ export type FlightType = {
 export const getRandom = (l: number, r: number): number =>
   Math.floor(Math.random() * (r - l + 1) + l);
 
-export const getFlights = (
+export const getFlights = async (
   locationFrom: LocationType,
   locationTo: LocationType,
   departureDate: Date
-): FlightType[] => {
+) => {
   const flights: FlightType[] = [];
 
   const generateRandomFlightsForDay = (date: Date): FlightType[] => {
