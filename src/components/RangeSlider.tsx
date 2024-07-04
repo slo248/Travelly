@@ -60,7 +60,7 @@ const RangeSlider: FC<RangeSliderProps> = (props) => {
       posBall2.value = prevPosBall2.value = UPPER_BOUND;
       return;
     }
-    console.log(props);
+    // console.log(props);
     posBall1.value = prevPosBall1.value = withTiming(
       exchange(
         props.lowerValue.value,

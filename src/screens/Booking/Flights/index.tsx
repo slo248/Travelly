@@ -46,7 +46,7 @@ const Flights = () => {
       <CustomHeader title="Flights" />
       <Calendar {...{ currentIndex, dates, setIndex }} />
       <View style={styles.filter}>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, justifyContent: 'center' }}>
           <MyText>
             {flights.length} flights avaliable{' '}
             {originalFlights[0].locationFrom.name} to{' '}

@@ -69,7 +69,7 @@ const FormSelectController = <FV extends FieldValues, DataType>({
         defaultValueByIndex={defaultValueByIndex}
         onSelect={(selectedItem, index) => onChange(selectedItem)}
         renderButton={(selectedItem, isOpened) => {
-          console.log(selectedItem);
+          // console.log(selectedItem);
           return (
             <View style={globalStyles.cardForm}>
               <Text style={globalStyles.headingForm}>{title}</Text>

@@ -43,7 +43,7 @@ const PersonalInfo = () => {
       cropping: true
     })
       .then((image) => {
-        console.log(image);
+        // console.log(image);
         avatarOnChange(image.path);
         ToastAndroid.show('Image selected', ToastAndroid.SHORT);
       })

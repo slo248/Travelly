@@ -30,7 +30,7 @@ function reducer(state: StateType, action: ActionType): StateType {
   // console.log('auth reducer: ', action.type, action.payload);
   switch (action.type) {
     case 'SET_FLIGHTS':
-      console.log('SET_FLIGHTS', action.payload);
+      console.log('SET_FLIGHTS', action.payload.length);
       return {
         originalFlights: action.payload,
         flights: action.payload
