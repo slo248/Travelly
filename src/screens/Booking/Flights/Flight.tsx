@@ -67,11 +67,12 @@ const styles = StyleSheet.create({
   card: {
     width: '100%',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end'
+    justifyContent: 'space-between'
   },
   icon: {
     width: rW(130),
-    height: rH(24)
+    height: rH(24),
+    alignSelf: 'flex-end',
+    transform: [{ translateY: rH(-2) }]
   }
 });

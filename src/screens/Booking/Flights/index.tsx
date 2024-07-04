@@ -6,11 +6,14 @@ import { globalStyles } from '~/styles/globalStyles';
 import { rH, rW } from '~/styles/responsive';
 import { ButtonIcon } from '~/components/Button';
 import FilterIcon from '~/assets/icons/FilterIcon';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { DateFlights } from '~/data/flights';
 import Flight from './Flight';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { BookingStackParamList } from '~/navigators/BookingStack';
 
 const Flights = () => {
+  const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
   const [currentIndex, setIndex] = useState(0);
 
   return (
@@ -23,7 +26,12 @@ const Flights = () => {
           York to London
         </MyText>
         <View style={{ width: rW(40), height: rH(40) }}>
-          <ButtonIcon Icon={FilterIcon} padding={8} borderRadius={12} />
+          <ButtonIcon
+            Icon={FilterIcon}
+            padding={8}
+            borderRadius={12}
+            onPress={() => navigation.navigate('Filter')}
+          />
         </View>
       </View>
       <View

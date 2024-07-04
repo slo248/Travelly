@@ -58,6 +58,7 @@ const FormInputController = <T extends FieldValues>({
           fontFamily: Fonts.regular,
           ...style
         }}
+        {...others}
         {...{
           placeholder,
           onChangeText: onChange,

@@ -7,16 +7,19 @@ import RootStack from './navigators/RootStack';
 import AuthStack from './navigators/AuthStack';
 import { user } from './data/user';
 import { AuthProvider, useAuth } from '~/contexts/AuthContext';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 enableScreens();
 
 export default function App() {
   const [{ isAuthenticated }] = useAuth();
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <NavigationContainer>
-        {isAuthenticated ? <AuthStack /> : <RootStack />}
-      </NavigationContainer>
-    </SafeAreaView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <NavigationContainer>
+          {isAuthenticated ? <AuthStack /> : <RootStack />}
+        </NavigationContainer>
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }

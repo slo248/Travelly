@@ -1,7 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { ActivityIndicator, Alert, StyleSheet, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  ToastAndroid,
+  View
+} from 'react-native';
 import { ButtonText } from '~/components/Button';
 import FormInputController from '~/components/controllers/FormInputController';
 
@@ -57,11 +63,17 @@ const LoginForm = () => {
       <View style={styles.submitBtn}>
         <ButtonText
           title="Sign In"
-          onPress={handleSubmit((data) =>
-            dispatch({
-              type: 'LOGIN',
-              payload: user
-            })
+          onPress={handleSubmit(
+            (data) =>
+              dispatch({
+                type: 'LOGIN',
+                payload: user
+              }),
+            () =>
+              ToastAndroid.show(
+                'You can type any emails and passwords that meet the requirements',
+                ToastAndroid.SHORT
+              )
           )}
         />
       </View>
