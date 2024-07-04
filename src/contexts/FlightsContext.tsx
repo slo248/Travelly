@@ -11,6 +11,7 @@ type StateType = {
 
 type ActionType = {
   type:
+    | 'RESET'
     | 'SET_FLIGHTS'
     | 'FILTER_BY_DATE'
     | 'SORT_BY_PRICE'
@@ -29,20 +30,23 @@ const initialState: StateType = {
 function reducer(state: StateType, action: ActionType): StateType {
   // console.log('auth reducer: ', action.type, action.payload);
   switch (action.type) {
+    case 'RESET':
+      console.log('RESET');
+      return initialState;
     case 'SET_FLIGHTS':
-      console.log('SET_FLIGHTS', action.payload.length);
+      console.log('SET_FLIGHTS', action.payload?.length);
       return {
         originalFlights: action.payload,
         flights: action.payload
       };
     case 'FILTER_BY_DATE':
-      console.log('FILTER_BY_DATE', action.payload.toDateString());
+      console.log('FILTER_BY_DATE', action.payload?.toDateString());
       return {
         ...state,
         flights: state.originalFlights.filter(
           (flight) =>
-            flight.departureDate.toDateString() ===
-            action.payload.toDateString()
+            flight.departureDate?.toDateString() ===
+            action.payload?.toDateString()
         )
       };
     default:

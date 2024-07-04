@@ -1,4 +1,10 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 import CustomHeader from '~/components/CustomHeader';
 import Calendar from './Calendar';
 import MyText from '~/components/MyText';
@@ -6,8 +12,18 @@ import { globalStyles } from '~/styles/globalStyles';
 import { rH, rW } from '~/styles/responsive';
 import { ButtonIcon } from '~/components/Button';
 import FilterIcon from '~/assets/icons/FilterIcon';
-import { useEffect, useMemo, useState } from 'react';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState
+} from 'react';
+import {
+  NavigationProp,
+  useFocusEffect,
+  useNavigation
+} from '@react-navigation/native';
 import { BookingStackParamList } from '~/navigators/BookingStack';
 import { useFormContext } from 'react-hook-form';
 import { getDistinctDatesFromFlights, getFlights } from '~/data/flights';
@@ -19,64 +35,99 @@ const Flights = () => {
   const { control, getValues } = useFormContext();
   const [{ originalFlights, flights }, flightsDispatch] = useFlights();
 
-  const departureDate = useMemo(() => getValues('departureDate'), [getValues]);
+  const [locationFrom, locationTo, departureDate] = useMemo(
+    () => getValues(['locationFrom', 'locationTo', 'departureDate']),
+    [getValues]
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => flightsDispatch({ type: 'RESET' });
+    }, [])
+  );
+
+  useEffect(() => {
+    getFlights(locationFrom, locationTo, departureDate).then((flights) =>
+      flightsDispatch({
+        type: 'SET_FLIGHTS',
+        payload: flights
+      })
+    );
+  }, [locationFrom, locationTo, departureDate]);
 
   const dates = useMemo(
     () => getDistinctDatesFromFlights(originalFlights),
     [originalFlights]
   );
 
-  const [currentIndex, setIndex] = useState(
-    dates.findIndex(
-      (date) => date.toDateString() === departureDate.toDateString()
-    )
-  );
+  const [currentIndex, setIndex] = useState(0);
 
-  useEffect(
-    () =>
-      flightsDispatch({
-        type: 'FILTER_BY_DATE',
-        payload: dates[currentIndex]
-      }),
-    [currentIndex]
-  );
+  console.log('Flights', originalFlights.length);
+
+  useEffect(() => {
+    if (dates.length === 0) return;
+    setIndex(
+      dates.findIndex(
+        (date) => date.toDateString() === departureDate.toDateString()
+      )
+    );
+  }, [dates]);
+
+  useLayoutEffect(() => {
+    if (originalFlights.length === 0) return;
+    flightsDispatch({
+      type: 'FILTER_BY_DATE',
+      payload: dates[currentIndex]
+    });
+  }, [currentIndex]);
 
   return (
     <View style={{ flex: 1 }}>
       <CustomHeader title="Flights" />
-      <Calendar {...{ currentIndex, dates, setIndex }} />
-      <View style={styles.filter}>
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <MyText>
-            {flights.length} flights avaliable{' '}
-            {originalFlights[0].locationFrom.name} to{' '}
-            {originalFlights[0].locationTo.name}
-          </MyText>
+      {originalFlights.length === 0 ? (
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+        >
+          <ActivityIndicator size="large" />
+          <MyText>Loading flights...</MyText>
         </View>
-        <View style={{ width: rW(40), height: rH(40) }}>
-          <ButtonIcon
-            Icon={FilterIcon}
-            padding={8}
-            borderRadius={12}
-            onPress={() => navigation.navigate('Filter')}
-          />
-        </View>
-      </View>
-      <View
-        style={[
-          globalStyles.container,
-          {
-            marginTop: rH(16)
-          }
-        ]}
-      >
-        <FlatList
-          data={flights}
-          keyExtractor={(_, index) => index.toString()}
-          renderItem={({ item }) => <Flight {...item} />}
-          ItemSeparatorComponent={() => <View style={{ height: rH(16) }} />}
-        />
-      </View>
+      ) : (
+        <>
+          <Calendar {...{ currentIndex, dates, setIndex }} />
+          <View style={styles.filter}>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+              <MyText>
+                {flights.length} flights avaliable{' '}
+                {originalFlights[0].locationFrom.name} to{' '}
+                {originalFlights[0].locationTo.name}
+              </MyText>
+            </View>
+            <View style={{ width: rW(40), height: rH(40) }}>
+              <ButtonIcon
+                Icon={FilterIcon}
+                padding={8}
+                borderRadius={12}
+                onPress={() => navigation.navigate('Filter')}
+              />
+            </View>
+          </View>
+          <View
+            style={[
+              globalStyles.container,
+              {
+                marginTop: rH(16)
+              }
+            ]}
+          >
+            <FlatList
+              data={flights}
+              keyExtractor={(_, index) => index.toString()}
+              renderItem={({ item }) => <Flight {...item} />}
+              ItemSeparatorComponent={() => <View style={{ height: rH(16) }} />}
+            />
+          </View>
+        </>
+      )}
     </View>
   );
 };

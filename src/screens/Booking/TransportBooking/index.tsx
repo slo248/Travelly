@@ -91,16 +91,6 @@ const TransportBooking = () => {
             title="Search"
             onPress={handleSubmit((data) => {
               console.log(JSON.stringify(data));
-              getFlights(
-                data.locationFrom,
-                data.locationTo,
-                data.departureDate
-              ).then((flights) =>
-                dispatch({
-                  type: 'SET_FLIGHTS',
-                  payload: flights
-                })
-              );
               navigation.navigate('Flights');
             })}
           />
