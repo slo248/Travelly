@@ -27,7 +27,15 @@ const HomeAccount = () => {
     <View style={globalStyles.container}>
       <CustomHeader title="Account" />
       <View style={styles.heading}>
-        <Image resizeMode="cover" source={user?.avatar} style={styles.image} />
+        <Image
+          resizeMode="cover"
+          source={
+            typeof user?.avatarURI === 'string'
+              ? { uri: user?.avatarURI }
+              : user?.avatarURI
+          }
+          style={styles.image}
+        />
         <Text style={styles.name}>
           {user?.firstname} {user?.lastname}
         </Text>
