@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import React from 'react';
 import { globalStyles } from '~/styles/globalStyles';
 import CustomHeader from '~/components/CustomHeader';
@@ -9,8 +9,11 @@ import Arrival from './Arrival';
 import Actions from './Actions';
 import { ButtonText } from '~/components/Button';
 import Price from './Price';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { BookingStackParamList } from '~/navigators/BookingStack';
 
 const Filter = () => {
+  const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
   const methods = useForm();
   return (
     <FormProvider {...methods}>
@@ -29,14 +32,23 @@ const Filter = () => {
               title="Reset"
               reverseStyle
               borderRadius={20}
-              onPress={() => methods.reset()}
+              onPress={() => {
+                ToastAndroid.show(
+                  'Press reset again if something did not reset properly.',
+                  ToastAndroid.SHORT
+                );
+                methods.reset();
+              }}
             />
           </View>
           <View style={styles.button}>
             <ButtonText
               title="Done"
               borderRadius={20}
-              onPress={() => console.log(methods.getValues())}
+              onPress={() => {
+                navigation.goBack();
+                console.log(methods.getValues());
+              }}
             />
           </View>
         </View>

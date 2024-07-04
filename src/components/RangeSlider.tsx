@@ -51,11 +51,11 @@ const RangeSlider: FC<RangeSliderProps> = (props) => {
     []
   );
 
-  console.log(`props.lowerValue.value: ${props.lowerValue.value}`);
-  console.log(`props.upperValue.value: ${props.upperValue.value}`);
+  // console.log(`props.lowerValue.value: ${props.lowerValue.value}`);
+  // console.log(`props.upperValue.value: ${props.upperValue.value}`);
 
   useLayoutEffect(() => {
-    console.log('widthContainer: ', widthContainer);
+    // console.log('widthContainer: ', widthContainer);
     if (widthContainer == 0) {
       posBall2.value = prevPosBall2.value = UPPER_BOUND;
       return;

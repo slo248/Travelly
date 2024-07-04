@@ -36,8 +36,8 @@ const Price = () => {
     defaultValue: 250
   });
 
-  console.log('lowerPrice: ', lowerPrice);
-  console.log('upperPrice: ', upperPrice);
+  // console.log('lowerPrice: ', lowerPrice);
+  // console.log('upperPrice: ', upperPrice);
 
   const l = useSharedValue(lowerPrice);
   const r = useSharedValue(upperPrice);
@@ -47,11 +47,11 @@ const Price = () => {
   }
   if (r.value !== upperPrice) {
     r.value = withTiming(upperPrice, { duration: 0 });
-    console.log('Hello');
+    // console.log('Hello');
   }
 
-  console.log('l.value: ', l.value);
-  console.log('r.value: ', r.value);
+  // console.log('l.value: ', l.value);
+  // console.log('r.value: ', r.value);
 
   const debouncedOnChangeLowerPrice = debounce(onChangeLowerPrice, 300);
   const debouncedOnChangeUpperPrice = debounce(onChangeUpperPrice, 300);
