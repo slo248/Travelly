@@ -12,6 +12,7 @@ import Flights from '~/screens/Booking/Flights';
 import Filter from '~/screens/Booking/Filter';
 import HomeBooking from '~/screens/Booking/HomeBooking';
 import TransportBooking from '~/screens/Booking/TransportBooking';
+import { FlightsProvider } from '~/contexts/FlightsContext';
 
 export type BookingStackParamList = {
   HomeBooking: undefined;
@@ -39,20 +40,22 @@ const BookingStack = () => {
     }, [])
   );
   return (
-    <FormProvider {...methods}>
-      <Stack.Navigator
-        initialRouteName="HomeBooking"
-        screenOptions={{
-          animation: 'slide_from_right',
-          headerShown: false
-        }}
-      >
-        <Stack.Screen name="HomeBooking" component={HomeBooking} />
-        <Stack.Screen name="TransportBooking" component={TransportBooking} />
-        <Stack.Screen name="Flights" component={Flights} />
-        <Stack.Screen name="Filter" component={Filter} />
-      </Stack.Navigator>
-    </FormProvider>
+    <FlightsProvider>
+      <FormProvider {...methods}>
+        <Stack.Navigator
+          initialRouteName="HomeBooking"
+          screenOptions={{
+            animation: 'slide_from_right',
+            headerShown: false
+          }}
+        >
+          <Stack.Screen name="HomeBooking" component={HomeBooking} />
+          <Stack.Screen name="TransportBooking" component={TransportBooking} />
+          <Stack.Screen name="Flights" component={Flights} />
+          <Stack.Screen name="Filter" component={Filter} />
+        </Stack.Navigator>
+      </FormProvider>
+    </FlightsProvider>
   );
 };
 

@@ -10,8 +10,8 @@ import {
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { globalStyles } from '~/styles/globalStyles';
-import { toDateString1 } from '~/utils/toDateString';
 import { Texts } from '~/styles/texts';
+import { toDateString1 } from '~/utils/dates';
 
 interface FormDateTimeControllerProps<T extends FieldValues> {
   control: Control<T>;

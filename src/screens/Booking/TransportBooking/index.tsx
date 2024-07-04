@@ -18,12 +18,16 @@ import CustomHeader from '~/components/CustomHeader';
 import PassengerLuggage from './PassengerLuggage';
 
 import { TransportFieldNames } from '~/types/BookingFieldNames';
+import { useFlights } from '~/contexts/FlightsContext';
+import { getFlights } from '~/data/flights';
 
 const headerTitle = 'Transport Booking';
 
 const TransportBooking = () => {
   const { control, handleSubmit } = useFormContext();
   const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
+
+  const [_, dispatch] = useFlights();
 
   return (
     <View style={globalStyles.container}>
@@ -87,6 +91,14 @@ const TransportBooking = () => {
             title="Search"
             onPress={handleSubmit((data) => {
               console.log(JSON.stringify(data));
+              dispatch({
+                type: 'SET_FLIGHTS',
+                payload: getFlights(
+                  data.locationFrom,
+                  data.locationTo,
+                  data.departureDate
+                )
+              });
               navigation.navigate('Flights');
             })}
           />

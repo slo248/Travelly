@@ -8,6 +8,7 @@ import { Fonts } from '~/styles/fonts';
 import { Colors } from '~/styles/colors';
 import FromToIcon from '~/assets/icons/FromToIcon';
 import PlaneIcon from '~/assets/icons/PlaneIcon';
+import { getDayMonth, getHours12 } from '~/utils/dates';
 
 const Flight: FC<FlightType> = (flight) => {
   return (
@@ -15,15 +16,15 @@ const Flight: FC<FlightType> = (flight) => {
       TopFC={() => (
         <View style={styles.card}>
           <View>
-            <MyText style={styles.heading}>{flight.from.id}</MyText>
-            <MyText style={styles.desc}>{flight.from.name}</MyText>
+            <MyText style={styles.heading}>{flight.locationFrom.id}</MyText>
+            <MyText style={styles.desc}>{flight.locationFrom.name}</MyText>
           </View>
           <View style={styles.icon}>
             <FromToIcon />
           </View>
           <View>
-            <MyText style={styles.heading}>{flight.to.id}</MyText>
-            <MyText style={styles.desc}>{flight.to.name}</MyText>
+            <MyText style={styles.heading}>{flight.locationTo.id}</MyText>
+            <MyText style={styles.desc}>{flight.locationTo.name}</MyText>
           </View>
         </View>
       )}
@@ -31,11 +32,15 @@ const Flight: FC<FlightType> = (flight) => {
         <View style={styles.card}>
           <View>
             <MyText style={styles.heading}>Date</MyText>
-            <MyText style={styles.desc}>{flight.date}</MyText>
+            <MyText style={styles.desc}>
+              {getDayMonth(flight.departureDate)}
+            </MyText>
           </View>
           <View>
             <MyText style={styles.heading}>Departure</MyText>
-            <MyText style={styles.desc}>{flight.departure}</MyText>
+            <MyText style={styles.desc}>
+              {getHours12(flight.departureDate)}
+            </MyText>
           </View>
           <View>
             <MyText style={styles.heading}>Price</MyText>

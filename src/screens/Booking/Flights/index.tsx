@@ -6,24 +6,50 @@ import { globalStyles } from '~/styles/globalStyles';
 import { rH, rW } from '~/styles/responsive';
 import { ButtonIcon } from '~/components/Button';
 import FilterIcon from '~/assets/icons/FilterIcon';
-import { useState } from 'react';
-import { DateFlights } from '~/data/flights';
-import Flight from './Flight';
+import { useEffect, useMemo, useState } from 'react';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { BookingStackParamList } from '~/navigators/BookingStack';
+import { useFormContext } from 'react-hook-form';
+import { getDistinctDatesFromFlights, getFlights } from '~/data/flights';
+import { useFlights } from '~/contexts/FlightsContext';
+import Flight from './Flight';
 
 const Flights = () => {
   const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
-  const [currentIndex, setIndex] = useState(0);
+  const { control, getValues } = useFormContext();
+  const [{ originalFlights, flights }, flightsDispatch] = useFlights();
+
+  const departureDate = useMemo(() => getValues('departureDate'), [getValues]);
+
+  const dates = useMemo(
+    () => getDistinctDatesFromFlights(originalFlights),
+    [originalFlights]
+  );
+
+  const [currentIndex, setIndex] = useState(
+    dates.findIndex(
+      (date) => date.toDateString() === departureDate.toDateString()
+    )
+  );
+
+  useEffect(
+    () =>
+      flightsDispatch({
+        type: 'FILTER_BY_DATE',
+        payload: dates[currentIndex]
+      }),
+    [currentIndex]
+  );
 
   return (
     <View style={{ flex: 1 }}>
       <CustomHeader title="Flights" />
-      <Calendar {...{ currentIndex, setIndex }} />
+      <Calendar {...{ currentIndex, dates, setIndex }} />
       <View style={styles.filter}>
         <MyText>
-          {DateFlights[currentIndex].availFlights.length} flights avaliable New
-          York to London
+          {flights.length} flights avaliable{' '}
+          {originalFlights[0].locationFrom.name} to{' '}
+          {originalFlights[0].locationTo.name}
         </MyText>
         <View style={{ width: rW(40), height: rH(40) }}>
           <ButtonIcon
@@ -43,7 +69,7 @@ const Flights = () => {
         ]}
       >
         <FlatList
-          data={DateFlights[currentIndex].availFlights}
+          data={flights}
           keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => <Flight {...item} />}
           ItemSeparatorComponent={() => <View style={{ height: rH(16) }} />}

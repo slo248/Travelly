@@ -8,8 +8,7 @@ import { getNameCountry } from '~/utils';
 import { rH, rW } from '~/styles/responsive';
 import { ButtonIcon } from '~/components/Button';
 import SwitchIcon from '~/assets/icons/SwitchIcon';
-
-const data = Locations.map((location) => getNameCountry(location));
+import MyText from '~/components/MyText';
 
 const FromTo = () => {
   const { control, getValues } = useFormContext();
@@ -22,14 +21,19 @@ const FromTo = () => {
   });
 
   const onSwitch = useCallback(() => {
-    const from = data.reduce((acc, location, index) => {
-      if (location === getValues('locationFrom')) {
+    const t1 = getNameCountry(getValues('locationFrom'));
+    const t2 = getNameCountry(getValues('locationTo'));
+
+    const arr = Locations.map((location) => getNameCountry(location));
+
+    const from = arr.reduce((acc, location, index) => {
+      if (location === t1) {
         return index;
       }
       return acc;
     }, 0);
-    const to = data.reduce((acc, location, index) => {
-      if (location === getValues('locationTo')) {
+    const to = arr.reduce((acc, location, index) => {
+      if (location === t2) {
         return index;
       }
       return acc;
@@ -45,17 +49,35 @@ const FromTo = () => {
     <View style={{ rowGap: rH(8), justifyContent: 'center' }}>
       <FormSelectController
         control={control}
-        data={data}
+        data={Locations}
         name="locationFrom"
         title="From"
         setIndex={state.from}
+        defaultValueByIndex={0}
+        renderItem={({ item }) => {
+          // console.log(JSON.stringify(item));
+          return (
+            <MyText style={globalStyles.textForm}>
+              {getNameCountry(item)}
+            </MyText>
+          );
+        }}
       />
       <FormSelectController
         control={control}
-        data={data}
+        data={Locations}
         name="locationTo"
         title="To"
         setIndex={state.to}
+        defaultValueByIndex={1}
+        renderItem={({ item }) => {
+          // console.log(JSON.stringify(item));
+          return (
+            <MyText style={globalStyles.textForm}>
+              {getNameCountry(item)}
+            </MyText>
+          );
+        }}
       />
       <View
         style={{

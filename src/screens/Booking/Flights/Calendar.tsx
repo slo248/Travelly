@@ -8,21 +8,31 @@ import {
 import React, { FC, useMemo, useState } from 'react';
 import { globalStyles } from '~/styles/globalStyles';
 import { rH, rMS, rW } from '~/styles/responsive';
-import { DateFlights } from '~/data/flights';
 import MyText from '~/components/MyText';
 import { Fonts } from '~/styles/fonts';
 import { Colors } from '~/styles/colors';
+import { getDayOfWeek } from '~/utils/dates';
 
 interface CalendarProps {
   currentIndex: number;
+  dates: Date[];
   setIndex: (index: number) => void;
 }
 
-const Calendar: FC<CalendarProps> = ({ currentIndex, setIndex }) => {
+const Calendar: FC<CalendarProps> = ({ currentIndex, dates, setIndex }) => {
+  const data = useMemo(
+    () =>
+      dates.map((date) => ({
+        dayOfWeek: getDayOfWeek(date),
+        dayOfMonth: date.getDate()
+      })),
+    [dates]
+  );
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={DateFlights}
+        data={data}
         horizontal
         keyExtractor={(_, index) => index.toString()}
         renderItem={({ item, index }) => (
@@ -33,8 +43,10 @@ const Calendar: FC<CalendarProps> = ({ currentIndex, setIndex }) => {
             ]}
             onPress={() => setIndex(index)}
           >
-            <MyText style={{ fontSize: rMS(12) }}>{item.date}</MyText>
-            <MyText style={{ fontFamily: Fonts.semiBold }}>{item.day}</MyText>
+            <MyText style={{ fontSize: rMS(12) }}>{item.dayOfWeek}</MyText>
+            <MyText style={{ fontFamily: Fonts.semiBold }}>
+              {item.dayOfMonth}
+            </MyText>
           </TouchableOpacity>
         )}
         ItemSeparatorComponent={() => <View style={{ width: rW(15) }} />}

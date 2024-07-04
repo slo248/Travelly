@@ -21,12 +21,6 @@ yup.addMethod(yup.date, 'dateRange', function (errorMessage: string) {
 
 // Use the custom method in your schema
 export const bookingSchema = yup.object({
-  [TransportFieldName.locationFrom]: yup
-    .string()
-    .required('The departure location is required'),
-  [TransportFieldName.locationTo]: yup
-    .string()
-    .required('The arrival location is required'),
   [TransportFieldName.departureDate]: yup
     .date()
     .required('Departure date is required'),
