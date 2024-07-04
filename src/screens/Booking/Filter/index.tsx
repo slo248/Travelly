@@ -18,8 +18,8 @@ const Filter = () => {
   const methods = useForm();
   return (
     <FormProvider {...methods}>
+      <CustomHeader title="Filter" />
       <ScrollView style={[globalStyles.container, { marginBottom: rH(8) }]}>
-        <CustomHeader title="Filter" />
         <Departure />
         <View style={{ marginTop: rH(16) }}>
           <Arrival />
