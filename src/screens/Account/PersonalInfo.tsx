@@ -1,8 +1,16 @@
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
-import React, { useContext } from 'react';
+import {
+  Alert,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  View
+} from 'react-native';
+import React, { useContext, useMemo } from 'react';
 import { globalStyles } from '~/styles/globalStyles';
 import CustomHeader from '~/components/CustomHeader';
-import { useForm } from 'react-hook-form';
+import { useController, useForm } from 'react-hook-form';
 import FormInputController from '~/components/controllers/FormInputController';
 import { rH, rMS, rW } from '~/styles/responsive';
 import { Colors } from '~/styles/colors';
@@ -11,11 +19,54 @@ import { ButtonIcon, ButtonText } from '~/components/Button';
 import { useFocusEffect } from '@react-navigation/native';
 import { useAuth } from '~/contexts/AuthContext';
 import CameraIcon from '~/assets/icons/CameraIcon';
+import ImageCropPicker from 'react-native-image-crop-picker';
+
+const AVATAR_SIZE = 120;
 
 const PersonalInfo = () => {
   const [{ user }, dispatch] = useAuth();
   const { control, handleSubmit, reset } = useForm();
   useFocusEffect(reset);
+
+  const {
+    field: { value: avatarURI, onChange: avatarOnChange }
+  } = useController({
+    control,
+    name: 'avatarURI',
+    defaultValue: user?.avatarURI
+  });
+
+  const takePhotoFromPicker = () => {
+    ImageCropPicker.openPicker({
+      width: rW(AVATAR_SIZE),
+      height: rH(AVATAR_SIZE),
+      cropping: true
+    })
+      .then((image) => {
+        console.log(image);
+        avatarOnChange(image.path);
+        ToastAndroid.show('Image selected', ToastAndroid.SHORT);
+      })
+      .catch((error) => {
+        ToastAndroid.show(`Error: ${error}`, ToastAndroid.SHORT);
+      });
+  };
+
+  const takePhotoFromCamera = () => {
+    ImageCropPicker.openCamera({
+      width: rW(AVATAR_SIZE),
+      height: rH(AVATAR_SIZE),
+      cropping: true
+    })
+      .then((image) => {
+        avatarOnChange(image.path);
+        ToastAndroid.show('Image selected', ToastAndroid.SHORT);
+      })
+      .catch((error) => {
+        ToastAndroid.show(`${error}`, ToastAndroid.SHORT);
+      });
+  };
+
   return (
     <View style={globalStyles.container}>
       <CustomHeader title="Personal Information" />
@@ -29,7 +80,9 @@ const PersonalInfo = () => {
         >
           <Image
             resizeMode="cover"
-            source={user?.avatar}
+            source={
+              typeof avatarURI === 'string' ? { uri: avatarURI } : avatarURI
+            }
             style={styles.avatar}
           />
           <View
@@ -47,6 +100,23 @@ const PersonalInfo = () => {
               color={Colors.tertiary}
               backgroundColor={Colors.background}
               borderRadius={7}
+              onPress={() =>
+                Alert.alert(
+                  'Choose an option',
+                  'Select a photo from the gallery or take a photo',
+                  [
+                    {
+                      text: 'Select from gallery',
+                      onPress: takePhotoFromPicker
+                    },
+                    {
+                      text: 'Take a photo',
+                      onPress: takePhotoFromCamera
+                    }
+                  ],
+                  { cancelable: true }
+                )
+              }
             />
           </View>
         </View>
@@ -106,8 +176,16 @@ const PersonalInfo = () => {
       <View style={styles.saveButton}>
         <ButtonText
           title="Save changes"
-          onPress={handleSubmit((data) =>
-            dispatch({ type: 'UPDATE_USER', payload: data })
+          onPress={handleSubmit(
+            (data) => {
+              ToastAndroid.show('Changes saved', ToastAndroid.SHORT);
+              dispatch({ type: 'UPDATE_USER', payload: data });
+            },
+            () =>
+              ToastAndroid.show(
+                'Please save again, errors occured',
+                ToastAndroid.SHORT
+              )
           )}
         />
       </View>
