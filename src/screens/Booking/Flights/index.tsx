@@ -46,11 +46,13 @@ const Flights = () => {
       <CustomHeader title="Flights" />
       <Calendar {...{ currentIndex, dates, setIndex }} />
       <View style={styles.filter}>
-        <MyText>
-          {flights.length} flights avaliable{' '}
-          {originalFlights[0].locationFrom.name} to{' '}
-          {originalFlights[0].locationTo.name}
-        </MyText>
+        <View style={{ flex: 1 }}>
+          <MyText>
+            {flights.length} flights avaliable{' '}
+            {originalFlights[0].locationFrom.name} to{' '}
+            {originalFlights[0].locationTo.name}
+          </MyText>
+        </View>
         <View style={{ width: rW(40), height: rH(40) }}>
           <ButtonIcon
             Icon={FilterIcon}
@@ -87,7 +89,6 @@ const styles = StyleSheet.create({
     marginTop: rH(16),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
     columnGap: rW(16)
   }
 });

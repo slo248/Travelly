@@ -11,7 +11,7 @@ import { rH, rMS, rW } from '~/styles/responsive';
 import MyText from '~/components/MyText';
 import { Fonts } from '~/styles/fonts';
 import { Colors } from '~/styles/colors';
-import { getDayOfWeek } from '~/utils/dates';
+import { getDayMonth, getDayOfMonth, getDayOfWeek } from '~/utils/dates';
 
 interface CalendarProps {
   currentIndex: number;
@@ -24,7 +24,7 @@ const Calendar: FC<CalendarProps> = ({ currentIndex, dates, setIndex }) => {
     () =>
       dates.map((date) => ({
         dayOfWeek: getDayOfWeek(date),
-        dayOfMonth: date.getDate()
+        dayOfMonth: getDayOfMonth(date)
       })),
     [dates]
   );

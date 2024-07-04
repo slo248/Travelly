@@ -19,12 +19,16 @@ export const getDayOfWeek = (date: Date): string => {
   return Dates[date.getDay()];
 };
 
+export const getDayOfMonth = (date: Date): string => {
+  return date.getDate().toString().padStart(2, '0');
+};
+
 export const getMonth = (date: Date): string => {
   return Months[date.getMonth()];
 };
 
 export const getDayMonth = (date: Date): string => {
-  return `${date.getDate().toString().padStart(2, '0')} ${getMonth(date)}`;
+  return `${getDayOfMonth(date)} ${getMonth(date)}`;
 };
 
 export const getHours12 = (date: Date): string => {
