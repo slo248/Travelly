@@ -1,4 +1,5 @@
 import {
+  Alert,
   Image,
   ScrollView,
   StyleSheet,
@@ -35,7 +36,7 @@ const PersonalInfo = () => {
     defaultValue: user?.avatarURI
   });
 
-  const takePhoto = () => {
+  const takePhotoFromPicker = () => {
     ImageCropPicker.openPicker({
       width: rW(AVATAR_SIZE),
       height: rH(AVATAR_SIZE),
@@ -48,6 +49,21 @@ const PersonalInfo = () => {
       })
       .catch((error) => {
         ToastAndroid.show(`Error: ${error}`, ToastAndroid.SHORT);
+      });
+  };
+
+  const takePhotoFromCamera = () => {
+    ImageCropPicker.openCamera({
+      width: rW(AVATAR_SIZE),
+      height: rH(AVATAR_SIZE),
+      cropping: true
+    })
+      .then((image) => {
+        avatarOnChange(image.path);
+        ToastAndroid.show('Image selected', ToastAndroid.SHORT);
+      })
+      .catch((error) => {
+        ToastAndroid.show(`${error}`, ToastAndroid.SHORT);
       });
   };
 
@@ -84,7 +100,23 @@ const PersonalInfo = () => {
               color={Colors.tertiary}
               backgroundColor={Colors.background}
               borderRadius={7}
-              onPress={takePhoto}
+              onPress={() =>
+                Alert.alert(
+                  'Choose an option',
+                  'Select a photo from the gallery or take a photo',
+                  [
+                    {
+                      text: 'Select from gallery',
+                      onPress: takePhotoFromPicker
+                    },
+                    {
+                      text: 'Take a photo',
+                      onPress: takePhotoFromCamera
+                    }
+                  ],
+                  { cancelable: true }
+                )
+              }
             />
           </View>
         </View>
