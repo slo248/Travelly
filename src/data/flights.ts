@@ -22,6 +22,10 @@ export type FlightType = {
 export const getRandom = (l: number, r: number): number =>
   Math.floor(Math.random() * (r - l + 1) + l);
 
+export const getSeat = (row: number, col: number): string => {
+  return `${row + 1}${String.fromCharCode(65 + col)}`;
+};
+
 // Function to generate a random SeatState
 function getRandomSeatState(): SeatState {
   const randomIndex = getRandom(1, SeatStates.length - 1);

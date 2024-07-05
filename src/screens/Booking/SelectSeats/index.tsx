@@ -3,6 +3,8 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
+  TouchableOpacity,
   useWindowDimensions,
   View
 } from 'react-native';
@@ -17,7 +19,7 @@ import { rH, rMS, rW } from '~/styles/responsive';
 import { Fonts } from '~/styles/fonts';
 import { ButtonText } from '~/components/Button';
 import { Colors } from '~/styles/colors';
-import { SeatState, SeatStates } from '~/data/flights';
+import { getSeat, SeatState, SeatStates } from '~/data/flights';
 import { Texts } from '~/styles/texts';
 
 const SelectSeats = () => {
@@ -33,11 +35,11 @@ const SelectSeats = () => {
       ),
     [getValues]
   );
-  const { seatRows, seatColumns, seatMatrix } = useMemo(
+  const { seatRows, seatColumns, seatMatrix, price } = useMemo(
     () => getValues('flight'),
     [getValues]
   );
-  console.log(seatRows, seatColumns, seatMatrix);
+  //   console.log(seatRows, seatColumns, seatMatrix);
   const travellerArray = useMemo(
     () => Array.from({ length: numTravellers }, (_, i) => i + 1),
     [numTravellers]
@@ -52,7 +54,16 @@ const SelectSeats = () => {
     name: 'chosenSeats',
     defaultValue: new Array<[number, number]>(numTravellers).fill([-1, -1])
   });
-  console.log(chosenSeats);
+  //   console.log(chosenSeats);
+
+  const totalPrice = useMemo(
+    () =>
+      chosenSeats.reduce((acc, [row, column]) => {
+        if (row === -1 || column === -1) return acc;
+        return acc + price;
+      }, 0),
+    [chosenSeats]
+  );
   return (
     <View style={[globalStyles.container, styles.container]}>
       <CustomHeader title="Select Seats" />
@@ -104,54 +115,55 @@ const SelectSeats = () => {
           </View>
         ))}
       </View>
+      <View
+        style={{
+          width: '100%',
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginTop: rH(10),
+          paddingHorizontal: rW(18)
+        }}
+      >
+        <View style={styles.row}>
+          {seatMatrix[0].map((item, columnIndex) => {
+            if (2 * columnIndex < seatColumns)
+              return (
+                <View
+                  key={columnIndex}
+                  style={[styles.largeBox, styles.boxText]}
+                >
+                  <MyText style={Texts.h1}>
+                    {String.fromCharCode(65 + columnIndex)}
+                  </MyText>
+                </View>
+              );
+          })}
+        </View>
+        <View />
+        <View style={styles.row}>
+          {seatMatrix[0].map((item, columnIndex) => {
+            if (2 * columnIndex >= seatColumns)
+              return (
+                <View
+                  key={columnIndex}
+                  style={[styles.largeBox, styles.boxText]}
+                >
+                  <MyText style={Texts.h1}>
+                    {String.fromCharCode(65 + columnIndex)}
+                  </MyText>
+                </View>
+              );
+          })}
+        </View>
+      </View>
       <ScrollView
         style={{
           flex: 1,
-          marginTop: rH(24),
           paddingHorizontal: rW(18),
           marginBottom: rH(100)
         }}
       >
-        <View
-          style={{
-            width: '100%',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}
-        >
-          <View style={styles.row}>
-            {seatMatrix[0].map((item, columnIndex) => {
-              if (2 * columnIndex < seatColumns)
-                return (
-                  <View
-                    key={columnIndex}
-                    style={[styles.largeBox, styles.boxText]}
-                  >
-                    <MyText style={Texts.h1}>
-                      {String.fromCharCode(65 + columnIndex)}
-                    </MyText>
-                  </View>
-                );
-            })}
-          </View>
-          <View />
-          <View style={styles.row}>
-            {seatMatrix[0].map((item, columnIndex) => {
-              if (2 * columnIndex >= seatColumns)
-                return (
-                  <View
-                    key={columnIndex}
-                    style={[styles.largeBox, styles.boxText]}
-                  >
-                    <MyText style={Texts.h1}>
-                      {String.fromCharCode(65 + columnIndex)}
-                    </MyText>
-                  </View>
-                );
-            })}
-          </View>
-        </View>
         {seatMatrix.map((row, rowIndex) => (
           <View
             key={rowIndex}
@@ -165,12 +177,51 @@ const SelectSeats = () => {
           >
             <View style={styles.row}>
               {row.map((item, columnIndex) => {
+                const selectedIndex = chosenSeats.findIndex(
+                  ([row, column]) => row === rowIndex && column === columnIndex
+                );
                 if (2 * columnIndex < seatColumns)
                   return (
-                    <View
+                    <TouchableOpacity
                       key={columnIndex}
-                      style={[styles.largeBox, styles[item]]}
-                    />
+                      style={[
+                        styles.boxText,
+                        styles.largeBox,
+                        styles[item],
+                        selectedIndex !== -1 && styles[SeatState.selected]
+                      ]}
+                      onPress={() => {
+                        if (item === SeatState.booked) {
+                          ToastAndroid.show(
+                            'Seat is already booked',
+                            ToastAndroid.SHORT
+                          );
+                          return;
+                        }
+                        const newChosenSeats = [...chosenSeats];
+                        if (selectedIndex === -1) {
+                          newChosenSeats[currentTraveler] = [
+                            rowIndex,
+                            columnIndex
+                          ];
+                        } else {
+                          if (selectedIndex !== currentTraveler) {
+                            ToastAndroid.show(
+                              'Seat is already selected',
+                              ToastAndroid.SHORT
+                            );
+                            return;
+                          } else {
+                            newChosenSeats[currentTraveler] = [-1, -1];
+                          }
+                        }
+                        onChangeChosenSeats(newChosenSeats);
+                      }}
+                    >
+                      {selectedIndex !== -1 && (
+                        <MyText>{selectedIndex + 1}</MyText>
+                      )}
+                    </TouchableOpacity>
                   );
               })}
             </View>
@@ -179,23 +230,73 @@ const SelectSeats = () => {
             </MyText>
             <View style={styles.row}>
               {row.map((item, columnIndex) => {
+                const selectedIndex = chosenSeats.findIndex(
+                  ([row, column]) => row === rowIndex && column === columnIndex
+                );
                 if (2 * columnIndex >= seatColumns)
                   return (
-                    <View
+                    <TouchableOpacity
                       key={columnIndex}
-                      style={[styles.largeBox, styles[item]]}
-                    />
+                      style={[
+                        styles.boxText,
+                        styles.largeBox,
+                        styles[item],
+                        selectedIndex !== -1 && styles[SeatState.selected]
+                      ]}
+                      onPress={() => {
+                        if (item === SeatState.booked) {
+                          ToastAndroid.show(
+                            'Seat is already booked',
+                            ToastAndroid.SHORT
+                          );
+                          return;
+                        }
+                        const newChosenSeats = [...chosenSeats];
+                        if (selectedIndex === -1) {
+                          newChosenSeats[currentTraveler] = [
+                            rowIndex,
+                            columnIndex
+                          ];
+                        } else {
+                          if (selectedIndex !== currentTraveler) {
+                            ToastAndroid.show(
+                              'Seat is already selected',
+                              ToastAndroid.SHORT
+                            );
+                            return;
+                          } else {
+                            newChosenSeats[currentTraveler] = [-1, -1];
+                          }
+                        }
+                        onChangeChosenSeats(newChosenSeats);
+                      }}
+                    >
+                      {selectedIndex !== -1 && (
+                        <MyText>{selectedIndex + 1}</MyText>
+                      )}
+                    </TouchableOpacity>
                   );
               })}
             </View>
           </View>
         ))}
       </ScrollView>
-      <View style={[styles.order, { width: widthWindow }]}>
-        <MyText style={styles.orderHeading}>Your seats</MyText>
-        <MyText style={[styles.orderHeading, { marginTop: rH(16) }]}>
-          Total Price
-        </MyText>
+      <View style={[styles.order, { width: widthWindow, rowGap: rH(16) }]}>
+        <View style={[styles.orderBody, { columnGap: rW(4) }]}>
+          <MyText style={styles.orderHeading}>Your seats</MyText>
+          {chosenSeats[currentTraveler][0] !== -1 && (
+            <MyText key={currentTraveler} style={styles.orderRightText}>
+              {`Traveller ${currentTraveler + 1} / Seat ${getSeat(
+                chosenSeats[currentTraveler][0],
+                chosenSeats[currentTraveler][1]
+              )}`}
+            </MyText>
+          )}
+        </View>
+        <View style={[styles.orderBody]}>
+          <MyText style={styles.orderHeading}>Total price</MyText>
+          <MyText style={styles.orderRightText}>${totalPrice}</MyText>
+        </View>
       </View>
       <View style={styles.continueButton}>
         <ButtonText title="Continue" />
@@ -245,6 +346,14 @@ const styles: { [key: string]: any } = StyleSheet.create({
     borderTopRightRadius: 20,
     paddingTop: rH(24),
     paddingHorizontal: rW(16)
+  },
+  orderBody: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  orderRightText: {
+    color: Colors.tertiary,
+    fontFamily: Fonts.semiBold
   },
   orderHeading: {
     color: Colors.primary,

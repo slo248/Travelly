@@ -45,11 +45,11 @@ const Flights = () => {
     [getValues]
   );
 
-  useFocusEffect(
-    useCallback(() => {
-      return () => flightsDispatch({ type: 'RESET' });
-    }, [])
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     return () => flightsDispatch({ type: 'RESET' });
+  //   }, [locationFrom, locationTo])
+  // );
 
   useEffect(() => {
     getFlights(locationFrom, locationTo, departureDate).then((flights) =>
