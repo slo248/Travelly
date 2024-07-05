@@ -5,27 +5,27 @@ import { Fonts } from '~/styles/fonts';
 import { Colors } from '~/styles/colors';
 import { globalStyles } from '~/styles/globalStyles';
 import MyText from '~/components/MyText';
-import FormRadioController from '~/components/controllers/FormRadioController';
 import { useFormContext } from 'react-hook-form';
 import { TimeRanges } from '~/data/flights';
 import { ButtonText } from '~/components/Button';
+import FormMultipleController from '~/components/controllers/FormMultipleController';
 
 const Departure = () => {
   const { control } = useFormContext();
   return (
     <View style={styles.block}>
       <MyText style={styles.heading}>Departure</MyText>
-      <FormRadioController
+      <FormMultipleController
         control={control}
         data={TimeRanges}
         name="departure"
-        defaultValue={TimeRanges[0]}
+        defaultValue={[TimeRanges[0]]}
         renderItem={({ item, index, state, onChange, style }) => (
           <View key={index} style={[style, styles.option]}>
             <ButtonText
               title={item}
               reverseStyle={state}
-              onPress={() => onChange(item)}
+              onPress={onChange}
               color={Colors.green500}
               backgroundColor={Colors.white}
               textStyle={globalStyles.textOptionForm}

@@ -90,7 +90,7 @@ export const getFlights = async (
         flights.push(...generateRandomFlightsForDay(date));
       }
       resolve(flights);
-    }, 3000);
+    }, 2000);
   });
 };
 
