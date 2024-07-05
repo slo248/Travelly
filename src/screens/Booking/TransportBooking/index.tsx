@@ -46,6 +46,7 @@ const TransportBooking = () => {
             control={control}
             name="class"
             horizontal
+            defaultValue={Class.Economy}
             data={Object.values(Class)}
             renderItem={({ item, index, state, onChange, style }) => (
               <View key={index} style={[style, { width: 100, height: 50 }]}>
@@ -67,6 +68,7 @@ const TransportBooking = () => {
             control={control}
             name="transport"
             horizontal
+            defaultValue={Transport.Flight}
             data={Transports.map((transport) => transport.name)}
             renderItem={({ item, index, state, onChange, style }) => (
               <View key={index} style={[style, { width: 50, height: 50 }]}>

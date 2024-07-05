@@ -67,7 +67,7 @@ export const getFlights = async (
             locationFrom,
             locationTo,
             departureDate,
-            price: getRandom(20, 100) * (isBusiness ? 10 : 1), // Random number between 300 and 700
+            price: getRandom(20, 500) * (isBusiness ? 2 : 1), // Random number between 300 and 700
             number: `NL-${getRandom(1, 99).toString().padStart(2, '0')}`, // Random number between 100 and 999
             seatRows: 10,
             seatColumns: 4,

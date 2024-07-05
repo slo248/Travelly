@@ -13,6 +13,7 @@ const DepartureReturn = () => {
           control={control}
           name="departureDate"
           title="Departure"
+          defaultValue={new Date()}
         />
       </View>
       <View style={{ flex: 1 }}>
@@ -20,6 +21,7 @@ const DepartureReturn = () => {
           control={control}
           name="returnDate"
           title="Return"
+          defaultValue={new Date()}
         />
       </View>
     </View>

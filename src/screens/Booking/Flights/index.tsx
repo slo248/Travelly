@@ -79,7 +79,7 @@ const Flights = () => {
 
   const [currentIndex, setIndex] = useState(0);
 
-  console.log('Flights', originalFlights.length);
+  console.log('Flights', flights.length);
   console.log('Current index', currentIndex);
 
   useEffect(() => {
@@ -90,13 +90,15 @@ const Flights = () => {
     if (index !== currentIndex) setIndex(index);
   }, [dates]);
 
-  useEffect(() => {
-    if (originalFlights.length === 0) return;
-    flightsDispatch({
-      type: 'FILTER_BY_DATE',
-      payload: dates[currentIndex]
-    });
-  }, [currentIndex]);
+  const finalFlights = useMemo(
+    () =>
+      flights.filter(
+        (flight) =>
+          flight.departureDate.toDateString() ===
+          dates[currentIndex].toDateString()
+      ),
+    [currentIndex, dates]
+  );
 
   return (
     <View style={{ flex: 1 }}>
@@ -137,7 +139,7 @@ const Flights = () => {
             ]}
           >
             <FlatList
-              data={flights}
+              data={finalFlights}
               keyExtractor={(_, index) => index.toString()}
               renderItem={({ item }) => (
                 <TouchableOpacity
@@ -150,6 +152,12 @@ const Flights = () => {
                 </TouchableOpacity>
               )}
               ItemSeparatorComponent={() => <View style={{ height: rH(16) }} />}
+              ListEmptyComponent={() => (
+                <MyText>
+                  No flights available for this day. You may want to switch to
+                  another day.
+                </MyText>
+              )}
             />
           </View>
         </>
