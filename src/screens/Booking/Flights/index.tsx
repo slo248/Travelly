@@ -32,6 +32,7 @@ import { getDistinctDatesFromFlights, getFlights } from '~/data/flights';
 import { useFlights } from '~/contexts/FlightsContext';
 import Flight from './Flight';
 import { getNameCountry } from '~/utils';
+import { Class } from '~/data/transports';
 
 const Flights = () => {
   const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
@@ -42,8 +43,8 @@ const Flights = () => {
     field: { value, onChange: onChangeFlight }
   } = useController({ control, name: 'flight' });
 
-  const [locationFrom, locationTo, departureDate] = useMemo(
-    () => getValues(['locationFrom', 'locationTo', 'departureDate']),
+  const [locationFrom, locationTo, departureDate, classType] = useMemo(
+    () => getValues(['locationFrom', 'locationTo', 'departureDate', 'class']),
     [getValues]
   );
 
@@ -58,7 +59,12 @@ const Flights = () => {
       getNameCountry(locationFrom),
       getNameCountry(locationTo)
     );
-    getFlights(locationFrom, locationTo, departureDate).then((flights) =>
+    getFlights(
+      locationFrom,
+      locationTo,
+      departureDate,
+      classType === Class.Business
+    ).then((flights) =>
       flightsDispatch({
         type: 'SET_FLIGHTS',
         payload: flights
