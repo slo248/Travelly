@@ -16,11 +16,12 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { BookingStackParamList } from '~/navigators/BookingStack';
 import { useLayoutEffect } from 'react';
 import CustomHeader from '~/components/CustomHeader';
+import { AuthStackParamList } from '~/navigators/AuthStack';
 
 const headerTitle = 'Booking';
 
 const HomeBooking = () => {
-  const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
+  const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
 
   return (
     <View style={[globalStyles.container, styles.container]}>
@@ -32,7 +33,7 @@ const HomeBooking = () => {
           return (
             <Pressable
               style={styles.card}
-              onPress={() => navigation.navigate(item.onNextScreenName())}
+              onPress={() => navigation.navigate('BookingForm')}
             >
               <Card
                 TopFC={() => (

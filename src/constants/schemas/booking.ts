@@ -14,7 +14,7 @@ yup.addMethod(yup.date, 'dateRange', function (errorMessage: string) {
     }
 
     // Check if the departure date is before the return date
-    const isValid = departureDate < returnDate;
+    const isValid = departureDate <= returnDate;
     return isValid || createError({ path, message: errorMessage });
   });
 });
@@ -27,7 +27,7 @@ export const bookingSchema = yup.object({
   [TransportFieldName.returnDate]: yup
     .date()
     .required('Return date is required')
-    .dateRange('Return date must be after departure date'), // Apply the custom validation method
+    .dateRange('Return date must not be after departure date'), // Apply the custom validation method
   [TransportFieldName.adults]: yup
     .number()
     .min(1, 'At least one adult is required'),
@@ -37,4 +37,5 @@ export const bookingSchema = yup.object({
   [TransportFieldName.transport]: yup
     .string()
     .required('This transport field is required')
+    .equals(['Flight'], 'Only flights are available for booking')
 });

@@ -1,15 +1,50 @@
 import { LocationType } from './transports';
 
+export enum SeatState {
+  selected = 'Selected',
+  booked = 'Booked',
+  available = 'Available'
+}
+
+export const SeatStates: string[] = Object.values(SeatState);
+
 export type FlightType = {
   locationFrom: LocationType;
   locationTo: LocationType;
   departureDate: Date;
   price: number;
   number: string;
+  seatRows: number;
+  seatColumns: number;
+  seatMatrix: SeatState[][];
 };
 
 export const getRandom = (l: number, r: number): number =>
   Math.floor(Math.random() * (r - l + 1) + l);
+
+export const getSeat = (row: number, col: number): string => {
+  return `${row + 1}${String.fromCharCode(65 + col)}`;
+};
+
+// Function to generate a random SeatState
+function getRandomSeatState(): SeatState {
+  const randomIndex = getRandom(1, SeatStates.length - 1);
+  return SeatStates[randomIndex] as SeatState;
+}
+
+function generateSeatMatrix(rows: number, columns: number): SeatState[][] {
+  const matrix: SeatState[][] = [];
+
+  for (let i = 0; i < rows; i++) {
+    const row: SeatState[] = [];
+    for (let j = 0; j < columns; j++) {
+      row.push(getRandomSeatState());
+    }
+    matrix.push(row);
+  }
+
+  return matrix;
+}
 
 export const getFlights = async (
   locationFrom: LocationType,
@@ -32,7 +67,10 @@ export const getFlights = async (
             locationTo,
             departureDate,
             price: getRandom(20, 100), // Random number between 300 and 700
-            number: `NL-${getRandom(1, 99).toString().padStart(2, '0')}` // Random number between 100 and 999
+            number: `NL-${getRandom(1, 99).toString().padStart(2, '0')}`, // Random number between 100 and 999
+            seatRows: 10,
+            seatColumns: 4,
+            seatMatrix: generateSeatMatrix(10, 4)
           };
         });
       };

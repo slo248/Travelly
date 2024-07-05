@@ -18,7 +18,7 @@ import { Colors } from '~/styles/colors';
 const duration = 200;
 
 const TabBarButton = (props: TabType) => {
-  const { route, icon, accessibilityState, onPress } = props;
+  const { label, icon, accessibilityState, onPress } = props;
   const focused = accessibilityState?.selected;
 
   const Icon = icon;
@@ -39,11 +39,19 @@ const TabBarButton = (props: TabType) => {
   });
 
   useEffect(() => {
-    flexContainer.value = withTiming(focused ? 2 : 1, { duration });
-    scaleText.value = withDelay(
-      duration / 2,
-      withTiming(focused ? 1 : 0, { duration: duration / 2 })
-    );
+    if (focused) {
+      flexContainer.value = withTiming(2, { duration });
+      scaleText.value = withDelay(
+        duration / 2,
+        withTiming(1, { duration: duration / 2 })
+      );
+    } else {
+      flexContainer.value = withTiming(1, { duration });
+      scaleText.value = withDelay(
+        duration / 2,
+        withTiming(0, { duration: duration / 2 })
+      );
+    }
   }, [focused]);
 
   return (
@@ -62,7 +70,7 @@ const TabBarButton = (props: TabType) => {
         </View>
         {focused && (
           <Animated.Text style={[styles.text, rTextStyle]}>
-            {route}
+            {label}
           </Animated.Text>
         )}
       </Pressable>
@@ -75,7 +83,7 @@ export default TabBarButton;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: rH(12)
+    paddingVertical: rH(10)
   },
   content: {
     flex: 1,
