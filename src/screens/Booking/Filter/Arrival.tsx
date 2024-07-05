@@ -9,9 +9,13 @@ import { useFormContext } from 'react-hook-form';
 import { ButtonText } from '~/components/Button';
 import FormMultipleController from '~/components/controllers/FormMultipleController';
 import { getTimeRangeText, TimeRanges } from '~/utils/dates';
+import { useFlights } from '~/contexts/FlightsContext';
 
 const Arrival = () => {
   const { control } = useFormContext();
+  const [{ filters }] = useFlights();
+  const options = filters.find((filter) => filter.name === 'arrival')?.options;
+  if (options === undefined) throw new Error('arrival filter not found');
   return (
     <View style={styles.block}>
       <MyText style={styles.heading}>Arrival</MyText>
@@ -19,7 +23,7 @@ const Arrival = () => {
         control={control}
         data={TimeRanges}
         name="arrival"
-        defaultValue={[TimeRanges[0]]}
+        defaultValue={options}
         renderItem={({ item, index, state, onChange, style }) => (
           <View key={index} style={[style, styles.option]}>
             <ButtonText

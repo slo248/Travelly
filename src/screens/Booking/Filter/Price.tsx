@@ -15,17 +15,30 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated';
 import { debounce } from '~/utils/debounce';
+import { useFlights } from '~/contexts/FlightsContext';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
 const Price = () => {
+  const [{ filters }] = useFlights();
+  const lowerPriceFilter = filters.find(
+    (filter) => filter.name === 'lowerPrice'
+  )?.options?.[0];
+  if (lowerPriceFilter === undefined)
+    throw new Error('lowerPrice filter not found');
+  const upperPriceFilter = filters.find(
+    (filter) => filter.name === 'upperPrice'
+  )?.options?.[0];
+  if (upperPriceFilter === undefined)
+    throw new Error('upperPrice filter not found');
+
   const { control } = useFormContext();
   const {
     field: { value: lowerPrice, onChange: onChangeLowerPrice }
   } = useController({
     control,
     name: 'lowerPrice',
-    defaultValue: 25
+    defaultValue: lowerPriceFilter
   });
 
   const {
@@ -33,9 +46,8 @@ const Price = () => {
   } = useController({
     control,
     name: 'upperPrice',
-    defaultValue: 250
+    defaultValue: upperPriceFilter
   });
-
   // console.log('lowerPrice: ', lowerPrice);
   // console.log('upperPrice: ', upperPrice);
 

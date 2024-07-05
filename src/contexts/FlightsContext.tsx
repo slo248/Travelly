@@ -60,7 +60,7 @@ const initialState: StateType = {
     },
     {
       name: 'sortby',
-      options: [SortBy.price]
+      options: [SortBy.price, SortBy.lowestFare]
     }
   ]
 };

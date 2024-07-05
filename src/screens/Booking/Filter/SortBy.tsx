@@ -8,10 +8,13 @@ import { rH, rW } from '~/styles/responsive';
 import { useController, useFormContext } from 'react-hook-form';
 import FormMultipleController from '~/components/controllers/FormMultipleController';
 import { SortBys } from '~/types/Filters';
+import { useFlights } from '~/contexts/FlightsContext';
 
 const SortBy = () => {
   const { control, getValues } = useFormContext();
-  console.log(getValues());
+  const [{ filters }] = useFlights();
+  const options = filters.find((filter) => filter.name === 'sortby')?.options;
+  if (options === undefined) throw new Error('sortby filter not found');
   return (
     <View>
       <MyText style={styles.heading}>Sort by</MyText>
@@ -19,7 +22,7 @@ const SortBy = () => {
         control={control}
         name="sortby"
         data={SortBys}
-        defaultValue={[SortBys[2]]}
+        defaultValue={options}
         renderItem={({ item, index, state, onChange, style }) => (
           <View key={index} style={[style, styles.option]}>
             <CheckBox parentState={state} isLabel />
