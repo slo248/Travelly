@@ -15,12 +15,14 @@ import TransportBooking from '~/screens/Booking/TransportBooking';
 import { FlightsProvider } from '~/contexts/FlightsContext';
 import { View } from 'react-native';
 import { rH } from '~/styles/responsive';
+import SelectSeats from '~/screens/Booking/SelectSeats';
 
 export type BookingStackParamList = {
   HomeBooking: undefined;
   TransportBooking: undefined;
   Flights: undefined;
   Filter: undefined;
+  SelectSeats: undefined;
 };
 
 const Stack = createNativeStackNavigator<BookingStackParamList>();
@@ -74,6 +76,7 @@ const BookingStack = () => {
             />
             <Stack.Screen name="Flights" component={Flights} />
             <Stack.Screen name="Filter" component={Filter} />
+            <Stack.Screen name="SelectSeats" component={SelectSeats} />
           </Stack.Navigator>
         </FormProvider>
       </FlightsProvider>

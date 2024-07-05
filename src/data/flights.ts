@@ -1,10 +1,12 @@
 import { LocationType } from './transports';
 
 export enum SeatState {
-  available = 'Available',
   selected = 'Selected',
-  booked = 'Booked'
+  booked = 'Booked',
+  available = 'Available'
 }
+
+export const SeatStates: string[] = Object.values(SeatState);
 
 export type FlightType = {
   locationFrom: LocationType;
@@ -22,9 +24,8 @@ export const getRandom = (l: number, r: number): number =>
 
 // Function to generate a random SeatState
 function getRandomSeatState(): SeatState {
-  const values = Object.values(SeatState);
-  const randomIndex = getRandom(0, values.length - 1);
-  return values[randomIndex] as SeatState;
+  const randomIndex = getRandom(1, SeatStates.length - 1);
+  return SeatStates[randomIndex] as SeatState;
 }
 
 function generateSeatMatrix(rows: number, columns: number): SeatState[][] {

@@ -3,6 +3,7 @@ import {
   FlatList,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View
 } from 'react-native';
 import CustomHeader from '~/components/CustomHeader';
@@ -25,7 +26,7 @@ import {
   useNavigation
 } from '@react-navigation/native';
 import { BookingStackParamList } from '~/navigators/BookingStack';
-import { useFormContext } from 'react-hook-form';
+import { useController, useFormContext } from 'react-hook-form';
 import { getDistinctDatesFromFlights, getFlights } from '~/data/flights';
 import { useFlights } from '~/contexts/FlightsContext';
 import Flight from './Flight';
@@ -34,6 +35,10 @@ const Flights = () => {
   const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
   const { control, getValues } = useFormContext();
   const [{ originalFlights, flights }, flightsDispatch] = useFlights();
+
+  const {
+    field: { value, onChange: onChangeFlight }
+  } = useController({ control, name: 'flight' });
 
   const [locationFrom, locationTo, departureDate] = useMemo(
     () => getValues(['locationFrom', 'locationTo', 'departureDate']),
@@ -122,7 +127,16 @@ const Flights = () => {
             <FlatList
               data={flights}
               keyExtractor={(_, index) => index.toString()}
-              renderItem={({ item }) => <Flight {...item} />}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  onPress={() => {
+                    onChangeFlight(item);
+                    navigation.navigate('SelectSeats');
+                  }}
+                >
+                  <Flight {...item} />
+                </TouchableOpacity>
+              )}
               ItemSeparatorComponent={() => <View style={{ height: rH(16) }} />}
             />
           </View>
