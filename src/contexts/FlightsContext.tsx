@@ -34,7 +34,7 @@ type StateType = {
 };
 
 type ActionType = {
-  type: 'RESET' | 'SET_FLIGHTS';
+  type: 'RESET' | 'SET_FLIGHTS' | 'UPDATE_FILTERS';
   payload?: any;
 };
 
@@ -126,6 +126,13 @@ function reducer(state: StateType, action: ActionType): StateType {
         originalFlights: action.payload,
         flights: action.payload,
         filters: state.filters
+      };
+      break;
+    case 'UPDATE_FILTERS':
+      console.log('UPDATE_FILTERS', action.payload);
+      newState = {
+        ...state,
+        filters: action.payload
       };
       break;
     default:

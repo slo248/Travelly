@@ -97,7 +97,7 @@ const Flights = () => {
           flight.departureDate.toDateString() ===
           dates[currentIndex].toDateString()
       ),
-    [currentIndex, dates]
+    [flights, currentIndex, dates]
   );
 
   return (

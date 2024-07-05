@@ -12,10 +12,26 @@ import Price from './Price';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { BookingStackParamList } from '~/navigators/BookingStack';
 import SortBy from './SortBy';
+import { useFlights } from '~/contexts/FlightsContext';
 
 const Filter = () => {
   const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
   const methods = useForm();
+  const [{ filters }, dispatch] = useFlights();
+
+  const onSubmit = (data) => {
+    dispatch({
+      type: 'UPDATE_FILTERS',
+      payload: [
+        { name: 'departure', options: data.departure },
+        { name: 'arrival', options: data.arrival },
+        { name: 'lowerPrice', options: [data.lowerPrice] },
+        { name: 'upperPrice', options: [data.upperPrice] },
+        { name: 'sortby', options: data.sortby }
+      ]
+    });
+  };
+
   return (
     <FormProvider {...methods}>
       <CustomHeader title="Filter" />
@@ -52,7 +68,7 @@ const Filter = () => {
             borderRadius={20}
             onPress={() => {
               navigation.goBack();
-              console.log(methods.getValues());
+              onSubmit(methods.getValues());
             }}
           />
         </View>
