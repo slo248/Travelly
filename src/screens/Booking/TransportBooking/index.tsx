@@ -92,6 +92,7 @@ const TransportBooking = () => {
           title="Search"
           onPress={handleSubmit((data) => {
             console.log(JSON.stringify(data));
+            dispatch({ type: 'RESET', payload: [] });
             navigation.navigate('Flights');
           })}
         />

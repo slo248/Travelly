@@ -18,6 +18,7 @@ import {
   useEffect,
   useLayoutEffect,
   useMemo,
+  useRef,
   useState
 } from 'react';
 import {
@@ -30,6 +31,7 @@ import { useController, useFormContext } from 'react-hook-form';
 import { getDistinctDatesFromFlights, getFlights } from '~/data/flights';
 import { useFlights } from '~/contexts/FlightsContext';
 import Flight from './Flight';
+import { getNameCountry } from '~/utils';
 
 const Flights = () => {
   const navigation = useNavigation<NavigationProp<BookingStackParamList>>();
@@ -45,20 +47,24 @@ const Flights = () => {
     [getValues]
   );
 
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     return () => flightsDispatch({ type: 'RESET' });
-  //   }, [locationFrom, locationTo])
-  // );
+  useEffect(() => {
+    console.log('Flights mounted');
+    return () => console.log('Flights unmounted');
+  }, []);
 
   useEffect(() => {
+    console.log(
+      'Flights effect',
+      getNameCountry(locationFrom),
+      getNameCountry(locationTo)
+    );
     getFlights(locationFrom, locationTo, departureDate).then((flights) =>
       flightsDispatch({
         type: 'SET_FLIGHTS',
         payload: flights
       })
     );
-  }, [locationFrom, locationTo, departureDate]);
+  }, [getNameCountry(locationFrom), getNameCountry(locationTo)]);
 
   const dates = useMemo(
     () => getDistinctDatesFromFlights(originalFlights),
@@ -68,17 +74,17 @@ const Flights = () => {
   const [currentIndex, setIndex] = useState(0);
 
   console.log('Flights', originalFlights.length);
+  console.log('Current index', currentIndex);
 
   useEffect(() => {
     if (dates.length === 0) return;
-    setIndex(
-      dates.findIndex(
-        (date) => date.toDateString() === departureDate.toDateString()
-      )
+    const index = dates.findIndex(
+      (date) => date.toDateString() === departureDate.toDateString()
     );
+    if (index !== currentIndex) setIndex(index);
   }, [dates]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (originalFlights.length === 0) return;
     flightsDispatch({
       type: 'FILTER_BY_DATE',

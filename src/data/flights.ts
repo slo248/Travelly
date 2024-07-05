@@ -1,5 +1,12 @@
 import { LocationType } from './transports';
 
+export const TimeRanges = [
+  '12AM - 6AM',
+  '6AM - 12PM',
+  '12PM - 6PM',
+  '6PM - 12AM'
+];
+
 export enum SeatState {
   selected = 'Selected',
   booked = 'Booked',
