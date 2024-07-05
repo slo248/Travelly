@@ -10,7 +10,7 @@ import { rH, rMS, rW } from '~/styles/responsive';
 import { Fonts } from '~/styles/fonts';
 import { Colors } from '~/styles/colors';
 import FromToIcon from '~/assets/icons/FromToIcon';
-import { getDayMonth, getHours12 } from '~/utils/dates';
+import { getDayMonth, getHours12, getHours12AndMinutes } from '~/utils/dates';
 import { getSeat } from '~/data/flights';
 import Barcode from 'react-native-barcode-svg';
 import { generateRandomCode } from '~/utils';
@@ -91,7 +91,7 @@ const BoardingPass = () => {
                         Departure
                       </MyText>
                       <MyText style={globalStyles.descCard}>
-                        {getHours12(data.departureDate)}
+                        {getHours12AndMinutes(data.departureDate)}
                       </MyText>
                     </View>
                   </View>

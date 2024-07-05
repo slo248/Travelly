@@ -6,9 +6,9 @@ import { Colors } from '~/styles/colors';
 import { globalStyles } from '~/styles/globalStyles';
 import MyText from '~/components/MyText';
 import { useFormContext } from 'react-hook-form';
-import { TimeRanges } from '~/data/flights';
 import { ButtonText } from '~/components/Button';
 import FormMultipleController from '~/components/controllers/FormMultipleController';
+import { getTimeRangeText, TimeRanges } from '~/utils/dates';
 
 const Departure = () => {
   const { control } = useFormContext();
@@ -20,20 +20,22 @@ const Departure = () => {
         data={TimeRanges}
         name="departure"
         defaultValue={[TimeRanges[0]]}
-        renderItem={({ item, index, state, onChange, style }) => (
-          <View key={index} style={[style, styles.option]}>
-            <ButtonText
-              title={item}
-              reverseStyle={state}
-              onPress={onChange}
-              color={Colors.green500}
-              backgroundColor={Colors.white}
-              textStyle={globalStyles.textOptionForm}
-              borderRadius={12}
-              padding={0}
-            />
-          </View>
-        )}
+        renderItem={({ item, index, state, onChange, style }) => {
+          return (
+            <View key={index} style={[style, styles.option]}>
+              <ButtonText
+                title={getTimeRangeText(item)}
+                reverseStyle={state}
+                onPress={onChange}
+                color={Colors.green500}
+                backgroundColor={Colors.white}
+                textStyle={globalStyles.textOptionForm}
+                borderRadius={12}
+                padding={0}
+              />
+            </View>
+          );
+        }}
         horizontal
       />
     </View>

@@ -8,7 +8,7 @@ import { Fonts } from '~/styles/fonts';
 import { Colors } from '~/styles/colors';
 import FromToIcon from '~/assets/icons/FromToIcon';
 import PlaneIcon from '~/assets/icons/PlaneIcon';
-import { getDayMonth, getHours12 } from '~/utils/dates';
+import { getDayMonth, getHours12, getHours12AndMinutes } from '~/utils/dates';
 
 const Flight: FC<FlightType> = (flight) => {
   return (
@@ -39,7 +39,7 @@ const Flight: FC<FlightType> = (flight) => {
           <View>
             <MyText style={styles.heading}>Departure</MyText>
             <MyText style={styles.desc}>
-              {getHours12(flight.departureDate)}
+              {getHours12AndMinutes(flight.departureDate)}
             </MyText>
           </View>
           <View>

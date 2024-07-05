@@ -61,14 +61,15 @@ const FormMultipleController = <FV extends FieldValues, DataType>({
     <View>
       <ScrollView horizontal={horizontal}>
         {data.map((item, index) => {
-          const state = value.includes(item);
+          const itemJSON = JSON.stringify(item);
+          const state = value.some((v) => JSON.stringify(v) === itemJSON);
           return renderItem({
             item,
             index,
             state,
             onChange: () =>
               state
-                ? onChange(value.filter((v) => v !== item))
+                ? onChange(value.filter((v) => JSON.stringify(v) !== itemJSON))
                 : onChange([...value, item]),
             style: {
               flex: 1,
