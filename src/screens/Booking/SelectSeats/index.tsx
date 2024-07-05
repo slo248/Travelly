@@ -299,7 +299,22 @@ const SelectSeats = () => {
         </View>
       </View>
       <View style={styles.continueButton}>
-        <ButtonText title="Continue" />
+        <ButtonText
+          title="Continue"
+          onPress={() => {
+            const index = chosenSeats.findIndex(
+              ([row, column]) => row === -1 || column === -1
+            );
+            if (index !== -1) {
+              ToastAndroid.show(
+                `Traveller ${index + 1} did not select a seat!`,
+                ToastAndroid.SHORT
+              );
+              return;
+            }
+            navigation.navigate('BoardingPass');
+          }}
+        />
       </View>
     </View>
   );
