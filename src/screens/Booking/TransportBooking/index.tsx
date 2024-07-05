@@ -32,7 +32,7 @@ const TransportBooking = () => {
   return (
     <View style={globalStyles.container}>
       <CustomHeader title={headerTitle} />
-      <ScrollView>
+      <ScrollView style={{ flex: 1, marginBottom: rH(12) }}>
         <FromTo />
         <View style={{ marginTop: rH(16) }}>
           <DepartureReturn />
@@ -61,7 +61,7 @@ const TransportBooking = () => {
             )}
           />
         </View>
-        <View style={{ marginTop: rH(32) }}>
+        <View style={{ marginTop: rH(32), paddingBottom: rH(16) }}>
           <Text style={styles.heading}>Transport</Text>
           <FormRadioController
             control={control}
