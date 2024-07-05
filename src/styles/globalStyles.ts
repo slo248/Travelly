@@ -32,6 +32,16 @@ export const globalStyles = StyleSheet.create({
   textOptionForm: {
     fontSize: rMS(14),
     fontFamily: Fonts.medium
+  },
+  headingCard: {
+    fontSize: rMS(10),
+    fontFamily: Fonts.medium,
+    color: Colors.primary
+  },
+  descCard: {
+    fontSize: rMS(16),
+    fontFamily: Fonts.regular,
+    color: Colors.tertiary
   }
 });
 
