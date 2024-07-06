@@ -28,7 +28,8 @@ export default function MyTabBar({
             : route.name
         );
 
-        if (label === 'BookingForm') return null;
+        if (label === 'BookingForm' || label === 'SearchingServices')
+          return null;
 
         const tab = Tabs.find((tab) => tab.label === label);
 

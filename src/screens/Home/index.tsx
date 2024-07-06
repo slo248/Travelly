@@ -6,18 +6,33 @@ import { Texts } from '~/styles/texts';
 import { rH, rW } from '~/styles/responsive';
 import SearchBox from '~/components/SearchBox';
 import { Colors } from '~/styles/colors';
+import { services } from '~/data/services';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { AuthStackParamList } from '~/navigators/AuthStack';
+import { SearchFieldValues } from '~/types/SearchFieldValues';
 
-const Home = () => (
-  <View style={[globalStyles.container]}>
-    <Text style={[Texts.h2, styles.heading]}>Explore the beautiful world!</Text>
-    <View style={styles.searchBox}>
-      <SearchBox />
+const Home = () => {
+  const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
+  return (
+    <View style={[globalStyles.container]}>
+      <Text style={[Texts.h2, styles.heading]}>
+        Explore the beautiful world!
+      </Text>
+      <View style={styles.searchBox}>
+        <SearchBox
+          onSearch={(query: SearchFieldValues) => {
+            navigation.navigate('SearchingServices', {
+              query: query.search
+            });
+          }}
+        />
+      </View>
+      <View style={styles.services}>
+        <Services services={services} />
+      </View>
     </View>
-    <View style={styles.services}>
-      <Services />
-    </View>
-  </View>
-);
+  );
+};
 
 const styles = StyleSheet.create({
   heading: {

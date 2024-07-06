@@ -19,7 +19,11 @@ import { AuthStackParamList } from '~/navigators/AuthStack';
 import { screen } from '@testing-library/react-native';
 import { FeatureNotImplemented } from '~/constants';
 
-export default function Services() {
+interface ServicesProps {
+  services: typeof services;
+}
+
+export default function Services({ services }: ServicesProps) {
   const { width } = useWindowDimensions();
   const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
 
