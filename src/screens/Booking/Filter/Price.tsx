@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   heading: {
     fontFamily: Fonts.semiBold,
     color: Colors.tertiary,
-    marginBottom: rH(8)
+    marginBottom: rH(16)
   },
   fromto: {
     flexDirection: 'row',

@@ -6,6 +6,7 @@ import { Texts } from '~/styles/texts';
 import { rH, rW } from '~/styles/responsive';
 import SearchBox from '~/components/SearchBox';
 import { Colors } from '~/styles/colors';
+import { services } from '~/data/services';
 
 const Home = () => (
   <View style={[globalStyles.container]}>
@@ -14,7 +15,7 @@ const Home = () => (
       <SearchBox />
     </View>
     <View style={styles.services}>
-      <Services />
+      <Services services={services} />
     </View>
   </View>
 );
