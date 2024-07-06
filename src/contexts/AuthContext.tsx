@@ -14,7 +14,7 @@ type ActionType = {
 };
 
 const initialState: StateType = {
-  isAuthenticated: true,
+  isAuthenticated: false,
   user: user
 };
 
