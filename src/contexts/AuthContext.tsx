@@ -15,7 +15,7 @@ type ActionType = {
 
 const initialState: StateType = {
   isAuthenticated: false,
-  user: null
+  user: user
 };
 
 function reducer(state: StateType, action: ActionType): StateType {

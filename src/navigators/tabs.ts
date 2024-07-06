@@ -7,26 +7,32 @@ import Home from '~/screens/Home';
 import Notification from '~/screens/Notification';
 import BookingStack from './BookingStack';
 import AccountStack from './AccountStack';
+import HomeBooking from '~/screens/Booking/HomeBooking';
+import { TabType } from '~/types/TabType';
 
-export const Tabs = [
+export const Tabs: TabType[] = [
   {
-    route: 'Home',
+    label: 'Home',
     icon: HomeIcon,
-    component: Home
+    component: Home,
+    children: [] // Add an empty array for the 'children' property
   },
   {
-    route: 'Booking',
+    label: 'Booking',
     icon: BookingIcon,
-    component: BookingStack
+    component: HomeBooking,
+    children: []
   },
   {
-    route: 'Notification',
+    label: 'Notification',
     icon: NotiIcon,
-    component: Notification
+    component: Notification,
+    children: [] // Add an empty array for the 'children' property
   },
   {
-    route: 'Account',
+    label: 'Account',
     icon: AccountIcon,
-    component: AccountStack
+    component: AccountStack,
+    children: [] // Add an empty array for the 'children' property
   }
 ];

@@ -6,58 +6,32 @@ import { Colors } from '~/styles/colors';
 import CheckBox from '~/components/CheckBox';
 import { rH, rW } from '~/styles/responsive';
 import { useController, useFormContext } from 'react-hook-form';
-
-const SortBys = [
-  'Arrival time',
-  'Departure time',
-  'Price',
-  'Lowest fare',
-  'Duration'
-];
+import FormMultipleController from '~/components/controllers/FormMultipleController';
+import { SortBys } from '~/types/Filters';
+import { useFlights } from '~/contexts/FlightsContext';
 
 const SortBy = () => {
-  const { control } = useFormContext();
-  const _ = useController({
-    control,
-    name: 'sortby',
-    defaultValue: [SortBys[2]]
-  });
+  const { control, getValues } = useFormContext();
+  const [{ filters }] = useFlights();
+  const options = filters.find((filter) => filter.name === 'sortby')?.options;
+  if (options === undefined) throw new Error('sortby filter not found');
   return (
     <View>
       <MyText style={styles.heading}>Sort by</MyText>
-      <View style={styles.list}>
-        {SortBys.map((sortBy, index) => {
-          const [flag, setFlag] = useState(false);
-          const {
-            field: { value, onChange }
-          } = useController({
-            control,
-            name: 'sortby'
-          });
-          return (
-            <View
-              key={index}
-              style={{
-                ...styles.option,
-                marginTop: index > 0 ? rH(16) : 0
-              }}
-            >
-              <CheckBox
-                parentState={value.some((item: string) => item === sortBy)}
-                isLabel={flag}
-                onChange={(flag) => {
-                  if (flag) onChange([...value, sortBy]);
-                  else
-                    onChange(value.filter((item: string) => item !== sortBy));
-                }}
-              />
-              <Pressable onPress={() => setFlag(!flag)}>
-                <MyText>{sortBy}</MyText>
-              </Pressable>
-            </View>
-          );
-        })}
-      </View>
+      <FormMultipleController
+        control={control}
+        name="sortby"
+        data={SortBys}
+        defaultValue={options}
+        renderItem={({ item, index, state, onChange, style }) => (
+          <View key={index} style={[style, styles.option]}>
+            <CheckBox parentState={state} isLabel />
+            <Pressable onPress={onChange}>
+              <MyText>{item}</MyText>
+            </Pressable>
+          </View>
+        )}
+      />
     </View>
   );
 };
@@ -67,10 +41,8 @@ export default SortBy;
 const styles = StyleSheet.create({
   heading: {
     fontFamily: Fonts.semiBold,
-    color: Colors.tertiary
-  },
-  list: {
-    marginTop: rH(16)
+    color: Colors.tertiary,
+    marginBottom: rH(16)
   },
   option: {
     flexDirection: 'row',

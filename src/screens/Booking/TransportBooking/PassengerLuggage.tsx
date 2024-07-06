@@ -50,7 +50,7 @@ const PassengerLuggage = () => {
                 control={control}
                 focused={focused}
                 name={name as string}
-                defaultValue="0"
+                defaultValue={name === 'adults' ? '1' : '0'}
                 placeholder="0"
                 textInputProps={{
                   inputMode: 'numeric',

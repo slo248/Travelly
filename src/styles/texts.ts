@@ -32,6 +32,6 @@ export const Texts = StyleSheet.create({
     color: Colors.red,
     fontSize: rMS(12),
     fontFamily: Fonts.medium,
-    zIndex: 1
+    zIndex: 999
   }
 });

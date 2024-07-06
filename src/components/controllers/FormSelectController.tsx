@@ -3,7 +3,8 @@ import {
   Text,
   View,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
+  ViewStyle
 } from 'react-native'; // Corrected imports
 import { FC, useLayoutEffect, useRef } from 'react';
 import {
@@ -28,6 +29,8 @@ interface FormSelectControllerProps<FV extends FieldValues, DataType> {
   name: keyof FV & string;
   title: string;
   setIndex?: number;
+  defaultValueByIndex: number;
+  renderItem: ({ item }: { item: DataType }) => JSX.Element;
 }
 
 const FormSelectController = <FV extends FieldValues, DataType>({
@@ -35,12 +38,18 @@ const FormSelectController = <FV extends FieldValues, DataType>({
   data,
   name,
   title,
-  setIndex
+  setIndex,
+  defaultValueByIndex,
+  renderItem: rI
 }: FormSelectControllerProps<FV, DataType>) => {
   const {
     formState: { errors },
-    field: { onChange }
-  } = useController({ control, name: name as Path<FV> });
+    field: { value, onChange }
+  } = useController({
+    control,
+    name: name as Path<FV>,
+    defaultValue: data[defaultValueByIndex] as PathValue<FV, Path<FV>>
+  });
 
   const dropdownRef = useRef<SelectDropdown>(null);
   // console.log(errors);
@@ -57,29 +66,25 @@ const FormSelectController = <FV extends FieldValues, DataType>({
       <SelectDropdown
         ref={dropdownRef}
         data={data}
+        defaultValueByIndex={defaultValueByIndex}
         onSelect={(selectedItem, index) => onChange(selectedItem)}
-        renderButton={(selectedItem, isOpened) => (
-          <View style={globalStyles.cardForm}>
-            <Text style={globalStyles.headingForm}>{title}</Text>
-            <Text style={globalStyles.textForm}>{selectedItem}</Text>
-          </View>
-        )}
+        renderButton={(selectedItem, isOpened) => {
+          // console.log(selectedItem);
+          return (
+            <View style={globalStyles.cardForm}>
+              <Text style={globalStyles.headingForm}>{title}</Text>
+              {rI({ item: selectedItem ?? value })}
+            </View>
+          );
+        }}
         renderItem={(item, index, isSelected) => (
           <TouchableOpacity
             activeOpacity={0.5}
             style={{
-              ...styles.dropdownItem,
-              ...(isSelected && { backgroundColor: Colors.primary })
+              ...styles.dropdownItem
             }}
           >
-            <Text
-              style={{
-                ...globalStyles.textForm,
-                ...(isSelected && { color: Colors.white })
-              }}
-            >
-              {item}
-            </Text>
+            {rI({ item })}
           </TouchableOpacity>
         )}
         dropdownStyle={styles.dropdown}

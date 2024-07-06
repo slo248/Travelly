@@ -5,8 +5,7 @@ import { enableScreens } from 'react-native-screens';
 import { SafeAreaView, Text } from 'react-native';
 import RootStack from './navigators/RootStack';
 import AuthStack from './navigators/AuthStack';
-import { user } from './data/user';
-import { AuthProvider, useAuth } from '~/contexts/AuthContext';
+import { useAuth } from '~/contexts/AuthContext';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 enableScreens();

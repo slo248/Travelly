@@ -8,7 +8,8 @@ export enum TransportFieldName {
   pets = 'pets',
   luggageWeight = 'luggageWeight',
   class = 'class',
-  transport = 'transport'
+  transport = 'transport',
+  chosenSeats = 'chosenSeats'
 }
 
 export const TransportFieldNames = Object.values(TransportFieldName);

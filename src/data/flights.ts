@@ -1,710 +1,99 @@
+import { LocationType } from './transports';
+
+export enum SeatState {
+  selected = 'Selected',
+  booked = 'Booked',
+  available = 'Available'
+}
+
+export const SeatStates: string[] = Object.values(SeatState);
+
 export type FlightType = {
-  from: {
-    id: string;
-    name: string;
-  };
-  to: {
-    id: string;
-    name: string;
-  };
-  date: string;
-  departure: string;
+  locationFrom: LocationType;
+  locationTo: LocationType;
+  departureDate: Date;
   price: number;
   number: string;
+  seatRows: number;
+  seatColumns: number;
+  seatMatrix: SeatState[][];
 };
 
-export const TimeRanges = [
-  '12AM - 06AM',
-  '06AM - 12PM',
-  '12PM - 06PM',
-  '06PM - 12AM'
-];
+export const getRandom = (l: number, r: number): number =>
+  Math.floor(Math.random() * (r - l + 1) + l);
 
-export const DateFlights = [
-  {
-    date: 'TH',
-    day: '02',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '02 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '02 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '02 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      }
-    ]
-  },
-  {
-    date: 'FR',
-    day: '03',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '03 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '03 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '03 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      }
-    ]
-  },
-  {
-    date: 'SA',
-    day: '04',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '04 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '04 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '04 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      }
-    ]
-  },
-  {
-    date: 'SU',
-    day: '05',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '05 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '05 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '05 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      }
-    ]
-  },
-  {
-    date: 'MO',
-    day: '06',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '06 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '06 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '06 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      }
-    ]
-  },
-  {
-    date: 'TU',
-    day: '07',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '07 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '07 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '07 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      }
-    ]
-  },
-  {
-    date: 'WE',
-    day: '08',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '08 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '08 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '08 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-41'
-      }
-    ]
-  },
-  {
-    date: 'TH',
-    day: '09',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '09 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-42'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '09 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-43'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '09 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-44'
-      }
-    ]
-  },
-  {
-    date: 'FR',
-    day: '10',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '10 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-45'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '10 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-46'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '10 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-47'
-      }
-    ]
-  },
-  {
-    date: 'SA',
-    day: '11',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '11 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-48'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '11 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-49'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '11 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-50'
-      }
-    ]
-  },
-  {
-    date: 'SU',
-    day: '12',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '12 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-51'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '12 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-52'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '12 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-53'
-      }
-    ]
-  },
-  {
-    date: 'MO',
-    day: '13',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '13 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-54'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '13 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-55'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '13 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-56'
-      }
-    ]
-  },
-  {
-    date: 'TU',
-    day: '14',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '14 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-57'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '14 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-58'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '14 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-59'
-      }
-    ]
-  },
-  {
-    date: 'WE',
-    day: '15',
-    month: 'Jun',
-    availFlights: [
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '15 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-60'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '15 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-61'
-      },
-      {
-        from: {
-          id: 'NYC',
-          name: 'New York'
-        },
-        to: {
-          id: 'LDN',
-          name: 'London'
-        },
-        date: '15 Jun',
-        departure: '9:00 AM',
-        price: 50,
-        number: 'NL-62'
-      }
-    ]
+export const getSeat = (row: number, col: number): string => {
+  return `${row + 1}${String.fromCharCode(65 + col)}`;
+};
+
+// Function to generate a random SeatState
+function getRandomSeatState(): SeatState {
+  const randomIndex = getRandom(1, SeatStates.length - 1);
+  return SeatStates[randomIndex] as SeatState;
+}
+
+function generateSeatMatrix(rows: number, columns: number): SeatState[][] {
+  const matrix: SeatState[][] = [];
+
+  for (let i = 0; i < rows; i++) {
+    const row: SeatState[] = [];
+    for (let j = 0; j < columns; j++) {
+      row.push(getRandomSeatState());
+    }
+    matrix.push(row);
   }
-];
+
+  return matrix;
+}
+
+export const getFlights = async (
+  locationFrom: LocationType,
+  locationTo: LocationType,
+  departureDate: Date,
+  isBusiness: boolean
+) => {
+  return new Promise<FlightType[]>((resolve) => {
+    setTimeout(() => {
+      const flights: FlightType[] = [];
+
+      const generateRandomFlightsForDay = (date: Date): FlightType[] => {
+        const numberOfFlights = getRandom(4, 6);
+        return Array.from({ length: numberOfFlights }, (): FlightType => {
+          const departureDate = new Date(date);
+          const randomHour = Math.floor(Math.random() * 24); // Random hour between 0 and 23
+          const randomMinute = Math.floor(Math.random() * 60); // Random minute between 0 and 59
+          departureDate.setHours(randomHour, randomMinute, 0); // Set random hour and minute, seconds to 0
+          return {
+            locationFrom,
+            locationTo,
+            departureDate,
+            price: getRandom(20, 500) * (isBusiness ? 2 : 1), // Random number between 300 and 700
+            number: `NL-${getRandom(1, 99).toString().padStart(2, '0')}`, // Random number between 100 and 999
+            seatRows: 10,
+            seatColumns: 4,
+            seatMatrix: generateSeatMatrix(10, 4)
+          };
+        });
+      };
+
+      // Generate flights for 3 days before, the day of, and 3 days after departure
+      for (let i = -3; i <= 4; i++) {
+        const date = new Date(departureDate);
+        date.setDate(date.getDate() + i);
+        flights.push(...generateRandomFlightsForDay(date));
+      }
+      resolve(flights);
+    }, 2000);
+  });
+};
+
+export const getDistinctDatesFromFlights = (flights: FlightType[]): Date[] => {
+  const distinctDates = flights
+    .map((flight) => {
+      const date = new Date(flight.departureDate);
+      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    })
+    .filter((value, index, self) => self.indexOf(value) === index);
+
+  return distinctDates.map((date) => new Date(date));
+};

@@ -6,5 +6,5 @@ export const user: UserType = {
   phone: '+380 12 345 67 89',
   email: 'victoria.yoker@gmail.com',
   password: 'abc123',
-  avatar: require('~/assets/imgs/avatar.jpg')
+  avatarURI: require('~/assets/imgs/avatar.jpg')
 };

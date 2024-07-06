@@ -41,7 +41,7 @@ export const services = [
     image: require('~/assets/imgs/booking/transport.png'),
     onNextScreenName: (): keyof BookingStackParamList => 'TransportBooking',
     switchFromHome: (): SwitchFromHomeType => ({
-      stackName: 'Booking',
+      stackName: 'BookingForm',
       nextScreen: 'TransportBooking'
     })
   },

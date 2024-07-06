@@ -19,19 +19,21 @@ const CustomHeader: FC<CustomHeaderProps> = ({ title }) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        {title !== 'Booking' && title !== 'Account' && (
-          <View style={styles.button}>
-            <ButtonIcon
-              Icon={Chevron}
-              color={Colors.tertiary}
-              backgroundColor="transparent"
-              padding={8}
-              onPress={() => {
-                if (navigation.canGoBack()) navigation.goBack();
-              }}
-            />
-          </View>
-        )}
+        {title !== 'Booking' &&
+          title !== 'Account' &&
+          title !== 'Notification' && (
+            <View style={styles.button}>
+              <ButtonIcon
+                Icon={Chevron}
+                color={Colors.tertiary}
+                backgroundColor="transparent"
+                padding={8}
+                onPress={() => {
+                  if (navigation.canGoBack()) navigation.goBack();
+                }}
+              />
+            </View>
+          )}
         <Text style={styles.heading}>{title}</Text>
       </View>
     </View>
