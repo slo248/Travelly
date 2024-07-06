@@ -12,6 +12,9 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated';
 import MyTabBar from '~/components/MyTabBar';
+import Searching from '~/screens/SearchingServices';
+import SearchingServices from '~/screens/SearchingServices';
+import { services } from '~/data/services';
 
 export type AuthStackParamList = {
   Home: undefined;
@@ -21,6 +24,9 @@ export type AuthStackParamList = {
   Profile: undefined;
   Notification: undefined;
   BookingForm: undefined;
+  SearchingServices: {
+    query: string;
+  };
 };
 
 const Stack = createBottomTabNavigator<AuthStackParamList>();
@@ -38,7 +44,10 @@ const AuthStack = () => {
   });
 
   useEffect(() => {
-    if (currentRouteName === 'BookingForm') {
+    if (
+      currentRouteName === 'BookingForm' ||
+      currentRouteName === 'SearchingServices'
+    ) {
       // console.log('Tab bar move down');
       translateY.value = withTiming(bottomtTabBarHeight, { duration: 500 });
     } else {
@@ -82,6 +91,14 @@ const AuthStack = () => {
       <Stack.Screen
         name="BookingForm"
         component={BookingStack}
+        options={{
+          tabBarShowLabel: false,
+          tabBarButton: () => null
+        }}
+      />
+      <Stack.Screen
+        name="SearchingServices"
+        component={SearchingServices}
         options={{
           tabBarShowLabel: false,
           tabBarButton: () => null
