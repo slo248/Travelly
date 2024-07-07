@@ -19,6 +19,10 @@ import { useFlights } from '~/contexts/FlightsContext';
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
+Animated.addWhitelistedNativeProps({
+  text: true
+});
+
 const Price = () => {
   const [{ filters }] = useFlights();
   const lowerPriceFilter = filters.find(
@@ -85,13 +89,11 @@ const Price = () => {
   );
 
   const animatedPropsL = useAnimatedProps(() => ({
-    text: `\$${l.value}`,
-    value: `\$${l.value}`
+    text: `${l.value}`
   }));
 
   const animatedPropsR = useAnimatedProps(() => ({
-    text: `\$${r.value}`,
-    value: `\$${r.value}`
+    text: `${r.value}`
   }));
 
   return (
@@ -106,19 +108,35 @@ const Price = () => {
       <View style={styles.fromto}>
         <View style={styles.card}>
           <Text style={styles.cardHeading}>From</Text>
-          <AnimatedTextInput
-            style={[styles.cardDesc, { padding: 0 }]}
-            animatedProps={animatedPropsL}
-            editable={false}
-          />
+          <View style={{ flexDirection: 'row', columnGap: rW(2) }}>
+            <MyText style={styles.cardDesc}>$</MyText>
+            <AnimatedTextInput
+              style={[styles.cardDesc, { padding: 0 }]}
+              animatedProps={animatedPropsL}
+              onChangeText={(text) => {
+                l.value = Number(text);
+              }}
+              defaultValue={l.value.toString()}
+              keyboardType={'numeric'}
+              inputMode={'numeric'}
+            />
+          </View>
         </View>
         <View style={styles.card}>
           <Text style={styles.cardHeading}>To</Text>
-          <AnimatedTextInput
-            style={[styles.cardDesc, { padding: 0 }]}
-            animatedProps={animatedPropsR}
-            editable={false}
-          />
+          <View style={{ flexDirection: 'row', columnGap: rW(2) }}>
+            <MyText style={styles.cardDesc}>$</MyText>
+            <AnimatedTextInput
+              style={[styles.cardDesc, { padding: 0 }]}
+              animatedProps={animatedPropsR}
+              onChangeText={(text) => {
+                r.value = Number(text);
+              }}
+              defaultValue={r.value.toString()}
+              keyboardType={'numeric'}
+              inputMode={'numeric'}
+            />
+          </View>
         </View>
       </View>
     </View>
