@@ -83,7 +83,7 @@ const BoardingPass = () => {
                     <View>
                       <MyText style={globalStyles.headingCard}>Date</MyText>
                       <MyText style={globalStyles.descCard}>
-                        {getDayMonth(data.departureDate)}
+                        {getDayMonth(data.flight.departureDate)}
                       </MyText>
                     </View>
                     <View>
@@ -91,7 +91,7 @@ const BoardingPass = () => {
                         Departure
                       </MyText>
                       <MyText style={globalStyles.descCard}>
-                        {getHours12AndMinutes(data.departureDate)}
+                        {getHours12AndMinutes(data.flight.departureDate)}
                       </MyText>
                     </View>
                   </View>
