@@ -8,6 +8,8 @@ Reference [Figma](https://www.figma.com/design/m6cqXSnugs3wmjeTFyLTTH/CS426-APCS
 
 Disclaimer: I do not own this design. This is a project for educational purposes only in CS426 - Mobile Device Application Development in APCS - HCMUS.
 
+Demonstration: [Youtube](https://youtu.be/aEvm3ZgYf6w)
+
 Technologies: React Native CLI, Android Studio
 
 ## How to use?
